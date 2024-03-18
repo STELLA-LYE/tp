@@ -290,14 +290,14 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​        | I want to …​                                | So that I can…​                                                  |
-|----------|----------------|---------------------------------------------|------------------------------------------------------------------|
-| `* * *`  | Tutor          | add new students to the app                 | keep track of their information                |
-| `* * *`  | Tutor          | edit student profiles                       | keep their information up to date.                                                                |
-| `* * *`  | Tutor          | delete students from my class               | track the existing number of students in my tutorial class                             |
-| `* * *`  | Tutor          | list all students in my class(es)           | view all of my students’ details at one glance |
-| `* * *`  | Tutor          | search for specific students using keywords | quickly find relevant information          |
-| `* *`    | new tutor user | be able to access a help window                        | easily seek help for the errors encountered                                           |
+| Priority | As a …​        | I want to …​                                  | So that I can…​                                            |
+|----------|----------------|-----------------------------------------------|------------------------------------------------------------|
+| `* * *`  | Tutor          | add new students to the app                   | keep track of their information                            |
+| `* * *`  | Tutor          | edit student profiles                         | keep their information up to date.                         |
+| `* * *`  | Tutor          | delete students from my class                 | track the existing number of students in my tutorial class |
+| `* * *`  | Tutor          | list all students in my class(es)             | view all of my students’ details at one glance             |
+| `* * *`  | Tutor          | search for specific students using keywords   | quickly find relevant information                          |
+| `* *`    | new tutor user | be able to access a help window               | easily seek help for the errors encountered                |
 
 
 

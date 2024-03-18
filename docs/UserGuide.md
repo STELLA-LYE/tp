@@ -117,7 +117,7 @@ Format: `list`
 
 You can add a student to the list.
 
-Format: `add name/NAME email/EMAIL year/NUMBER major/MAJOR tut/TUTORIAL_SLOT [phone/PHONE_NUMBER] [tg/TELEGRAM_HANDLE] [rem/REMARKS]`
+Format: `add n/NAME e/EMAIL y/NUMBER m/MAJOR tut/TUTORIAL_SLOT [p/PHONE_NUMBER] [tg/TELEGRAM_HANDLE] [r/REMARKS]`
 
 
 | Parameter         | Representation                        | Constraints                                                                             |
@@ -132,15 +132,15 @@ Format: `add name/NAME email/EMAIL year/NUMBER major/MAJOR tut/TUTORIAL_SLOT [ph
 | `REMARKS`         | Addition remarks of the student       | 100 characters, case-sensitive. This can be anything                                    |
 
 Examples:
-* `add name/John Doe email/john@example.com year/2 major/Computer science tut/T02 tg/johntg`
-* `add name/Betsy Crowe email/betsycrowe@example.com year/3 major/Business analytics tg/bettyCr`
+* `add n/John Doe e/john@example.com y/2 m/Computer Science tut/T02 tg/johntg`
+* `add n/Betsy Crowe e/betsycrowe@example.com y/3 m/Business Analytics tg/bettyCr`
 
 
 ### <span id='feature-edit'> Editing a student : `edit` <span>
 
 Edits an existing student you have selected.
 
-Format: `edit INDEX [name/NAME] [email/EMAIL] [year/NUMBER] [major/MAJOR] [tut/TUTORIAL_SLOT] [phone/PHONE_NUMBER] [tg/TELEGRAM_HANDLE] [rem/REMARKS]`
+Format: `edit INDEX [n/NAME] [e/EMAIL] [y/NUMBER] [m/MAJOR] [tut/TUTORIAL_SLOT] [p/PHONE_NUMBER] [tg/TELEGRAM_HANDLE] [r/REMARKS]`
 
 * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -150,8 +150,8 @@ Format: `edit INDEX [name/NAME] [email/EMAIL] [year/NUMBER] [major/MAJOR] [tut/T
     specifying any tags after it.
 
 Examples:
-*  `edit 1 name/John email/john01@example.com` Edits the name of the first student to `John` and email to `john01@example.com` respectively.
-*  `edit 2 name/Betty tg/` Edits the name of the 2nd student to be `Betsy` and clears her telegram handle.
+*  `edit 1 n/John e/john01@example.com` Edits the name of the first student to `John` and email to `john01@example.com` respectively.
+*  `edit 2 n/Betty tg/` Edits the name of the 2nd student to be `Betsy` and clears her telegram handle.
 
 ### <span id='feature-find'> Locating students by keyword: `find` <span>
 
@@ -233,12 +233,12 @@ _Details coming soon ..._
 
 ## <span id='feature-summary'> Command summary <span>
 
-| Action     | Format, Examples                                                                                                                                                                                                                    |
-|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Help**   | `help`                                                                                                                                                                                                                              |
-| **List**   | `list`                                                                                                                                                                                                                              |
-| **Add**    | `add name/NAME email/EMAIL year/NUMBER major/MAJOR tut/TUTORIAL_SLOT [phone/PHONE_NUMBER] [tg/TELEGRAM_HANDLE] [rem/REMARKS]` <br> e.g., `add name/John Doe email/john@example.com year/2 major/Computer science tut/T02 tg/johntg` |                                                                                                                                                                                                                            |
-| **Edit**   | `edit INDEX [name/NAME] [email/EMAIL] [year/NUMBER] [major/MAJOR] [tut/TUTORIAL_SLOT] [phone/PHONE_NUMBER] [tg/TELEGRAM_HANDLE] [rem/REMARKS]`<br> e.g., `edit 1 name/John email/john01@example.com`                                |
-| **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g.,`find john`                                                                                                                                                                                 |
-| **Delete** | `delete INDEX`<br> e.g., `delete 1`                                                                                                                                                                                                 |  
-| **Clear**  | `clear`                                                                                                                                                                                                                             |
+| Action     | Format, Examples                                                                                                                                                                                  |
+|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Help**   | `help`                                                                                                                                                                                            |
+| **List**   | `list`                                                                                                                                                                                            |
+| **Add**    | `add n/NAME e/EMAIL y/NUMBER m/MAJOR tut/TUTORIAL_SLOT [p/PHONE_NUMBER] [tg/TELEGRAM_HANDLE] [r/REMARKS]` <br> e.g., `add n/John Doe e/john@example.com y/2 m/Computer Science tut/T02 tg/johntg` |                                                                                                                                                                                                                            |
+| **Edit**   | `edit INDEX [n/NAME] [e/EMAIL] [y/NUMBER] [m/MAJOR] [tut/TUTORIAL_SLOT] [p/PHONE_NUMBER] [tg/TELEGRAM_HANDLE] [r/REMARKS]`<br> e.g., `edit 1 n/John e/john01@example.com`                         |
+| **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g.,`find john`                                                                                                                                               |
+| **Delete** | `delete INDEX`<br> e.g., `delete 1`                                                                                                                                                               |  
+| **Clear**  | `clear`                                                                                                                                                                                           |
