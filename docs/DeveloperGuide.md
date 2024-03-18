@@ -9,23 +9,59 @@
 <!-- * Table of Contents -->
 <page-nav-print />
 
+### Quick view
+
+* [**Acknowledgements**](#acknowledgements)
+
+* [**Setting up, getting started** ](#setUp)
+
+* [**Design** ](#design)
+  * [Architecture](#architecture)
+  * [UI component](#UI)
+  * [Logic component](#logic)
+  * [Model component](#model)
+  * [Storage component](#storage)
+  * [Common classes](#common-classes)
+
+* [**Implementation**](#implementation)
+  * [[Proposed] Undo/redo feature](#undo-redo)
+    * [Proposed implementation](#proposed)
+    * [Design considerations](#design-considerations)
+  * [[Proposed] Data archiving](#data-archive)
+
+* [**Documentation, logging, testing, configuration, dev-ops**](#doc)
+
+* [**Appendix: Requirements**](#requirements)
+  * [Product scope](#product-scope)
+  * [User stories](#user-stories)
+  * [User cases](#use-cases)
+  * [Non-Functional Requirememts](#NFR)
+  * [Glossary](#glossary)
+
+* [**Appendix: instructions for manual testing**](#appendix)
+  * [Launch and shutdown](#launch-and-shutdown)
+  * [Deleting a person](#deleting-a-person)
+  * [Saving data](#saving-data)
+
+
+
 --------------------------------------------------------------------------------------------------------------------
 
-## **Acknowledgements**
+## <span id='acknowledgements'> **Acknowledgements** <span>
 
 _{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Setting up, getting started**
+## <span id='setUp'> **Setting up, getting started** <span>
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Design**
+## <span id='design'> **Design** <span>
 
-### Architecture
+### <span id='architecture'> Architecture <span>
 
 <puml src="diagrams/ArchitectureDiagram.puml" width="280" />
 
@@ -41,10 +77,10 @@ Given below is a quick overview of main components and how they interact with ea
 
 The bulk of the app's work is done by the following four components:
 
-* [**`UI`**](#ui-component): The UI of the App.
-* [**`Logic`**](#logic-component): The command executor.
-* [**`Model`**](#model-component): Holds the data of the App in memory.
-* [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
+* [**`UI`**](#UI): The UI of the App.
+* [**`Logic`**](#logic): The command executor.
+* [**`Model`**](#model): Holds the data of the App in memory.
+* [**`Storage`**](#storage): Reads data from, and writes data to, the hard disk.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
@@ -82,7 +118,7 @@ The `UI` component,
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
 
-### Logic component
+### <span id='logic'> Logic component <span>
 
 **API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
 
@@ -115,7 +151,7 @@ How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
-### Model component
+### <span id='model'> Model component <span>
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
@@ -123,21 +159,21 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+* stores the TutorsContactsPro student data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in `TutorsContactsPro`, which `Person` references. This allows `TutorsContactsPro` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
 <puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
 
 </box>
 
 
-### Storage component
+### <span id='storage'> Storage component <span>
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
@@ -148,19 +184,19 @@ The `Storage` component,
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
-### Common classes
+### <span id='common-classes'> Common classes <span>
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
+## <span id='implementation'> **Implementation** <span>
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### <span id='undo-redo'> \[Proposed\] Undo/redo feature <span>
 
-#### Proposed Implementation
+#### <span id='proposed'> Proposed Implementation <span>
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
@@ -236,7 +272,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 <puml src="diagrams/CommitActivityDiagram.puml" width="250" />
 
-#### Design considerations:
+#### <span id='design-considerations'> Design considerations <span>: 
 
 **Aspect: How undo & redo executes:**
 
@@ -251,14 +287,14 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
+### <span id='data-archive'> \[Proposed\] Data archiving <span>
 
 _{Explain here how the data archiving feature will be implemented}_
 
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Documentation, logging, testing, configuration, dev-ops**
+## <span id='doc'> **Documentation, logging, testing, configuration, dev-ops** <span>
 
 * [Documentation guide](Documentation.md)
 * [Testing guide](Testing.md)
@@ -268,9 +304,9 @@ _{Explain here how the data archiving feature will be implemented}_
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Requirements**
+## <span id='appendix'> **Appendix: Requirements** <span>
 
-### Product scope
+### <span id='product-requirements'> Product scope <span>
 
 **Target user profile**:
 
@@ -286,7 +322,7 @@ _{Explain here how the data archiving feature will be implemented}_
 **Value proposition**: manage students faster than a typical GUI driven app
 
 
-### User stories
+### <span id='user-stories'> User stories <span>
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
@@ -301,7 +337,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 
 
-### Use cases
+### <span id='use-cases'> Use cases <span>
 
 (For all use cases below, the **System** is the `TutorsContactsPro` and the **Actor** is the `Tutor`, unless specified otherwise)
 
@@ -434,7 +470,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 
 
-### Non-Functional Requirements
+### <span id='NFR'> Non-Functional Requirements <span>
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
@@ -449,7 +485,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 11. Regular backups of the system database should be performed, with a robust disaster recovery plan in place to restore data in case of any unexpected failures or outages.
 
 
-### Glossary
+### <span id='glossary'> Glossary <span>
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Tutor**: Tutor refers to the person who teaches in a single tutorial group. 
@@ -462,7 +498,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Instructions for manual testing**
+## <span id='appendix'> **Appendix: Instructions for manual testing** <span>
 
 Given below are instructions to test the app manually.
 
@@ -473,7 +509,7 @@ testers are expected to do more *exploratory* testing.
 
 </box>
 
-### Launch and shutdown
+### <span id='launch-and-shutdown'> Launch and shutdown <span>
 
 1. Initial launch
 
@@ -490,7 +526,7 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### <span id='deleting-a-person'> Deleting a person <span>
 
 1. Deleting a person while all persons are being shown
 
@@ -507,7 +543,7 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Saving data
+### <span id='saving-data'> Saving data <span>
 
 1. Dealing with missing/corrupted data files
 
