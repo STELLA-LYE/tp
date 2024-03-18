@@ -1,0 +1,21 @@
+@startuml
+start
+:Tutor executes add command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([command is in invalid format])
+    :Show invalid command format as error message;
+
+else ([else])
+    if () then ([Student already exists in TutorsContactsPro])
+    : Show duplicate group error message;
+    else([else])
+    : Add student to the contact list;
+    : Displays student list in the GUI;
+    endif
+
+endif
+stop
+@enduml
