@@ -29,10 +29,17 @@ public class TagContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof TagContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((TagContainsKeywordsPredicate) other).keywords)); // state check
-    }
+        if (other == this) {
+            return true;
+        }
 
+        // instanceof handles nulls
+        if (!(other instanceof TagContainsKeywordsPredicate)) {
+            return false;
+        }
+
+        TagContainsKeywordsPredicate otherTagContainsKeywordsPredicate = (TagContainsKeywordsPredicate) other;
+        return keywords.equals(otherTagContainsKeywordsPredicate.keywords);
+    }
 
 }
