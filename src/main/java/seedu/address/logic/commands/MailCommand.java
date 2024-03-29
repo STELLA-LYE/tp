@@ -44,24 +44,6 @@ public class MailCommand extends Command {
      * Shows a pop-up window containing the mailto link
      */
     @Override
-//    public CommandResult execute(Model model) {
-//        if (predicate != null) {
-//            model.updateFilteredPersonList(predicate);
-//        }
-//        requireNonNull(model);
-//
-//        // Extract email addresses of filtered students
-//        List<String> emailList = model.getFilteredPersonList().stream()
-//                .map(Person::getEmail)
-//                .filter(email -> !email.value.isEmpty())
-//                .map(email -> email.value)
-//                .collect(Collectors.toList());
-//
-//        String mailtoLink = "mailto:" + String.join(";", emailList);
-//
-//        return new CommandResult(SHOW_MAILTO_LINK, mailtoLink);
-//    }
-
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
