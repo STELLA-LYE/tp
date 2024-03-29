@@ -45,23 +45,17 @@ public class MailCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) {
+        if (predicate != null) {
+            model.updateFilteredPersonList(predicate);
+        }
         requireNonNull(model);
 
-        List<Person> students = model.getAddressBook().getPersonList();
-        List<String> emailList;
-
-        if (predicate != null) {
-            // Filter students based on group keywords if predicate is provided
-            emailList = students.stream()
-                    .filter(person -> predicate.test(person))
-                    .map(person -> person.getEmail().value)
-                    .collect(Collectors.toList());
-        } else {
-            // If no predicate, include all students
-            emailList = students.stream()
-                    .map(person -> person.getEmail().value)
-                    .collect(Collectors.toList());
-        }
+        // Extract email addresses of filtered students
+        List<String> emailList = model.getFilteredPersonList().stream()
+                .map(Person::getEmail)
+                .filter(email -> !email.value.isEmpty())
+                .map(email -> email.value)
+                .collect(Collectors.toList());
 
         String mailtoLink = "mailto:" + String.join(";", emailList);
 
