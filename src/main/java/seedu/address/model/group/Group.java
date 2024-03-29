@@ -19,6 +19,9 @@ public class Group {
     public static final String MESSAGE_CONSTRAINTS_KEYWORD = "Groups names should be in correct format "
             + "with 2 digit number. "
             + "E.g. TUT04, LAB10, REC09.";
+
+    public static final String MESSAGE_CONSTRAINTS_GROUP = "Group name entered does not exist. "
+            + "Try again with a valid group name.";
     public static final String GROUP_NAME_VALIDATION_REGEX = "^(TUT|LAB|REC)\\d{2}$";
     public static final String LINK_VALIDATION_REGEX = "https://t\\.me/[A-Za-z0-9_]+";
     public static final String ATTENDANCE_VALIDATION_REGEX = "^[AP]$";

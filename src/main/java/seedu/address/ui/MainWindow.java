@@ -13,9 +13,11 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.Group;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -197,8 +199,16 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowMail()) {
-                mailWindow.setMailtoLink(commandResult.getMailtoLink());
-                handleMail();
+                String mailtoLink = commandResult.getMailtoLink();
+                if (mailtoLink != null && !mailtoLink.equals("mailto:")) {
+                    // Show mail window
+                    mailWindow.setMailtoLink(mailtoLink);
+                    handleMail();
+                } else {
+                    // Display error message
+                    throw new ParseException(
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, Group.MESSAGE_CONSTRAINTS_GROUP));
+                }
             }
 
             if (commandResult.isExit()) {
