@@ -208,7 +208,7 @@ public class MainWindow extends UiPart<Stage> {
                 } else {
                     // Display error message
                     throw new ParseException(
-                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, Group.MESSAGE_CONSTRAINTS_GROUP));
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, Group.MESSAGE_GROUP_NOT_IN_ADDRESS_BOOK));
                 }
             }
 
