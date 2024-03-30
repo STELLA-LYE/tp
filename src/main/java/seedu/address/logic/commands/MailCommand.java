@@ -62,6 +62,7 @@ public class MailCommand extends Command {
         return new CommandResult(SHOW_MAILTO_LINK, mailtoLink);
     }
 
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

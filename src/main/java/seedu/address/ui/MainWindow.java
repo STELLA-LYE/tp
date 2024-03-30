@@ -16,6 +16,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.MailCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Group;
@@ -208,7 +209,7 @@ public class MainWindow extends UiPart<Stage> {
                 } else {
                     // Display error message
                     throw new ParseException(
-                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, Group.MESSAGE_GROUP_NOT_IN_ADDRESS_BOOK));
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, Group.MESSAGE_CONSTRAINTS_GROUP));
                 }
             }
 
