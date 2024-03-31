@@ -145,7 +145,7 @@ Ensure you have Java `11` or above installed on your computer. If you don't have
 
 ### Step 2: Download 
 
-Download the latest `TutorsContactsPro.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+Download the latest `TutorsContactsPro.jar` from [here](https://github.com/AY2324S2-CS2103T-W10-4/tp/releases).
 
 ### Step 3: Set up TutorsContactsPro Home Folder
 
