@@ -211,11 +211,11 @@ It can be a tutorial/ recitation/ lab.
 
 #### Attributes:
 
-| Parameter       | Representation             | Prefix | Constraints                                                  |
-|-----------------|----------------------------|--------|--------------------------------------------------------------|
-| `NAME`          | Name of the group          | `g/`   | Group name must begin with `TUT/REC/LAB` + `2-digit number`  |
-| `TELEGRAM_LINK` | Telegram link of the group | `tg/`  | Must be a valid telegram group link                          |
-| `ATTENDANCE   ` | Attendance of the student  |   NA   | A string array representing the attendance, initially automatically constructed|
+| Parameter       | Representation             | Prefix | Constraints                                                                     |
+|-----------------|----------------------------|--------|---------------------------------------------------------------------------------|
+| `NAME`          | Name of the group          | `g/`   | Group name must begin with `TUT/REC/LAB` + `2-digit number`                     |
+| `TELEGRAM_LINK` | Telegram link of the group | `tg/`  | Must be a valid telegram group link                                             |
+| `ATTENDANCE   ` | Attendance of the student  |   NA   | A string array representing the attendance, initially automatically constructed |
 
 
 ## <span id='feature-ui'> Understanding the User Interface (UI) <span>
@@ -449,8 +449,11 @@ Format: `delete INDEX`
 > * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd student in the major book.
 * `find Betsy` followed by `delete 1` deletes the 1st student in the results of the `find` command.
+* `list` followed by `delete 7` deletes the 7th student in TutorsContactsPro. In the example below, Jason, the 7th student is deleted.
+  ![result for 'delete 7'](images/deleteFeature.png)
+
+
 
 ## <span id='feature-groupCommands'> Group Commands <span>
 
@@ -459,6 +462,7 @@ This section contains commands for managing groups in TutorsContactsPro.
 ### <span id='feature-addgroup'> Adding a group: `addgroup` <span>
 
 You can add a new group to TutorsContactsPro, so that you can keep track of the groups you currently teach.
+TutorsContactsPro will then automatically generate a dedicated tab for each new group added.
 
 format: `addgroup g/[GROUP NAME]`
 
@@ -471,14 +475,15 @@ format: `addgroup g/[GROUP NAME]`
 
 
 Examples:
-* `addgroup g/LAB12` Adds the group `LAB12`
-  
+* `addgroup g/LAB12` Adds the group `LAB12` to TutorContactsPro.
+* `addgroup g/TUT01` Adds the group `TUT01` to TutorContactsPro as shown in the image below.
+  ![result for 'addgroup g/TUT01'](images/addgroupFeature.png)  
 
-### <span id='feature-editgroup'> Adding a group: `editgroup` <span>
+### <span id='feature-editgroup'> Editing a group: `editgroup` <span>
 
 You can edit an existing group in TutorsContactsPro, so that you can remain up to date with each group's information.
 
-Format: format: `addgroup g/[GROUP NAME] tg/[TELEGRAM INVITE LINK]`
+Format: format: `editgroup g/[GROUP NAME] tg/[TELEGRAM INVITE LINK]`
 
 > ⚠️️ **Constraint:**
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`
@@ -489,12 +494,14 @@ Format: format: `addgroup g/[GROUP NAME] tg/[TELEGRAM INVITE LINK]`
 
 
 Examples
-* `editgroup g/LAB12 tg/https://t.me/abcdefg` Adds the specified link to group `LAB12`.
-  
+* `editgroup g/LAB12 tg/https://t.me/abcdefg` Adds the specified telegram link `https://t.me/abcdefg` to group `LAB12`.
+* `editgroup g/TUT01 tg/https://t.me/aafhkbwiu` Adds the specified telegram link `/https://t.me/aafhkbwiu` to group `TUT01` as shown in the image below.
+  ![result for 'editgroup g/TUT01 tg/https://t.me/aafhkbwiu'](images/editgroupFeature.png)  
 
 ### <span id='feature-deletegroup'> Deleting a group: `deletegroup` <span>
 
 You can delete an existing group in TutorsContactsPro, so that you can start a fresh for the next teaching semester.
+TutorsContactsPro will then remove the dedicated tab for the group deleted. 
 
 format: `deletegroup g/[GROUP NAME]`
 
@@ -502,24 +509,29 @@ format: `deletegroup g/[GROUP NAME]`
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`
 
 Examples:
-* `deletegroup g/LAB12` Deletes group `LAB12`.
+* `deletegroup g/LAB12` Deletes the group `LAB12` from TutorsContactsPro.
+* `deletegroup g/TUT01` Deletes the group `TUT01` from TutorsContactsPro as shown in the image below.
+  ![result for 'deletegroup g/TUT01'](images/deletegroupFeature.png)
 
 ### <span id='feature-mail'> Mail broadcast : `mail` <span>
 
 You can conveniently generate a mail link with email addresses pre-filled based on specific keyword entered.
+A pop-up window will be generated, allowing you to copy the mail link with a simple 'click' for greater convenience.
 
 Format: `mail [KEYWORD]`
 
 > ℹ️ **Information:**
 > * a mail link is generated in the format of `mailto:` + `email address of each student recipient separated by;`
 > * `[KEYWORD]` are based on student's group name
+> * `[KEYWORD]` must be in the correct format of `TUT/REC/LAB` + `2-digit number`
+> * `[KEYWORD]` must be a valid existing group
 > * It requires a **full match** for the keyword 
 > * `[KEYWORD]` is optional and when no `[KEYWORD]` is entered, email addresses of all students on the current list will be included
 > * If `[KEYWORD]` is entered, only email addresses of students belonging to the group name that fully matches the `[KEYWORD]` will be included
 
 Examples:
 * `mail` generates a mail link with email addresses of all students on the current list. 
-* `mail LAB05` generates a mail link with email addresses of all students belonging to `LAB05` which is in the format of `mailto:` + `email address of each student` as shown below.
+* `mail LAB05` generates a mail link with email addresses of all students belonging to `LAB05` which is in the format of `mailto:` + `email address of each student` as shown in the image below.
 
 ![result for 'mail LAB05'](images/MailFeature.png)
 
