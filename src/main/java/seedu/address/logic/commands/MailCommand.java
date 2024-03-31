@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.GroupContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
@@ -20,6 +21,8 @@ public class MailCommand extends Command {
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " LAB10 TUT04";
+
+    public static final String SHOW_MAILTO_LINK = "Showing the Email window";
 
     private final GroupContainsKeywordsPredicate predicate;
 
@@ -39,25 +42,25 @@ public class MailCommand extends Command {
 
     /**
      * Generates a mailto link consisting of emails of students filtered accordingly
+     * Shows a pop-up window containing the mailto link
      */
     @Override
     public CommandResult execute(Model model) {
-        if (predicate != null) {
-            model.updateFilteredPersonList(predicate);
-        }
         requireNonNull(model);
 
+        ReadOnlyAddressBook addressBook = model.getAddressBook();
+        List<Person> personList = addressBook.getPersonList().filtered(predicate);
+
         // Extract email addresses of filtered students
-        List<String> emailList = model.getFilteredPersonList().stream()
+        List<String> emailList = personList.stream()
                 .map(Person::getEmail)
                 .filter(email -> !email.value.isEmpty())
                 .map(email -> email.value)
                 .collect(Collectors.toList());
 
-        // Generate the mailto link
         String mailtoLink = "mailto:" + String.join(";", emailList);
 
-        return new CommandResult(mailtoLink);
+        return new CommandResult(SHOW_MAILTO_LINK, mailtoLink);
     }
 
     @Override
