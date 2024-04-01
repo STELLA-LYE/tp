@@ -204,7 +204,7 @@ TutorsContactsPro allows you to store essential information or attributes about 
 | `MAJOR`           | Academic Major of the student contact | `m/`   | String to represent the major                                                           |
 | `TELEGRAM_HANDLE` | Telegram handle of the student        | `tg/`  | Telegram handle format (a-z, 0-9 and underscores, case-insensitive), without prefix “@” |
 | `REMARKS`         | Additional remarks of the student     | `r/`   | A case-sensitive string. This can be anything                                           |
-| `GROUP`           | Tutorial/Lab/Recitation slot          | `g/`   | Must be in correct slot format `TUT/REC/LAB` + `2-digit number`                         |
+| `GROUP_NAME`      | Tutorial/Lab/Recitation slot          | `g/`   | Must be in correct slot format `TUT/REC/LAB` + `2-digit number`                         |
 
 ### Group
 
@@ -215,7 +215,7 @@ It can be a tutorial/ recitation/ lab.
 
 | Parameter       | Representation             | Prefix | Constraints                                                                     |
 |-----------------|----------------------------|--------|---------------------------------------------------------------------------------|
-| `NAME`          | Name of the group          | `g/`   | Group name must begin with `TUT/REC/LAB` + `2-digit number`                     |
+| `GROUP_NAME`    | Name of the group          | `g/`   | Group name must begin with `TUT/REC/LAB` + `2-digit number`                     |
 | `TELEGRAM_LINK` | Telegram link of the group | `tg/`  | Must be a valid telegram group link                                             |
 | `ATTENDANCE   ` | Attendance of the student  |   NA   | A string array representing the attendance, initially automatically constructed |
 
@@ -249,29 +249,31 @@ Type the command in the command box and press Enter to execute it. e.g. typing *
 
    * [`list`](#feature-list) : Lists all students.
 
+   * [`clear`](#feature-clear) : Deletes all students on the list.
+
+   * [`exit`](#feature-exit) : Exits the app.
+
    * [`add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB10 `](#feature-add) : Adds a student named `John Doe` to the list.
-   
-   * [`edit 1 p/93840823 y/3 tg/jiejfh203`](#feature-edit) : Edits the first student on the current list. 
-   
+
+   * [`edit 1 p/93840823 y/3 tg/jiejfh203`](#feature-edit) : Edits the first student on the current list.
+
    * [`find John Tan`](#feature-find) : Lists all the students with names that matches 'John' or 'Tan'.
 
    * [`filter TUT10`](#feature-filter) : Lists all the students in group 'TUT10'
 
-   * [`addgroup g/TUT01`](#feature-addgroup) : Adds the group 'TUT01' to TutorsContactsPro.
-
-   * [`editgroup g/TUT01`](#feature-editgroup) : Edits the group 'TUT01' in TutorsContactsPro.
-   
-   * [`deletegroup g/TUT01`](#feature-deletegroup) : Deletes the group 'TUT01' in TutorsContactsPro.
-
    * [`mark 1 g/TUT05 w/1 a/P`](#feature-mark) : Marks the first student group 'TUT05' week 1 attendance as Present in TutorsContactsPro.
-   
-   * [`mail`](#feature-mail) : Generates a mail link to all the students on the list. 
 
    * [`delete 3`](#feature-delete) : Deletes the 3rd student shown in the current list.
 
-   * [`clear`](#feature-clear) : Deletes all students on the list.
- 
-   * [`exit`](#feature-exit) : Exits the app.
+   * [`addgroup g/TUT01`](#feature-addgroup) : Adds the group 'TUT01' to TutorsContactsPro.
+
+   * [`editgroup g/TUT01`](#feature-editgroup) : Edits the group 'TUT01' in TutorsContactsPro.
+
+   * [`deletegroup g/TUT01`](#feature-deletegroup) : Deletes the group 'TUT01' in TutorsContactsPro.
+
+   * [`mail`](#feature-mail) : Generates a prefilled email template sent to emails of all students on the list.
+
+   * [`mailtg g/TUT01`](#feature-mailtg) : Generates a prefilled email template containing the telegram link for 'TUT01' sent to emails of all students belonging to 'TUT01'.
 
 
 5. Refer to the [Command Notes and Features](#feature-features) below for details of each command.
@@ -318,7 +320,7 @@ Shows a list of all your students, so that you can conveniently view all their d
 Format: `list`
 
 > 💡**Tips:**
-Auto-capitalization will be handled. Extra/trailing/leading spaces will be removed
+Auto-capitalization will be handled. Extra/trailing/leading spaces will be removed.
 
 
 ### <span id='feature-clear'> Clearing all entries : `clear` <span>
@@ -339,9 +341,9 @@ This section contains commands for managing students in TutorsContactsPro.
 
 ### <span id='feature-add'> Adding a student: `add` </span>
 
-You can add a student to the list, keeping track of all student details easily. 
+Adds a student to the list, so that you can keep track of all student details easily. 
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL y/YEAR m/MAJOR tg/TELEGRAM_HANDLE [r/REMARK] [g/Group]`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL y/YEAR m/MAJOR tg/TELEGRAM_HANDLE [r/REMARK] [g/GROUP]`
 
 
 Examples:
@@ -383,11 +385,11 @@ You can find a student even if the keywords **match only partially**.
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 > ℹ️ **Information:**
-> * The search is case-insensitive. e.g `hans` will match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+> * The search is case-insensitive. e.g `hans` will match `Hans`.
+> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 > * Only the student's name is searched.
 > * Students matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
 Examples:
 * `find John` returns students `john` and `John Doe`.
@@ -403,11 +405,11 @@ You can filter students only when the keywords **match fully**.
 Format: `filter KEYWORD [MORE_KEYWORDS]`
 
 > ℹ️ **Information:**
-> * The search is case-insensitive. e.g `hans` will match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+> * The search is case-insensitive. e.g `hans` will match `Hans`.
+> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 > * Only student's group name is searched.
 > * Students matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
 Examples:
 * `filter LAB10` returns only `Kendra Huetta` belonging to group `LAB10`. 
@@ -416,11 +418,11 @@ Examples:
   ![result for 'filter TU'](images/filterFeature.png)
 
 
-### <span id='feature-mark'> Marking students attendance by group week number: `filter` <span>
+### <span id='feature-mark'> Marking students attendance by group week number: `mark` <span>
 
-Marks the student's attendance according to the group name and week number, the attendance should be either .
+Marks the student's attendance according to the group name and week number, allowing you to easily keep track of students' attendance details.
 
-Format: `mark INDEX g/Group_Name w/Week a/ATTENDANCE`
+Format: `mark INDEX g/GROUP_NAME w/WEEK a/ATTENDANCE`
 
 > ⚠️️ **Constraint:**
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`, the group should exsist in the student
@@ -435,7 +437,7 @@ Format: `mark INDEX g/Group_Name w/Week a/ATTENDANCE`
 
 Examples:
 * `mark 1 g/TUT05 w/1 a/P` Marks the attendance of the 1st student in the list. Marks `TUT05` week 1 attendance as P.
-* `mark 3 g/TUT02 w/1 a/A` Marks the attendance of the 3rd student in the list. Marks `TUT02` week 1 attendance as P. 
+* `mark 3 g/TUT02 w/1 a/A` Marks the attendance of the 3rd student in the list. Marks `TUT02` week 1 attendance as P as shown in the image below. 
 
   ![result for 'mark 1'](images/markAttendance.png)
 
@@ -463,13 +465,13 @@ This section contains commands for managing groups in TutorsContactsPro.
 
 ### <span id='feature-addgroup'> Adding a group: `addgroup` <span>
 
-You can add a new group to TutorsContactsPro, so that you can keep track of the groups you currently teach.
+Adds a new group to TutorsContactsPro, so that you can keep track of the groups you currently teach.
 TutorsContactsPro will then automatically generate a dedicated tab for each new group added.
 
-format: `addgroup g/[GROUP NAME]`
+format: `addgroup g/GROUP_NAME`
 
 > ⚠️️ **Constraint:**
-> * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`
+> * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
 
 > ℹ️ **Information:**
 > * Adds a group with a given group name.
@@ -483,13 +485,13 @@ Examples:
 
 ### <span id='feature-editgroup'> Editing a group: `editgroup` <span>
 
-You can edit an existing group in TutorsContactsPro, so that you can remain up to date with each group's information.
+Edits an existing group in TutorsContactsPro, so that you can remain up to date with each group's information.
 
-Format: format: `editgroup g/[GROUP NAME] tg/[TELEGRAM INVITE LINK]`
+Format: format: `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`
 
 > ⚠️️ **Constraint:**
-> * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`
-> * The invite link must be a valid Telegram group invite link
+> * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
+> * The telegram invite link must be a valid Telegram group invite link.
 
 > ℹ️ **Information:**
 > * Assigns a Telegram group invite link to a group with given group name.
@@ -502,13 +504,13 @@ Examples
 
 ### <span id='feature-deletegroup'> Deleting a group: `deletegroup` <span>
 
-You can delete an existing group in TutorsContactsPro, so that you can start a fresh for the next teaching semester.
+Deletes an existing group in TutorsContactsPro, so that you can start a fresh for the next teaching semester.
 TutorsContactsPro will then remove the dedicated tab for the group deleted. 
 
-format: `deletegroup g/[GROUP NAME]`
+format: `deletegroup g/GROUP_NAME`
 
 > ⚠️️ **Constraint:**
-> * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`
+> * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
 
 Examples:
 * `deletegroup g/LAB12` Deletes the group `LAB12` from TutorsContactsPro.
@@ -517,23 +519,22 @@ Examples:
 
 ### <span id='feature-mail'> Generating email template : `mail` <span>
 
-You can conveniently generate a prefilled email template, containing the email addresses of students based on specific `[GROUP NAME]` entered.
+Generates a prefilled email template containing the email addresses of students based on specific `GROUP NAME` entered.
 
 A pop-up window will be generated, allowing you to open the email template with a simple 'click' for greater convenience.
 
-Format: `mail [GROUP NAME]`
+Format: `mail [GROUP_NAME]`
 
 > ℹ️ **Information:**
-> * a mail link is generated in the format of `mailto:` + `email address of each student recipient separated by;`
-> * `[GROUP NAME]` must be in the correct format of `TUT/REC/LAB` + `2-digit number`
-> * `[GROUP NAME]` must be a valid existing group
-> * It requires a **full match** for the keyword 
-> * `[GROUP NAME]` is optional and when no `[GROUP NAME]` is entered, email addresses of all students on the current list will be included
-> * If `[GROUP NAME]` is entered, only email addresses of students belonging to the `[GROUP NAME]` specified will be included
+> * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
+> * `GROUP_NAME` must be a valid existing group.
+> * It requires a **full match** for the keyword.
+> * `GROUP_NAME` is optional and when no `GROUP_NAME` is entered, email addresses of all students on the current list will be included.
+> * If `GROUP_NAME` is entered, only email addresses of students belonging to the `[GROUP_NAME]` specified will be included.
 
 Examples:
-* `mail` generates a mail link with email addresses of all students on the current list. 
-* `mail LAB05` generates a mail link with email addresses of all students belonging to `LAB05` which is in the format of `mailto:` + `email address of each student` as shown in the image below.
+* `mail` generates a email template containing email addresses of all students on the current list. 
+* `mail LAB05` generates a email template containing email addresses of all students belonging to `LAB05` as shown in the image below.
 
 ![result for 'mail LAB05'](images/MailFeature.png)
 
@@ -543,17 +544,16 @@ The image below shows the email template generated.
 
 ### <span id='feature-mailtg'>  Generating email template for telegram link: `mailtg` <span>
 
-You can conveniently generate a prefilled email template, including the telegram link for that specific group and email addresses of student recipients from the specified group.
+Generates a prefilled email template, including the telegram link for that specific group and email addresses of student recipients from the specified group.
 
 A pop-up window will be generated, allowing you to open the email template with a simple 'click' for greater convenience.
 
-Format: `mailtg g/[GROUP NAME]`
+Format: `mailtg g/GROUP_NAME`
 
 > ℹ️ **Information:**
-> * a mail link is generated in the format of `mailto:` + `email address of each student recipient separated by;`
-> * `[GROUP NAME]` must be in the correct format of `TUT/REC/LAB` + `2-digit number`
-> * `[GROUP NAME]` must be a valid existing group
-> * It requires a **full match** for the keyword
+> * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
+> * `GROUP_NAME` must be a valid existing group.
+> * It requires a **full match** for the keyword.
 
 Examples:
 * `mailtg TUT04` generates a email template containing the telegram link for group `TUT04` and with pre-filled email addresses of all students belonging to `TUT04`.
@@ -607,20 +607,22 @@ _Details coming soon ..._
 
 ## <span id='feature-summary'> Command summary <span>
 
-| Action          | Format, Examples                                                                                                                                                                                                   |
-|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Help**        | `help`                                                                                                                                                                                                             |
-| **List**        | `list`                                                                                                                                                                                                             |
-| **Add**         | `add n/NAME p/PHONE e/EMAIL y/YEAR m/MAJOR tg/TELEGRAM [r/REMARK] [g/Group]...` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB10 ` |
-| **Edit**        | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [y/NUMBER] [m/MAJOR] [tg/TELEGRAM] [r/REMARK] [g/Group]`<br> e.g., `edit 1 n/John e/john01@example.com`                                                                   |
-| **Find**        | `find KEYWORD [MORE_KEYWORDS]`<br> e.g.,`find john tan`                                                                                                                                                            |
-| **Filter**      | `filter KEYWORD [MORE_KEYWORDS]`<br> e.g.,`filter TUT01`                                                                                                                                                           |
-| **Delete**      | `delete INDEX`<br> e.g., `delete 1`                                                                                                                                                                                |  
-| **Addgroup**    | `addgroup g/GROUP_NAME`                                                                                                                                                                                            |
-| **editgroup**   | `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`                                                                                                                                                                          |
-| **deletegroup** | `deletegroup g/GROUPNAME`                                                                                                                                                                                          |
-| **Mail**        | `mail [KEYWORD]`<br> e.g., `mail TUT01`                                                                                                                                                                            |  
-| **Clear**       | `clear`                                                                                                                                                                                                            |
+| Action          | Format, Examples                                                                                                                                                                                                        |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Help**        | `help`                                                                                                                                                                                                                  |
+| **List**        | `list`                                                                                                                                                                                                                  |
+| **Add**         | `add n/NAME p/PHONE e/EMAIL y/YEAR m/MAJOR tg/TELEGRAM [r/REMARK] [g/GROUP_NAME]...` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB10 ` |
+| **Edit**        | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [y/NUMBER] [m/MAJOR] [tg/TELEGRAM] [r/REMARK] [g/GROUP_NAME]`<br> e.g., `edit 1 n/John e/john01@example.com`                                                                   |
+| **Find**        | `find KEYWORD [MORE_KEYWORDS]`<br> e.g.,`find john tan`                                                                                                                                                                 |
+| **Filter**      | `filter KEYWORD [MORE_KEYWORDS]`<br> e.g.,`filter TUT01`                                                                                                                                                                |
+| **Mark**        | `mark INDEX g/GROUP_NAME w/WEEK a/ATTENDANCE` <br> e.g., `mark 3 g/TUT02 w/1 a/A`                                                                                                                                       |
+| **Delete**      | `delete INDEX`<br> e.g., `delete 1`                                                                                                                                                                                     |  
+| **Addgroup**    | `addgroup g/GROUP_NAME`                                                                                                                                                                                                 |
+| **Editgroup**   | `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`                                                                                                                                                                               |
+| **Deletegroup** | `deletegroup g/GROUP_NAME`                                                                                                                                                                                              |
+| **Mail**        | `mail [GROUP_NAME]`<br> e.g., `mail TUT01`                                                                                                                                                                              |  
+| **Mailtg**      | `mailtg g/GROUP_NAME`<br> e.g., `mailtg g/TUT01`                                                                                                                                                                        |
+| **Clear**       | `clear`                                                                                                                                                                                                                 |
 
 
 [Table Of Contents](#table-of-contents)
