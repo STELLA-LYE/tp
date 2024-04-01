@@ -29,7 +29,7 @@
 
    * [Quick Start](#feature-quickStart)
 
-* [Features ](#feature-features)
+* [Command Notes](#feature-features)
 
 * [Basic Commands](#feature-basicCommand)
 
@@ -63,7 +63,9 @@
 
   * [Deleting a group: `deletegroup`](#feature-deletegroup)
 
-  * [Generating mail: `mail`](#feature-mail)
+  * [Generating email template: `mail`](#feature-mail)
+  
+  * [Generating email template for telegram link: `mailtg`](#feature-mailtg)
 
 * [FAQ](#feature-faq)
 
@@ -272,7 +274,7 @@ Type the command in the command box and press Enter to execute it. e.g. typing *
    * [`exit`](#feature-exit) : Exits the app.
 
 
-5. Refer to the [Command Notes and Features](#features) below for details of each command.
+5. Refer to the [Command Notes and Features](#feature-features) below for details of each command.
 
 [Table Of Contents](#table-of-contents)
 
@@ -513,27 +515,54 @@ Examples:
 * `deletegroup g/TUT01` Deletes the group `TUT01` from TutorsContactsPro as shown in the image below.
   ![result for 'deletegroup g/TUT01'](images/deletegroupFeature.png)
 
-### <span id='feature-mail'> Mail broadcast : `mail` <span>
+### <span id='feature-mail'> Generating email template : `mail` <span>
 
-You can conveniently generate a mail link with email addresses pre-filled based on specific keyword entered.
-A pop-up window will be generated, allowing you to copy the mail link with a simple 'click' for greater convenience.
+You can conveniently generate a prefilled email template, containing the email addresses of students based on specific `[GROUP NAME]` entered.
 
-Format: `mail [KEYWORD]`
+A pop-up window will be generated, allowing you to open the email template with a simple 'click' for greater convenience.
+
+Format: `mail [GROUP NAME]`
 
 > ℹ️ **Information:**
 > * a mail link is generated in the format of `mailto:` + `email address of each student recipient separated by;`
-> * `[KEYWORD]` are based on student's group name
-> * `[KEYWORD]` must be in the correct format of `TUT/REC/LAB` + `2-digit number`
-> * `[KEYWORD]` must be a valid existing group
+> * `[GROUP NAME]` must be in the correct format of `TUT/REC/LAB` + `2-digit number`
+> * `[GROUP NAME]` must be a valid existing group
 > * It requires a **full match** for the keyword 
-> * `[KEYWORD]` is optional and when no `[KEYWORD]` is entered, email addresses of all students on the current list will be included
-> * If `[KEYWORD]` is entered, only email addresses of students belonging to the group name that fully matches the `[KEYWORD]` will be included
+> * `[GROUP NAME]` is optional and when no `[GROUP NAME]` is entered, email addresses of all students on the current list will be included
+> * If `[GROUP NAME]` is entered, only email addresses of students belonging to the `[GROUP NAME]` specified will be included
 
 Examples:
 * `mail` generates a mail link with email addresses of all students on the current list. 
 * `mail LAB05` generates a mail link with email addresses of all students belonging to `LAB05` which is in the format of `mailto:` + `email address of each student` as shown in the image below.
 
 ![result for 'mail LAB05'](images/MailFeature.png)
+
+The image below shows the email template generated. 
+![result for 'mail LAB05'](images/mail_template.png)
+
+
+### <span id='feature-mailtg'>  Generating email template for telegram link: `mailtg` <span>
+
+You can conveniently generate a prefilled email template, including the telegram link for that specific group and email addresses of student recipients from the specified group.
+
+A pop-up window will be generated, allowing you to open the email template with a simple 'click' for greater convenience.
+
+Format: `mailtg g/[GROUP NAME]`
+
+> ℹ️ **Information:**
+> * a mail link is generated in the format of `mailto:` + `email address of each student recipient separated by;`
+> * `[GROUP NAME]` must be in the correct format of `TUT/REC/LAB` + `2-digit number`
+> * `[GROUP NAME]` must be a valid existing group
+> * It requires a **full match** for the keyword
+
+Examples:
+* `mailtg TUT04` generates a email template containing the telegram link for group `TUT04` and with pre-filled email addresses of all students belonging to `TUT04`.
+* `mailtg LAB05` generates a email template containing the telegram link for group `LAB05` and with pre-filled email addresses of all students belonging to `LAB05` as shown in the images below.
+
+![result for 'mailtg LAB05'](images/MailtgFeature.png)
+
+The image below shows the email template containing the group telegram link generated.
+![result for 'mailtg LAB05'](images/mailtg_template.png)
 
 
 ### Saving the data
