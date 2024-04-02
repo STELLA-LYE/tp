@@ -7,6 +7,11 @@ public class AttendanceRow {
     private final String groupName;
     private final String[] attendance;
 
+    /**
+     * Constructs an attendance row.
+     * @param groupName A group name.
+     * @param attendance A String[] of the semester's attendance.
+     */
     public AttendanceRow(String groupName, String[] attendance) {
         this.groupName = groupName;
         this.attendance = attendance;

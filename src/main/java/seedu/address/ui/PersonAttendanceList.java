@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
@@ -58,7 +59,7 @@ public class PersonAttendanceList extends UiPart<Region> {
         populateAttendanceCols();
         groups.getChildren().add(attendanceTable);
         setTableHt();
-     }
+    }
 
     /**
      * Creates a new TableColumn for the group column and populates each row with a group.
@@ -78,7 +79,8 @@ public class PersonAttendanceList extends UiPart<Region> {
         for (int i = 0; i < Group.MAX_NUM_OF_WEEKS; i++) {
             int weekNumber = i + 1;
             TableColumn<AttendanceRow, String> column = new TableColumn<>("Week " + weekNumber);
-            column.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttendance(weekNumber)));
+            column.setCellValueFactory(cellData ->
+                    new SimpleStringProperty(cellData.getValue().getAttendance(weekNumber)));
             attendanceTable.getColumns().add(column);
         }
     }
