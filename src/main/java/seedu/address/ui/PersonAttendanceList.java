@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
 /**
@@ -52,24 +53,40 @@ public class PersonAttendanceList extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
 
-        // Create a TableColumn for the group name
+        populateGroupNameCol();
+        createAttendanceCols();
+        populateAttendanceCols();
+        groups.getChildren().add(attendanceTable);
+        setTableHt();
+     }
+
+    /**
+     * Creates a new TableColumn for the group column and populates each row with a group.
+     */
+    public void populateGroupNameCol() {
         TableColumn<AttendanceRow, String> groupNameColumn = new TableColumn<>("Group");
-        groupNameColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().groupName));
+        groupNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGroupName()));
         attendanceTable.getColumns().add(0, groupNameColumn);
-        groupNameColumn.getStyleClass().add("group-column");
-
         // Set cell value factory for the first column to show group names
-        groupNameColumn.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().groupName));
+        groupNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGroupName()));
+    }
 
-        // Create columns for the table
-        for (int i = 1; i <= 13; i++) {
-            TableColumn<AttendanceRow, String> column = new TableColumn<>("Week " + i);
-            int weekNumber = i;
-            column.setCellValueFactory(cellData ->
-                    new SimpleStringProperty(cellData.getValue().getAttendance(weekNumber)));
+    /**
+     * Create columns of attendance for the table, one for each week.
+     */
+    public void createAttendanceCols() {
+        for (int i = 0; i < Group.MAX_NUM_OF_WEEKS; i++) {
+            int weekNumber = i + 1;
+            TableColumn<AttendanceRow, String> column = new TableColumn<>("Week " + weekNumber);
+            column.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAttendance(weekNumber)));
             attendanceTable.getColumns().add(column);
         }
+    }
 
+    /**
+     * Populates columns with weekly attendance data.
+     */
+    public void populateAttendanceCols() {
         // Add attendance data to the table
         List<AttendanceRow> attendanceRows = new ArrayList<>();
         person.getGroups().forEach(group -> {
@@ -77,36 +94,17 @@ public class PersonAttendanceList extends UiPart<Region> {
             attendanceRows.add(new AttendanceRow(group.groupName, attendanceArray));
         });
         attendanceTable.getItems().addAll(attendanceRows);
+    }
 
-        // Add the table to the UI
-        groups.getChildren().add(attendanceTable);
+    /**
+     * Sets the height of the table based on the number of rows.
+     */
+    public void setTableHt() {
         attendanceTable.setFixedCellSize(45);
-
         DoubleBinding tableHeight = Bindings.createDoubleBinding(() ->
                         attendanceTable.getFixedCellSize() * (attendanceTable.getItems().size() + 1),
                 attendanceTable.getItems());
 
         attendanceTable.prefHeightProperty().bind(tableHeight);
-
-    }
-
-
-    // Class to represent each row of attendance data
-    public static class AttendanceRow {
-        private final String groupName;
-        private final String[] attendance;
-
-        public AttendanceRow(String groupName, String[] attendance) {
-            this.groupName = groupName;
-            this.attendance = attendance;
-        }
-
-        public String getAttendance(int weekNumber) {
-            if (weekNumber > 0 && weekNumber <= attendance.length) {
-                return attendance[weekNumber - 1];
-            } else {
-                return "";
-            }
-        }
     }
 }
