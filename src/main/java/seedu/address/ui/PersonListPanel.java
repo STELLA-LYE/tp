@@ -48,6 +48,16 @@ public class PersonListPanel extends UiPart<Region> {
                 break; // Only update tabs once for each change
             }
         });
+
+        // Add listener to personList
+        personList.addListener((ListChangeListener<Person>) change -> {
+            while (change.next()) {
+                if (change.wasRemoved()) {
+                    updateTabs(); // Update tabs whenever a person is removed
+                }
+                break; // Only update tabs once for each change
+            }
+        });
     }
 
     /**
