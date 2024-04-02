@@ -76,7 +76,8 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonAttendanceList(person, getIndex() + 1).getRoot());
+                int absoluteIndex = personList.indexOf(person) + 1;
+                setGraphic(new PersonAttendanceList(person, absoluteIndex).getRoot());
             }
         }
     }
