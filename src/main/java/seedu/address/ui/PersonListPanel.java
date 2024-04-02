@@ -67,6 +67,20 @@ public class PersonListPanel extends UiPart<Region> {
         }
     }
 
+    class PersonAttendanceViewCell extends ListCell<Person> {
+        @Override
+        protected void updateItem(Person person, boolean empty) {
+            super.updateItem(person, empty);
+
+            if (empty || person == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new PersonAttendanceList(person, getIndex() + 1).getRoot());
+            }
+        }
+    }
+
     /**
      * Creates a tab to display all persons.
      */
@@ -91,7 +105,7 @@ public class PersonListPanel extends UiPart<Region> {
 
             // Filter persons based on the group and set them in the ListView
             groupListView.setItems(personList.filtered(person -> person.getGroups().contains(group)));
-            groupListView.setCellFactory(listView -> new PersonListViewCell());
+            groupListView.setCellFactory(listView -> new PersonAttendanceViewCell());
             tabPane.getTabs().add(tab);
         }
     }
