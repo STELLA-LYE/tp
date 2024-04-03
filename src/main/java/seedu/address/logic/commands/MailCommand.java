@@ -2,11 +2,17 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
@@ -22,34 +28,38 @@ public class MailCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " LAB10 TUT04";
 
-    public static final String SHOW_MAILTO_LINK = "Showing the Email window";
+    public static final String SHOW_MAILTO_LINK = "Showing the email window";
+
+    public static final String MESSAGE_NOT_FOUND = "Group is not found";
+
 
     private final GroupContainsKeywordsPredicate predicate;
+    private final Group group;
 
     /**
      * Constructs a MailCommand with a predicate.
      */
-    public MailCommand(GroupContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
+    public MailCommand(Group group) {
+        this.group = group;
+        this.predicate = new GroupContainsKeywordsPredicate(Arrays.asList(group.groupName));
     }
 
-    /**
-     * Constructs a MailCommand without any predicate.
-     */
-    public MailCommand() {
-        this.predicate = null;
-    }
 
     /**
      * Generates a mailto link consisting of emails of students filtered accordingly
      * Shows a pop-up window containing the mailto link
      */
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.hasGroup(group)) {
+            throw new CommandException(MESSAGE_NOT_FOUND);
+        }
 
         ReadOnlyAddressBook addressBook = model.getAddressBook();
         List<Person> personList = addressBook.getPersonList().filtered(predicate);
+        List<Group> groupList = addressBook.getGroupList();
 
         // Extract email addresses of filtered students
         List<String> emailList = personList.stream()
@@ -58,9 +68,33 @@ public class MailCommand extends Command {
                 .map(email -> email.value)
                 .collect(Collectors.toList());
 
-        String mailtoLink = "mailto:" + String.join(";", emailList);
+        String mailtoLink = createMailtoUrl(String.join(";", emailList),
+                String.format("Welcome to Group %s", group.groupName),
+                String.format("Greetings,\n\nWelcome to Group %s.\n\n", group.groupName)
+                        + String.format("Sent from TutorsContactPro."));
+
+        System.out.println(mailtoLink);
 
         return new CommandResult(SHOW_MAILTO_LINK, mailtoLink);
+    }
+
+    /**
+     * Generates a mailto link
+     * @param recipient The recipient of the email
+     * @param subject The subject of the email
+     * @param body The body of the email
+     * @return A mailto link
+     */
+    public String createMailtoUrl(String recipient, String subject, String body) {
+        try {
+            String uri = "mailto:" + recipient
+                    + "?subject="
+                    + URLEncoder.encode(subject, "UTF-8").replace("+", "%20")
+                    + "&body=" + URLEncoder.encode(body, "UTF-8").replace("+", "%20");
+            return uri;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create mailto URL", e);
+        }
     }
 
     @Override
@@ -75,6 +109,6 @@ public class MailCommand extends Command {
         }
 
         MailCommand otherMailCommand = (MailCommand) other;
-        return predicate.equals(otherMailCommand.predicate);
+        return group.equals(otherMailCommand.group);
     }
 }

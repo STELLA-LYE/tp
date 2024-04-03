@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -16,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.Group;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -197,8 +200,16 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowMail()) {
-                mailWindow.setMailtoLink(commandResult.getMailtoLink());
-                handleMail();
+                String mailtoLink = commandResult.getMailtoLink();
+                if (mailtoLink != null && !mailtoLink.equals("mailto:")) {
+                    // Show mail window
+                    mailWindow.setMailtoLink(mailtoLink);
+                    handleMail();
+                } else {
+                    // Display error message
+                    throw new ParseException(
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, Group.MESSAGE_GROUP_NOT_IN_ADDRESS_BOOK));
+                }
             }
 
             if (commandResult.isExit()) {

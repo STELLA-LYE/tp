@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.Group;
@@ -26,6 +27,8 @@ public class MailTelegramCommand extends Command {
             + "Example: " + COMMAND_WORD + " LAB10 TUT04";
 
     public static final String SHOW_MAILTO_LINK = "Showing the email window";
+    public static final String MESSAGE_NOT_FOUND = "Group is not found";
+
 
     private final GroupContainsKeywordsPredicate predicate;
     private final Group group;
@@ -43,8 +46,12 @@ public class MailTelegramCommand extends Command {
      * Shows a pop-up window containing the mailto link
      */
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.hasGroup(group)) {
+            throw new CommandException(MESSAGE_NOT_FOUND);
+        }
 
         ReadOnlyAddressBook addressBook = model.getAddressBook();
         List<Person> personList = addressBook.getPersonList().filtered(predicate);
