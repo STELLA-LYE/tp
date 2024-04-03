@@ -63,10 +63,6 @@ public class PersonCard extends UiPart<Region> {
         remark.setText(person.getRemark().value);
         person.getGroups().stream()
                 .sorted(Comparator.comparing(group -> group.groupName))
-                .forEach(group -> {
-                    String attendanceString = String.join(", ", group.attendance);
-                    String groupWithAttendance = group.groupName + ": " + attendanceString;
-                    groups.getChildren().add(new Label(groupWithAttendance));
-                });
+                .forEach(group -> groups.getChildren().add(new Label(group.groupName)));
     }
 }

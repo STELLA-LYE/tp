@@ -23,6 +23,12 @@
                 <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
             </HBox>
             <FlowPane fx:id="groups" />
+            <!-- Table to display attendance -->
+            <TableView fx:id="attendanceTable" VBox.vgrow="ALWAYS">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+            </TableView>
         </VBox>
         <rowConstraints>
             <RowConstraints />
