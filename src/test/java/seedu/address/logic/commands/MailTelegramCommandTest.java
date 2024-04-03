@@ -1,12 +1,24 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import javafx.collections.ObservableList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyUserPrefs;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalGroups.LAB10;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -50,7 +62,7 @@ public class MailTelegramCommandTest {
     }
 
     @Test
-    public void execute_withMultiplePredicate_success() {
+    public void execute_withMultiplePredicate_success() throws CommandException {
         Model model = new ModelManager();
         List<Person> personList = Arrays.asList(
                 new PersonBuilder().withName("Alice").withEmail("test1@example.com").build(),
@@ -64,8 +76,8 @@ public class MailTelegramCommandTest {
 
         model.updateFilteredPersonList(predicate);
 
-        MailTelegramCommand mailCommand = new MailTelegramCommand(group);
-        CommandResult commandResult = mailCommand.execute(model);
+        MailTelegramCommand mailTelegramCommand = new MailTelegramCommand(group);
+        CommandResult commandResult = mailTelegramCommand.execute(model);
 
         // Extract emails from personList filtered by the predicate
         List<String> emails = personList.stream()
@@ -74,5 +86,161 @@ public class MailTelegramCommandTest {
                 .collect(Collectors.toList());
 
         assertEquals(MailTelegramCommand.SHOW_MAILTO_LINK, commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_groupNotInAddressBook_throwsCommandException() {
+        ModelStubAcceptingGroupAdded modelStub = new ModelStubAcceptingGroupAdded();
+        Group validGroup = new Group("TUT10");
+        modelStub.addGroup(validGroup);
+
+        MailTelegramCommand mailTelegramCommandTest = new MailTelegramCommand(new Group("LAB01"));
+        assertThrows(CommandException.class,
+                MailTelegramCommand.MESSAGE_NOT_FOUND, () -> mailTelegramCommandTest.execute(modelStub));
+    }
+
+
+
+    /**
+     * A default model stub that have all of the methods failing.
+     */
+    private class ModelStub implements Model {
+        @Override
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyUserPrefs getUserPrefs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public GuiSettings getGuiSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getAddressBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAddressBookFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAddressBook(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasGroup(Group group) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteGroup(Group target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addGroup(Group group) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGroup(Group target, Group editedGroup) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    /**
+     * A Model stub that contains a single person.
+     */
+    private class ModelStubWithGroup extends ModelStub {
+        private final Group group;
+
+        ModelStubWithGroup(Group group) {
+            requireNonNull(group);
+            this.group = group;
+        }
+
+        @Override
+        public boolean hasGroup(Group group) {
+            requireNonNull(group);
+            return this.group.isSameGroup(group);
+        }
+    }
+
+    /**
+     * A Model stub that always accept the person being added.
+     */
+    private class ModelStubAcceptingGroupAdded extends ModelStub {
+        final ArrayList<Group> groupsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasGroup(Group group) {
+            requireNonNull(group);
+            return groupsAdded.stream().anyMatch(group::isSameGroup);
+        }
+
+        @Override
+        public void addGroup(Group group) {
+            requireNonNull(group);
+            groupsAdded.add(group);
+        }
+
+        @Override
+        public void deleteGroup(Group group) {
+            requireNonNull(group);
+            groupsAdded.remove(group);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
     }
 }

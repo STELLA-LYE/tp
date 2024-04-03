@@ -27,6 +27,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MailCommand;
+import seedu.address.logic.commands.MailTelegramCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupContainsKeywordsPredicate;
@@ -127,10 +128,16 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_mail() throws Exception {
-        List<String> keywords = Arrays.asList("TUT01", "LAB02", "REC03");
-        MailCommand command = (MailCommand) parser.parseCommand(
-                MailCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new MailCommand(new GroupContainsKeywordsPredicate(keywords)), command);
+        MailCommand command = (MailCommand) parser.parseCommand(MailCommand.COMMAND_WORD + " "
+                + "g/TUT01");
+        assertEquals(new MailCommand(new Group("TUT01")), command);
+    }
+
+    @Test
+    public void parseCommand_mailtg() throws Exception {
+        MailTelegramCommand command = (MailTelegramCommand) parser.parseCommand(MailTelegramCommand.COMMAND_WORD + " "
+                + "g/TUT01");
+        assertEquals(new MailTelegramCommand(new Group("TUT01")), command);
     }
 
     @Test
