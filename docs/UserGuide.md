@@ -238,7 +238,7 @@ More is to be explained in [`help`](#feature-help) feature.
 
 ### Student Panel
 * The Student panel is a panel that you can use to see the list of students stored in TutorsContactsPro.
-* You can see student's name, phone number, year of student, major, email address, group, telegram handle and even whatever remarks that you have for each of them as needed!
+* You can see student's name, phone number, year of study, major, email address, group, telegram handle and even whatever remarks that you have for each of them as needed!
 
 ![Student Panel](images/StudentPanelUpdated.png)
 
@@ -273,7 +273,7 @@ Type the command in the command box and press Enter to execute it. e.g. typing *
 
    * [`mail`](#feature-mail) : Generates a prefilled email template sent to emails of all students on the list.
 
-   * [`mailtg g/TUT01`](#feature-mailtg) : Generates a prefilled email template containing the telegram link for 'TUT01' sent to emails of all students belonging to 'TUT01'.
+   * [`mailtg g/TUT01`](#feature-mailtg) : Generates a prefilled email template containing the telegram link for 'TUT01', with the recipient field prefilled with students of 'TUT01'.
 
 
 5. Refer to the [Command Notes and Features](#feature-features) below for details of each command.
@@ -348,11 +348,24 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL y/YEAR m/MAJOR tg/TELEGRAM_HANDLE [r/
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB10 `
-will add a student name John Doe, phone number 98765432, email address of johnd@example.com, year 2 Computer Science student, telegram handle of johndoe who is a very quiet student belonging to groups TUT04 and LAB10 to your student list.
-
+will add a student named John Doe to your student list.
+  * Phone number: 98765432,
+  * Email address: johnd@example.com,
+  * Telegram handle: johndoe,
+  * Year of study: 2
+  * Major: Computer Science 
+  * Remarks: Very quiet student
+  * Groups: TUT04 and LAB10,
 
 * `add n/Kendra Huetta p/98765367 e/Kendra@example.com y/1 m/Computer Science tg/KendraHuetta r/quiet student g/LAB10 `
-  will add a student name Kendra Huetta, phone number 98765367, email address of Kendra@example.com, year 1 Computer Science student, telegram handle of KendraHuetta who is a quiet student belonging to group LAB10 to your student list as shown  in the image below. 
+  will add a student named Kendra Huetta, to your student list, as shown in the image below.
+  * Phone number: 98765367
+  * Email address: Kendra@example.com
+  * Telegram handle: KendraHuetta
+  * Year of study: 1
+  * Major: Computer Science
+  * Remarks: Quiet student
+  * Group LAB10
 
 ![result for 'add Kendra Huetta'](images/addFeature.png)
 
