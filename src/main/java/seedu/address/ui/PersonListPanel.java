@@ -48,6 +48,16 @@ public class PersonListPanel extends UiPart<Region> {
                 break; // Only update tabs once for each change
             }
         });
+
+        // Add listener to personList
+        personList.addListener((ListChangeListener<Person>) change -> {
+            while (change.next()) {
+                if (change.wasRemoved()) {
+                    updateTabs(); // Update tabs whenever a person is removed
+                }
+                break; // Only update tabs once for each change
+            }
+        });
     }
 
     /**
@@ -63,6 +73,21 @@ public class PersonListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+            }
+        }
+    }
+
+    class PersonAttendanceViewCell extends ListCell<Person> {
+        @Override
+        protected void updateItem(Person person, boolean empty) {
+            super.updateItem(person, empty);
+
+            if (empty || person == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                int absoluteIndex = personList.indexOf(person) + 1;
+                setGraphic(new PersonAttendanceList(person, absoluteIndex).getRoot());
             }
         }
     }
@@ -91,7 +116,7 @@ public class PersonListPanel extends UiPart<Region> {
 
             // Filter persons based on the group and set them in the ListView
             groupListView.setItems(personList.filtered(person -> person.getGroups().contains(group)));
-            groupListView.setCellFactory(listView -> new PersonListViewCell());
+            groupListView.setCellFactory(listView -> new PersonAttendanceViewCell());
             tabPane.getTabs().add(tab);
         }
     }

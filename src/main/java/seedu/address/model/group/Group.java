@@ -22,9 +22,11 @@ public class Group {
 
     public static final String MESSAGE_GROUP_NOT_IN_ADDRESS_BOOK = "Group %s is not in the address book.";
     public static final String GROUP_NAME_VALIDATION_REGEX = "^(TUT|LAB|REC)\\d{2}$";
-    public static final String LINK_VALIDATION_REGEX = "https://t\\.me/[A-Za-z0-9_]+";
+    public static final String LINK_VALIDATION_REGEX = "https://t\\.me/[A-Za-z0-9_+]+";
     public static final String ATTENDANCE_VALIDATION_REGEX = "^[AP]$";
     public static final String WEEK_VALIDATION_REGEX = "^[1-9]\\d?$";
+
+    public static final int MAX_NUM_OF_WEEKS = 13;
 
     public final String groupName;
     public final String telegramLink;
@@ -41,7 +43,7 @@ public class Group {
         this.groupName = groupName;
         this.telegramLink = "";
         this.attendance = new ArrayList<>();
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < MAX_NUM_OF_WEEKS; i++) {
             attendance.add("_");
         }
     }
