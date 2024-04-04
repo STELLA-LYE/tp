@@ -209,7 +209,7 @@ TutorsContactsPro allows you to store essential information or attributes about 
 ### Group
 
 A `Group` is a lesson that is taught by you and attended by students. 
-It can be a tutorial/ recitation/ lab. 
+It can only strictly be a tutorial/ recitation/ lab. 
 
 #### Attributes:
 
@@ -240,7 +240,7 @@ More is to be explained in [`help`](#feature-help) feature.
 * The Student panel is a panel that you can use to see the list of students stored in TutorsContactsPro.
 * You can see student's name, phone number, year of study, major, email address, group, telegram handle and even whatever remarks that you have for each of them as needed!
 
-![Student Panel](images/StudentPanelUpdated.png)
+![Student Panel](images/studentPanelUpdated.png)
 
 
 ## <span id='feature-start'> Quick start <span>
@@ -350,12 +350,12 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB10 `
 will add a student named John Doe to your student list.
   * Phone number: 98765432,
-  * Email address: johnd@example.com,
-  * Telegram handle: johndoe,
+  * Email address: johnd@example.com
+  * Telegram handle: johndoe
   * Year of study: 2
   * Major: Computer Science 
   * Remarks: Very quiet student
-  * Groups: TUT04 and LAB10,
+  * Groups: TUT04 and LAB10
 
 * `add n/Kendra Huetta p/98765367 e/Kendra@example.com y/1 m/Computer Science tg/KendraHuetta r/quiet student g/LAB10 `
   will add a student named Kendra Huetta, to your student list, as shown in the image below.
@@ -418,11 +418,9 @@ You can filter students only when the keywords **match fully**.
 Format: `filter KEYWORD [MORE_KEYWORDS]`
 
 > ℹ️ **Information:**
-> * The search is case-insensitive. e.g `hans` will match `Hans`.
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
+> * The search is case-sensitive. e.g `tut04` will not match `TUT04`.
+> * The order of the keywords does not matter. e.g. `TUT04 LAB05` will match all students in `TUT04` and/or `LAB05`.
 > * Only student's group name is searched.
-> * Students matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
 Examples:
 * `filter LAB10` returns only `Kendra Huetta` belonging to group `LAB10`. 
@@ -449,8 +447,8 @@ Format: `mark INDEX g/GROUP_NAME w/WEEK a/ATTENDANCE`
 > * User can also edit the attendance by using the command word mark. 
 
 Examples:
-* `mark 1 g/TUT05 w/1 a/P` Marks the attendance of the 1st student in the list. Marks `TUT05` week 1 attendance as P.
-* `mark 3 g/TUT02 w/1 a/A` Marks the attendance of the 3rd student in the list. Marks `TUT02` week 1 attendance as P as shown in the image below. 
+* `mark 1 g/TUT05 w/1 a/P` Marks the attendance of the 1st student in the list. Marks `TUT05` week 1 attendance as present.
+* `mark 2 g/LAB05 w/1 a/A` Marks the attendance of the 2nd student in the list. Marks `LAB05` week 1 attendance as absent as shown in the image below. 
 
   ![result for 'mark 1'](images/markAttendance.png)
 
@@ -467,7 +465,7 @@ Format: `delete INDEX`
 
 Examples:
 * `find Betsy` followed by `delete 1` deletes the 1st student in the results of the `find` command.
-* `list` followed by `delete 7` deletes the 7th student in TutorsContactsPro. In the example below, Jason, the 7th student is deleted.
+* `list` followed by `delete 6` deletes the 6th student in TutorsContactsPro. In the example below, John, the 6th student is deleted.
   ![result for 'delete 7'](images/deleteFeature.png)
 
 
