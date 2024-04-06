@@ -15,12 +15,12 @@ public class AddGroupCommand extends Command {
 
     public static final String COMMAND_WORD = "addgroup";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a group to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a group to TutorsContactsPro. "
             + "Parameters: "
             + PREFIX_GROUP + "GROUP NAME ";
 
     public static final String MESSAGE_SUCCESS = "New group added: %1$s";
-    public static final String MESSAGE_DUPLICATE_GROUP = "This group already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_GROUP = "This group already exists TutorsContactsPro.";
 
     private final Group toAdd;
 

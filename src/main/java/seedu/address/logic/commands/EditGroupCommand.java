@@ -22,7 +22,7 @@ public class EditGroupCommand extends Command {
             + PREFIX_TELEGRAM + "TELEGRAM INVITE LINK ";
 
     public static final String MESSAGE_SUCCESS = "Group edited: %1$s";
-    public static final String MESSAGE_NOT_FOUND = "Group is not found";
+    public static final String MESSAGE_NOT_FOUND = "Group is not found in TutorsContactsPro.";
 
     private final Group toEdit;
     private final String link;

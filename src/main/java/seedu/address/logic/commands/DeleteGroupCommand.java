@@ -20,12 +20,12 @@ public class DeleteGroupCommand extends Command {
 
     public static final String COMMAND_WORD = "deletegroup";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a group to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an existing group in TutorsContactsPro. "
             + "Parameters: "
             + PREFIX_GROUP + "GROUP NAME ";
 
     public static final String MESSAGE_SUCCESS = "Group removed: %1$s";
-    public static final String MESSAGE_NOT_FOUND = "Group is not found";
+    public static final String MESSAGE_NOT_FOUND = "Group is not found in TutorsContactsPro.";
 
     private final Group toRemove;
 

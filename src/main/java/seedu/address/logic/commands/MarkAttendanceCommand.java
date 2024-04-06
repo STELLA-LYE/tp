@@ -21,7 +21,7 @@ public class MarkAttendanceCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks attendance for a specified person in a group.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks attendance for a specified student in a group.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_GROUP + "GROUP_NAME "
             + PREFIX_WEEK + "WEEK_NUMBER (week 1 to week 13)"
@@ -34,7 +34,7 @@ public class MarkAttendanceCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Attendance marked";
     public static final String MESSAGE_WEEK_NUMBER_INVALID = "Week number is wrong (between 1 and 13)";
     public static final String MESSAGE_ATTENDANCE_INVALID = "Attendance format is wrong (A for absent P for present)";
-    public static final String MESSAGE_GROUP_NOT_FOUND = "Group is not found in the person";
+    public static final String MESSAGE_GROUP_NOT_FOUND = "Group is not found in TutorsContactsPro";
 
     private final Index index;
     private final Group group;
