@@ -11,7 +11,7 @@ public class Telegram {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Telegram handles should be alphanumeric and containing underscores, "
+            "Telegram handles should be alphanumeric, may contain underscores, "
                     + "and must be at least 3 characters long.";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9_]{3,}$";
     public final String value;
