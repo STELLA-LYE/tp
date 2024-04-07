@@ -503,7 +503,7 @@ Examples:
 
 ### <span id='feature-editgroup'> Editing a group: `editgroup` <span>
 
-Edits an existing group in TutorsContactsPro, allowing you to add or edit the telegram link assigned for each group so that you can remain up to date with each group's information.
+Edits an existing group in TutorsContactsPro, allowing you to add or edit the telegram invite link assigned for each group so that you can remain up to date with each group's information.
 
 format: `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`
 
@@ -580,7 +580,7 @@ Examples:
 ![result for 'mailtg LAB05'](images/MailtgFeature.png)
 
 The image below shows the email template containing the group telegram link generated.
-![result for 'mailtg LAB05'](images/mailtg_template.png)
+![result for 'mailtg LAB05'](images/mailtgteleFeature.png)
 
 
 ### Saving the data
