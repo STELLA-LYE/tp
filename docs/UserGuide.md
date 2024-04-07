@@ -71,6 +71,8 @@ pageNav: 3
 
 * [Known issues](#feature-issues)
 
+* [Planned Enhancements](#feature-enhancements)
+
 * [Command Summary](#feature-summary)
 
 * [Appendix A: Installing Java](#feature-appendix-a-installing-java)
@@ -622,6 +624,25 @@ _Details coming soon ..._
 [Table Of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
+
+## <span id='feature-enhancements'> Planned Enhancements <span>
+
+1. **Help command**: improve `help` command such that it will only proceed with a valid `help` input. 
+E.g. when input `help aaa` is entered, an error message will be thrown. 
+2. **Add feature name input**: Improve the `add` command to allow for the use of s/o for student's name entered, as it may be a part of a student's legal name.  
+3. **Edit feature error handling**: Improve error message in `edit` command to check whether the index provided is valid or not. 
+4. **Filter feature error handling**: improve error messages in `filter` command to check whether the `GROUP_NAME` provided is a existing group. 
+5. **Mark attendance inputs**: improve the `mark` attendance feature so that it will throw an error message when the attendance input is set in lower case instead of upper case.
+6. **Unmark attendance**: Implement an addition feature to `unmark` attendance so that users are able to undo their error when they make a mistake in marking a student's attendance. 
+7. **Attendance UI**: Improve the attendance table UI to allow for horizontal scrolling. 
+8. **Group Telegram**: Improve the UI to include a field that displays the telegram invite link for each group. 
+9. **EditGroup feature**: Combine this feature with `addgroup` feature so that users are able to add a group together with it's telegram invite link. 
+10. **Group Tabs**: Improve the tabs such that users will be able to remain on the selected tab even after executing a command. Currently, users will be directed back to the "results" tab everytime they execute a command.
+
+[Table Of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
 
 ## <span id='feature-summary'> Command summary <span>
 
