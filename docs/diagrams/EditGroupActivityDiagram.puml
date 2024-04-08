@@ -1,0 +1,18 @@
+@startuml
+start
+:User executes editgroup command;
+
+
+if () then ([GROUP_NAME provided in invalid])
+    :Show invalid group name as error message;
+
+else ([else])
+    if () then ([Group name does not exist in TutorsContactsPro])
+    : Show non-existent group error message;
+    else([else])
+    : Edits group by adding or editing the telegram invite link assigned to that group;
+    endif
+
+endif
+stop
+@enduml

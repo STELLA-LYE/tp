@@ -209,7 +209,7 @@ deassign the deleted student contact from all previously assigned groups.
 
 The following sequence diagram shows how the `delete` mechanism works:
 
-![](images/DeleteSequenceDiagram.png)
+<puml src="diagrams/DeleteSequenceDiagram.puml" width="250" />
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -217,7 +217,7 @@ The following sequence diagram shows how the `delete` mechanism works:
 
 The following activity diagram summarizes what happens when a user executes the `delete` command:
 
-![](images/DeleteActivityDiagram.png)
+<puml src="diagrams/DeleteActivityDiagram.puml" width="250" />
 
 
 ## Find Students by Name 
@@ -239,9 +239,7 @@ Given below is the example usage scenario and how the `find` mechanism behaves a
 
 2. The `TutorsContactsPro` then does preliminary processing to the user input and creates a new `FindCommandParser`.
 
-3. The `FindCommandParser` then parses the user input and check whether all the input attributes are present by checking the presence of the prefixes.
-   It also checks whether the command is in the correct format and ensures that there are no multiples of prefixes. In this case, the required prefix and attribute can be any of the `Person`'s attribute, such as  `n/NAME` or `a/ACADEMIC MAJOR`. <br> <br> At this stage, if none of the prefixes are present or the input contains multiple prefixes,
-   `ParseException` would be thrown.
+3. The `FindCommandParser` then parses the user input and checks whether the required `KEYWORD` is present. 
 
 4. If the required `KEYWORD` is present, `FindCommandParser` will then call the `ParserUtil#parseName()`
    to check for the validity of the input `NAME`. <br>
@@ -262,7 +260,7 @@ Given below is the example usage scenario and how the `find` mechanism behaves a
 
 The following sequence diagram shows how the `find` mechanism works:
 
-![](images/FindCommandSequenceDiagram.png)
+<puml src="diagrams/FindSequenceDiagram.puml" width="250" />
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -270,7 +268,7 @@ The following sequence diagram shows how the `find` mechanism works:
 
 The following activity diagram summarizes what happens when a user executes the `find` command:
 
-![](images/FindCommandActivityDiagram.png)
+<puml src="diagrams/FindActivityDiagram.puml" width="250" />
 
 ## Filter Students by Group
 
@@ -304,7 +302,7 @@ It enables users to filter students based on the groups they belong to. It utili
 The GUI would also be updated accordingly to display the filtered list of students.
 
 The following sequence diagram illustrates how the `filter` mechanism works:
-![](images/FilterSequenceDiagram.png)
+<puml src="diagrams/FilterSequenceDiagram.puml" width="250" />
 
 
 ## Add group feature
@@ -357,7 +355,7 @@ Given below is the example usage scenario and how the add group mechanism behave
 
 The following sequence diagram shows how the `addgroup` mechanism works:
 
-![](images/AddGroupSequenceDiagram.png)
+<puml src="diagrams/AddGroupSequenceDiagram.puml" width="250" />
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddGroupCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -365,7 +363,65 @@ The following sequence diagram shows how the `addgroup` mechanism works:
 
 The following activity diagram summarizes what happens when a user executes the `addgroup` command:
 
-![](images/AddGroupCommandActivityDiagram.png)
+<puml src="diagrams/AddGroupActivityDiagram.puml" width="250" />
+
+
+## Edit group feature
+
+### About
+
+The edit group feature allows users to add or edit the telegram invite link assigned for each group. 
+`editgroup g/GROUP_NAME tg/TELEGRAM_LINK`.
+
+### How it is implemented
+
+The `editgroup` command mechanism is facilitated by the `EditGroupCommand` and the `EditGroupCommandParser`.
+It allows TA users to edit an existing group in TutorsContactsPro.
+It uses the `AddressBook#addGroup(Group group)` which is exposed in the `Model`
+
+Given below is the example usage scenario and how the add group mechanism behaves at each step.
+
+#### Parsing user input
+
+1. The users user inputs the `editgroup` command and provides the `GROUP_NAME` of the group in which the TA user wants to add or edit using the new `TELEGRAM_LINK` provided. 
+
+2. The `TutorsContactsPro` then does preliminary processing to the input and creates a new `EditGroupCommandParser`.
+
+3. The `EditGroupCommandParser` then parses the user input and checks whether all the input attributes are present by checking the presence of the prefixes.
+   It also checks whether the command is in the correct format. In this case, the required prefix and attribute is `g/GROUP_NAME` and `tg/TELEGRAM_LINK`. <br> <br> At this stage, if not all the prefixes are present,
+   `ParseException` would be thrown.
+
+4. If the required prefixes and attributes are present (i.e. `g/GROUP_NAME`), `EditGroupCommandParser` will then call the `ParserUtil#parseGroupName()`
+   method to check for the validity of the input `GROUP_NAME` and `TELEGRAM_LINK`. <br> <br> At this stage, `ParseException` would be thrown if the
+   `GROUP_NAME` or `TELEGRAM_LINK` specified is invalid.
+
+5. The `EditGroupCommandParser` then creates the `EditGroupCommand` based on the processed input.
+
+
+#### Command execution
+
+6. The `LogicManager` executes the `EditGroupCommand`.
+
+7. The `EditGroupCommand` calls the `Model#hasGroup()` to check if the group with the `GROUP_NAME` already existed in the group list.
+   `CommandException` would be thrown if there are no group present with the same group name.
+
+8. The `EditGroupCommand` then calls the `Model#editroup()` to edit the input group's telegram invite link.
+
+#### Displaying of result
+
+9. Finally, the `EditGroupCommand` creates a `CommandResult` with a success message and return it to the `LogicManager` to complete the command execution.
+
+The following sequence diagram shows how the `editgroup` mechanism works:
+
+<puml src="diagrams/EditGroupSequenceDiagram.puml" width="250" />
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddGroupCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram summarizes what happens when a user executes the `addgroup` command:
+
+<puml src="diagrams/EditGroupActivityDiagram.puml" width="250" />
 
 
 ## Delete group feature
@@ -418,7 +474,7 @@ Given below is the example usage scenario and how the delete group mechanism beh
 
 The following sequence diagram shows how the `deletegroup` mechanism works:
 
-![](images/DeleteGroupSequenceDiagram.png)
+<puml src="diagrams/DeleteGroupSequenceDiagram.puml" width="250" />
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteGroupCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -426,7 +482,7 @@ The following sequence diagram shows how the `deletegroup` mechanism works:
 
 The following activity diagram summarizes what happens when a user executes the `deletegroup` command:
 
-![](images/DeleteGroupCommandActivityDiagram.png)
+<puml src="diagrams/DeleteGroupActivityDiagram.puml" width="250" />
 
 ## Mail Command
 
@@ -471,7 +527,7 @@ If no keywords are provided, the mailto link will include all students in the cu
 The Mail Command feature provides an efficient way for users to compose emails to specific groups of students directly from the application. By leveraging the power of filtering, it allows for targeted communication while maintaining simplicity and ease of use.
 
 The following activity diagram illustrates how the `mail` mechanism works:
-![](images/MailActivityDiagram.png)
+<puml src="diagrams/MailSequenceDiagram.puml" width="250" />
 
 ### \[Proposed\] Undo/redo feature
 
@@ -902,6 +958,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 
 --------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+Given below are the planned enhancements for the application.
+
+1. **Help command**: improve `help` command such that it will only proceed with a valid `help` input.
+   E.g. when input `help aaa` is entered, an error message will be thrown.
+2. **Add feature name input**: Improve the `add` command to allow for the use of s/o for student's name entered, as it may be a part of a student's legal name.
+3. **Edit feature error handling**: Improve error message in `edit` command to check whether the index provided is valid or not.
+4. **Filter feature error handling**: improve error messages in `filter` command to check whether the `GROUP_NAME` provided is a existing group.
+5. **Mark attendance inputs**: improve the `mark` attendance feature so that it will throw an error message when the attendance input is set in lower case instead of upper case.
+6. **Unmark attendance**: Implement an addition feature to `unmark` attendance so that users are able to undo their error when they make a mistake in marking a student's attendance.
+7. **Attendance UI**: Improve the attendance table UI to allow for horizontal scrolling.
+8. **Group Telegram**: Improve the UI to include a field that displays the telegram invite link for each group.
+9. **EditGroup feature**: Combine this feature with `addgroup` feature so that users are able to add a group together with it's telegram invite link.
+10. **Group Tabs**: Improve the tabs such that users will be able to remain on the selected tab even after executing a command. Currently, users will be directed back to the "results" tab everytime they execute a command.
 
 ## **Appendix: Instructions for manual testing**
 
