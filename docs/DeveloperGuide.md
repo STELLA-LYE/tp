@@ -163,7 +163,7 @@ This section describes some noteworthy details on how certain features are imple
 
 ### About
 
-The delete student feature allows TAs to delete an existing student information from the student contact list
+The delete student feature allows users to delete an existing student information from the student contact list
 using the command `delete INDEX`.
 
 ### How it is implemented
@@ -180,7 +180,7 @@ deassign the deleted student contact from all previously assigned groups.
 
 #### Parsing input
 
-1. The TA inputs the `delete` command.
+1. The users inputs the `delete` command.
 
 2. The `TutorsContactsPro` then preliminary process the input and creates a new `DeleteCommandParser`.
 
@@ -220,19 +220,71 @@ The following activity diagram summarizes what happens when a user executes the 
 ![](images/DeleteActivityDiagram.png)
 
 
+## Find Students by Name 
+
+### About
+
+The `find` command allows the search of a student using name via the command `find KEYWORDS` where `KEYWORDS` is the `NAME` of the student. 
+
+### How it is implemented
+The feature is made possible through introducing an `AttributeContainsKeywordsPredicate` interface which is
+implemented by all the `Person`'s attributes. Hence, there are more classes being introduced -
+`NameContainsKeywordsPredicate`, `PhoneContainsKeywordsPredicate` and so on.
+
+Given below is the example usage scenario and how the `find` mechanism behaves at each step.
+
+#### Parsing user input
+
+1. The user inputs the `find` command and provide the input with the name of the student in which the user wants to find the contact.
+
+2. The `TutorsContactsPro` then does preliminary processing to the user input and creates a new `FindCommandParser`.
+
+3. The `FindCommandParser` then parses the user input and check whether all the input attributes are present by checking the presence of the prefixes.
+   It also checks whether the command is in the correct format and ensures that there are no multiples of prefixes. In this case, the required prefix and attribute can be any of the `Person`'s attribute, such as  `n/NAME` or `a/ACADEMIC MAJOR`. <br> <br> At this stage, if none of the prefixes are present or the input contains multiple prefixes,
+   `ParseException` would be thrown.
+
+4. If the required `KEYWORD` is present, `FindCommandParser` will then call the `ParserUtil#parseName()`
+   to check for the validity of the input `NAME`. <br>
+   <br> At this stage, `ParseException` would be thrown if the
+   `NAME` specified is invalid.
+
+5. The `FindCommandParser` then creates the `FindCommand` based on the processed inputs.
+
+#### Command execution
+
+6. The `LogicManager` executes the `FindCommand`.
+7. The `FindCommand` calls the `Model#updateFilteredPersonList()` to update the filtered person list based on the user input `KEYWORD`.
+8. The `FindCommand` then calls the `Model#getFilteredPersonList()#size()` to get the size of the person list. The size will correspond to the number of persons listed.
+
+#### Displaying of result
+9. Finally, the `FindCommand` creates a `CommandResult` with a success message and return it to the `LogicManager` to complete the command execution.
+   The GUI would also be updated on this change in the student list and update the display of student list accordingly.
+
+The following sequence diagram shows how the `find` mechanism works:
+
+![](images/FindCommandSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram summarizes what happens when a user executes the `find` command:
+
+![](images/FindCommandActivityDiagram.png)
+
 ## Filter Students by Group
 
 #### About
-The filter students by group feature allows TAs to filter and list students in the address book whose group name matches the specified keywords. 
-It helps TAs to quickly find students belonging to specific groups.
+The filter students by group feature allows users to filter and list students in the address book whose group name matches the specified keywords. 
+It helps users to quickly find students belonging to specific groups.
 
 #### How it is implemented
 The filtering mechanism is facilitated by the `FilterCommand` and the `FilterCommandParser`. 
-It enables TAs to filter students based on the groups they belong to. It utilizes the `Model` interface to interact with the student contact list.
+It enables users to filter students based on the groups they belong to. It utilizes the `Model` interface to interact with the student contact list.
 
 #### Parsing input
 
-1. The TA inputs the `filter` command along with the group keywords.
+1. The users inputs the `filter` command along with the group keywords.
 
 2. The TutorsContactsPro then preliminarily processes the input and creates a new `FilterCommandParser`.
 
@@ -255,11 +307,132 @@ The following sequence diagram illustrates how the `filter` mechanism works:
 ![](images/FilterSequenceDiagram.png)
 
 
+## Add group feature
+
+### About
+
+The add group feature allows users users to create a new group in TutorsContactsPro. 
+`addgroup g/GROUP_NAME`.
+
+### How it is implemented
+
+The `addgroup` command mechanism is facilitated by the `AddGroupCommand` and the `AddGroupCommandParser`.
+It allows TA users to add a not-already-existing-group to TutorsContactsPro.
+It uses the `AddressBook#addGroup(Group group)` which is exposed in the `Model`
+interface as `Model#addGroup(Group group)`. Then, the `add(Group groupToAdd)` is called on the `UniqueGroupList`
+in `AddressBook` to add the group to the group list.
+
+Given below is the example usage scenario and how the add group mechanism behaves at each step.
+
+#### Parsing user input
+
+1. The users user inputs the `addgroup` command and provides the `GROUP_NAME` of the group in which the TA user wants to add.
+
+2. The `TutorsContactsPro` then does preliminary processing to the input and creates a new `AddGroupCommandParser`.
+
+3. The `AddGroupCommandParser` then parses the user input and checks whether all the input attributes are present by checking the presence of the prefixes.
+   It also checks whether the command is in the correct format. In this case, the required prefix and attribute is `g/GROUP_NAME`. <br> <br> At this stage, if not all the prefixes are present,
+   `ParseException` would be thrown.
+
+4. If the required prefixes and attributes are present (i.e. `g/GROUP_NAME`), `AddGroupCommandParser` will then call the `ParserUtil#parseGroupName()`
+   method to check for the validity of the input `GROUP_NAME`. <br> <br> At this stage, `ParseException` would be thrown if the
+   `GROUP_NAME` specified is invalid. 
+
+5. The `AddGroupCommandParser` then creates the `AddGroupCommand` based on the processed input.
+
+
+#### Command execution
+
+6. The `LogicManager` executes the `AddGroupCommand`.
+
+7. The `AddGroupCommand` calls the `Model#hasGroup()` to check if the group with the same `GROUP_NAME` has already existed in the group list.
+   `CommandException` would be thrown if there already existed a group with the same group name.
+
+8. The `AddGroupCommand` then calls the `Model#addGroup()` to add the input group to the list.
+
+#### Displaying of result
+
+9. Finally, the `AddGroupCommand` creates a `CommandResult` with a success message and return it to the `LogicManager` to complete the command execution.
+   The GUI would also be updated on this change and created a new dedicated group tab for this new group added.
+
+The following sequence diagram shows how the `addgroup` mechanism works:
+
+![](images/AddGroupSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddGroupCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram summarizes what happens when a user executes the `addgroup` command:
+
+![](images/AddGroupCommandActivityDiagram.png)
+
+
+## Delete group feature
+
+### About 
+
+The delete group feature allows users to delete an existing student group in
+the student group list via the command `deletegroup g/GROUP_NAME`.
+
+### How it is implemented
+
+The `deletegroup` command mechanism is facilitated by the `DeleteGroupCommand` and the `DeleteGroupCommandParser`.
+It allows users to delete an already-existing-group from the ArchDuke student group list. It uses the `AddressBook#removeGroup(Group key)`
+which is exposed in the `Model` interface as `Model#deleteGroup(Group target)`. Then, the `remove(Group toRemove)` is called on the `UniqueGroupList`
+to remove the group from the group list.
+
+Given below is the example usage scenario and how the delete group mechanism behaves at each step.
+
+#### Parsing user input
+
+1. The user inputs the `deletegroup` command and provide the `GROUP_NAME` of the group in which the user wants to remove.
+
+2. The `TutorsContactsPro` then does preliminary processing to the user input and creates a new `DeleteGroupCommandParser`.
+
+3. The `DeleteGroupCommandParser` then parses the user input and check whether all the input attributes are present by checking the presence of the prefixes.
+   It also checks whether the command is in the correct format. In this case, the required prefix and attribute is `g/GROUP_NAME`. <br> <br> At this stage, if not all the prefixes are present,
+   `ParseException` would be thrown.
+
+4. If the required prefixes and attributes are present (i.e. `g/GROUP_NAME`), `DeleteGroupCommandParser` will then call the `ParserUtil#parseGroupName()`
+   method to check for the validity of the input `GROUP_NAME`. <br> <br> At this stage, `ParseException` would be thrown if the
+   `GROUP_NAME` specified is invalid.
+
+5. The `DeleteGroupCommandParser` then creates the `DeleteGroupCommand` based on the processed input.
+
+#### Command execution
+
+6. The `LogicManager` executes the `DeleteGroupCommand`.
+
+7. The `DeleteGroupCommand` calls the `Model#getFilteredGroupList()` to get the current unmodifiable view of the filtered group list.
+
+8. The `DeleteGroupCommand` calls the `contains()` method on the obtained filtered group list to check if the group with the same `GROUP_NAME` existed in the group list.
+   `CommandException` would be thrown if there exists no group with the same group name.
+
+9. The `DeleteGroupCommand` then calls the `Model#deleteGroup()` to delete the input group to from the group list.
+
+#### Displaying of result
+
+10. Finally, the `DeleteGroupCommand` creates a `CommandResult` with a success message and return it to the `LogicManager` to complete the command execution.
+    The GUI would also be updated on this change and remove the dedicated group tab for the group deleted. 
+
+The following sequence diagram shows how the `deletegroup` mechanism works:
+
+![](images/DeleteGroupSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteGroupCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
+The following activity diagram summarizes what happens when a user executes the `deletegroup` command:
+
+![](images/DeleteGroupCommandActivityDiagram.png)
+
 ## Mail Command
 
 ### About
 
-The Mail Command feature enables TAs to generate a mailto link containing the email addresses of students filtered based on specified keywords. 
+The Mail Command feature enables users to generate a mailto link containing the email addresses of students filtered based on specified keywords. 
 This link can be used to compose emails to these students directly from the TA's default email client.
 
 ### How it is Implemented
@@ -295,7 +468,7 @@ If no keywords are provided, the mailto link will include all students in the cu
 
 ### Summary
 
-The Mail Command feature provides an efficient way for TAs to compose emails to specific groups of students directly from the application. By leveraging the power of filtering, it allows for targeted communication while maintaining simplicity and ease of use.
+The Mail Command feature provides an efficient way for users to compose emails to specific groups of students directly from the application. By leveraging the power of filtering, it allows for targeted communication while maintaining simplicity and ease of use.
 
 The following activity diagram illustrates how the `mail` mechanism works:
 ![](images/MailActivityDiagram.png)
@@ -732,6 +905,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ## **Appendix: Instructions for manual testing**
 
+### Prefix summary
+These are the list of prefixes used in the commands for manual testing.
+
+| Prefix | Representation    | 
+|--------|-------------------|
+| `n/`   | `NAME`            | 
+| `p/`   | `PHONE_NUMBER`    | 
+| `e/`   | `EMAIL`           | 
+| `y/`   | `YEAR`            |
+| `m/`   | `MAJOR`           | 
+| `tg/`  | `TELEGRAM_HANDLE` | 
+| `r/`   | `REMARKS`         | 
+| `g/`   | `GROUP_NAME`      | 
+
+
+
 Given below are instructions to test the app manually.
 
 <box type="info" seamless>
@@ -745,62 +934,271 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   i. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   ii. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+   i. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   ii. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
 
 ### Listing all students
 
 1. Listing all students 
 
-    1. Test case: `list`<br>
+   i. Test case: `list`<br>
        Expected: All students will be returned from the list. The number of students listed is shown in the status message. Timestamp in the status bar is updated.
+
+### Clearing data
+
+1. Clears all data in TutorsContactsPro
+    
+    i. Test case: `clear` <br>
+        Expected: All data is cleared from TutorsContactsPro.
+
+### Exiting TutorsContactsPro
+
+1. Exits TutorsContactsPro
+
+    i. Test case: `exit` <br>
+        Expected: Exits TutorsContactsPro, and all data is being saved.
+
+### Help
+
+1. Provides detailed information on how to use the different features in TutorsContactsPro
+
+   i. Test case: `help` <br>
+       Expected: Help window pops up.
+
+   ii. Test case: Press the `F1` key <br>
+        Expected: Similar to previous.
+
+### Adding a student
+
+1. Adding a student while student list is being shown
+
+   i. Prerequisites: List all students using the `list` command.
+
+   ii. Test case: `add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB10 `
+        Expected: Adds a student with the name `John Doe` and the following attributes to the list. Details of added student shown in the status message.
+      * Phone number: 98765432,
+      * Email address: johnd@example.com
+      * Telegram handle: johndoe
+      * Year of study: 2
+      * Major: Computer Science
+      * Remarks: Very quiet student
+      * Groups: TUT04 and LAB10
+
+   iii. Test case : `add s/J@hn Doe m/A0123459G` <br>
+       Expected: No student is added. Error details are shown in the status message.
+
+   iv. Test case : `add s/John Doe ` <br>
+       Expected: Similar to previous.
+
 
 ### Deleting a student
 
 1. Deleting a student while all students are being shown
 
-   1. Prerequisites: List all students using the `list` command. There can be multiple students in the list.
+   i. Prerequisites: List all students using the `list` command. There can be multiple students in the list.
 
-   1. Test case: `delete 1`<br>
+   ii. Test case: `delete 1`<br>
       Expected: First student is deleted from the list. Details of the deleted student is shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   iii. Test case: `delete 0`<br>
       Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   iv. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+
+### Editing a student
+
+1. Edit a student to change their name/phone number/email address/year of study/major/telegram handle/remark/group
+
+    1. Prerequisites: List all students using the `list` command. There must be at least one student in the list.
+
+    2. Test case: `edit 1 n/John` <br>
+       Expected: First student's name is changed to John for all instances. Other attributes of the student remains the same. Details of the new student name is shown in the status message.
+
+    3. Test case: `edit 0 n/John` <br>
+       Expected: No student's details is changed. Error details shown in the status message.
+
+    4. Other incorrect edit student commands to try: `edit x n/John`, edit 1 n/John p/12345678`, `...` (where x is larger than the list size) <br>
+       Expected: Similar to previous.
 
 ### Finding student(s) by keyword(s)
 
 1. Finding a student while all students are being shown
 
-    1. Prerequisites: List all students using the `list` command. There can be multiple persons in the list. 
+   i. Prerequisites: List all students using the `list` command. There can be multiple persons in the list. 
 
-    1. Test case: `find Al Yu`<br>
+   ii. Test case: `find Al Yu`<br>
        Expected: Students who have any part of their names starting with `Al` or `Yu` like `Alex Yeoh` and `Bernice Yu` will be returned from the list. The number of contacts found is shown in the status message. Timestamp in the status bar is updated.
 
-    1. Test case: `find Zoe`, assuming that there is no contact who has any part of his/her name starting with `Zoe`<br>
+   iii. Test case: `find Zoe`, assuming that there is no contact who has any part of his/her name starting with `Zoe`<br>
        Expected: No student is found. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect find commands to try: `find`<br>
+   iv. Other incorrect find commands to try: `find`<br>
        Expected: Similar to previous.
+
+### Filtering student(s) by keyword(s)
+
+1. Filtering students while all students are being shown
+
+   i. Prerequisites: List all students using the `list` command. There can be multiple persons in the list.
+
+   ii. Test case: `filter TUT10`<br>
+   Expected: Students who belongs to the group `TUT10` will be returned from the list. The number of contacts found is shown in the status message. Timestamp in the status bar is updated.
+
+   iii. Test case: `filter TUT01`, assuming that there is no contact who belongs to the group `TUT01` <br>
+   Expected: No student is found. Error details shown in the status message. Status bar remains the same.
+
+   iv. Test case: `filter TU01`, where an invalid `KEYWORD/GROUP_NAME` is provided <br>
+   Expected: No student is found. Error details shown in the status message. Status bar remains the same.
+
+   v. Other incorrect find commands to try: `filter`<br>
+   Expected: Similar to previous.
+
+### Marking attendance 
+
+1. Marking attendance of students while all students are being shown
+
+   i. Prerequisites: List all students using the `list` command. There can be multiple persons in the list.
+
+   ii. Test case: `mark 1 g/TUT05 w/1 a/P`<br>
+   Expected: Marks the attendance of the 1st student in the list. Marks `TUT05` week 1 attendance as present. Details updated in the status message. Timestamp in the status bar is updated.
+
+   iii. Test case: `mark 1 g/TUT01 w/1 a/P`, assuming that there is no contact who belongs to the group `TUT01` <br>
+   Expected: No student is found. Error details shown in the status message. Status bar remains the same.
+
+   iv. Test case: `mark 1 g/T05 w/1 a/P`, where an invalid `GROUP_NAME` is provided <br>
+   Expected: Error details shown in the status message. Status bar remains the same.
+
+   v. Test case: `mark 1 g/TUT05 w/0 a/P`, where an invalid week number is provided <br>
+   Expected: Error details shown in the status message. Status bar remains the same.
+
+   vi. Test case: `mark 1 g/TUT05 w/1 a/B`, where an invalid `ATTENDANCE` field is provided <br>
+   Expected: Error details shown in the status message. Status bar remains the same.
+
+   vii. Other incorrect find commands to try: `mark`<br>
+   Expected: Similar to previous.
+
+### Adding a group
+
+1. Adding a group that has yet to exist in TutorsContactsPro.
+
+   i. Prerequisites: List all lessons using the `list` command.
+
+   ii. Test case: `addgroup g/LAB12` where group `LAB12` does not exist in TutorsContactsPro <br>
+       Expected: Adds the group `LAB12` to TutorContactsPro. A new group tab labelled `LAB12` is added. Details of the studio added shown in status message.
+   
+   iii. Test case: `addgroup g/RE1` where an invalid `GROUP_NAME` is provided <br>
+        Expected: No group added. Error details shown in the error message.
+
+   iv. Test case: `addgroup g/TUT05` where group `TUT05` already exists in TutorsContactsPro <br>
+       Expected: No group added because the group with the exact same name already exists.
+       Error details shown in the error message.
+
+   v. Other incorrect add studio commands to try: `addgroup`, `addgroup g/`, `...` <br>
+       Expected: Similar to previous.
+
+### Editing a group
+
+1. Editing a group that exists in TutorsContactsPro.
+
+   i. Prerequisite: List all lessons using the `list` command.
+
+   ii. Test case: `editgroup g/TUT05 tg/https://t.me/abcdefg` where group `TUT05` exists in TutorsContactsPro <br>
+   Expected: The group with the name `TUT05` is edited and the telegram invite link `https://t.me/abcdefg` is assigned to group `TUT05`.
+   The details of the edited group is shown in the success message.
+
+   iii. Test case: `editgroup g/RE1 tg/https://t.me/abcdefg` where an invalid `GROUP_NAME` is provided <br>
+   Expected: No group edited. Error details shown in the error message.
+
+   iv. Test case: `editgroup g/TUT01 tg/https://t.me/abcdefg` where group `TUT01` does not exist in TutorsContactsPro <br>
+   Expected: No group edited because the group does not exist.
+   Error details shown in the error message.
+
+   iv. Test case: `editgroup g/TUT05 tg/` where no telegram invite link is provided <br>
+   Expected: No group edited. Error details shown in the error message.
+
+   v. Other incorrect add studio commands to try: `editgroup`, `editgroup g/ tg/`, `...` <br>
+   Expected: Similar to previous.
+
+### Deleting a group
+
+1. Deleting a group that exists in TutorsContactsPro.
+
+   i. Prerequisite: List all lessons using the `list` command.
+
+   ii. Test case: `deletegroup g/TUT05` where group `TUT05` exists in TutorsContactsPro <br>
+       Expected: The group with the name `TUT05` is deleted from TutorsContactsPro. 
+       The group tab `TUT05` is removed. The details of the deleted group is shown in the success message.
+
+   iii. Test case: `deletegroup g/RE1` where an invalid `GROUP_NAME` is provided <br>
+        Expected: No group deleted. Error details shown in the error message.
+
+   iv. Test case: `deletegroup g/TUT01` where group `TUT01` does not exist in TutorsContactsPro <br>
+        Expected: No group deleted because the group does not exist.
+        Error details shown in the error message.
+
+   v. Other incorrect add studio commands to try: `addgroup`, `addgroup g/`, `...` <br>
+      Expected: Similar to previous.
+
+### Generating email template
+
+1. Generating prefilled email template containing the email addresses of students based on specific `GROUP NAME` entered.
+
+   i. Prerequisite: List all lessons using the `list` command.
+
+   ii. Test case: `mail g/TUT05` where group `TUT05` exists in TutorsContactsPro <br>
+   Expected: Generates a email template containing email addresses of all students belonging to `LAB05`
+
+   iii. Test case: `mail g/RE1` where an invalid `GROUP_NAME` is provided <br>
+   Expected: No email template generated. Error details shown in the error message.
+
+   iv. Test case: `mail g/TUT01` where group `TUT01` does not exist in TutorsContactsPro <br>
+   Expected: No email template generated. Error details shown in the error message.
+
+   v. Other incorrect add studio commands to try: `mail`, `mail g/`, `...` <br>
+   Expected: Similar to previous.
+
+### Generating email template with telegram link
+
+1. Generates a prefilled email template, including the telegram link for that specific group and email addresses of student recipients from the specified group.
+
+   i. Prerequisite: List all lessons using the `list` command.
+
+   ii. Test case: `mailtg g/TUT05` where group `TUT05` exists in TutorsContactsPro <br>
+   Expected: Generates a email template containing the telegram invite link for group `TUT05` and email addresses of all students belonging to `LAB05`
+
+   iii. Test case: `mailtg g/RE1` where an invalid `GROUP_NAME` is provided <br>
+   Expected: No email template generated. Error details shown in the error message.
+
+   iv. Test case: `mailtg g/TUT01` where group `TUT01` does not exist in TutorsContactsPro <br>
+   Expected: No email template generated. Error details shown in the error message.
+
+   v. Other incorrect add studio commands to try: `mailtg`, `mailtg g/`, `...` <br>
+   Expected: Similar to previous.
+
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data file(s).
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. Prerequisites: If there exists any addressbook.json in the data folder at the root of the application directory, delete the file.
 
-1. _{ more test cases …​ }_
+    2. Test case: Double-click on the jar file to run the application. <br>
+       Expected: Application runs and loads the sample data from `SampleStudentUtil#getSampleStudentBook`, `SampleTaskUtil#getSampleTaskBook` and/or `SampleLessonUtil#getSampleLessonBook`.
+
+2. Dealing with corrupted data file(s).
+
+    1. Prerequisites: Modify the addressbook.json to be an illegal format, such as deleting the “name” field of a student, "name" of a group etc.
+
+    2. Test case: Double-click on the jar file to run the application. <br>
+       Expected: Application runs and has no data on initial load. Running the next command overwrites the current corrupted json file(s).
