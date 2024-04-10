@@ -959,21 +959,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Planned Enhancements**
-Given below are the planned enhancements for the application.
-
-1. **Help command**: improve `help` command such that it will only proceed with a valid `help` input.
-   E.g. when input `help aaa` is entered, an error message will be thrown.
-2. **Add feature name input**: Improve the `add` command to allow for the use of s/o for student's name entered, as it may be a part of a student's legal name.
-3. **Edit feature error handling**: Improve error message in `edit` command to check whether the index provided is valid or not.
-4. **Filter feature error handling**: improve error messages in `filter` command to check whether the `GROUP_NAME` provided is a existing group.
-5. **Mark attendance inputs**: improve the `mark` attendance feature so that it will throw an error message when the attendance input is set in lower case instead of upper case.
-6. **Unmark attendance**: Implement an addition feature to `unmark` attendance so that users are able to undo their error when they make a mistake in marking a student's attendance.
-7. **Attendance UI**: Improve the attendance table UI to allow for horizontal scrolling.
-8. **Group Telegram**: Improve the UI to include a field that displays the telegram invite link for each group.
-9. **EditGroup feature**: Combine this feature with `addgroup` feature so that users are able to add a group together with it's telegram invite link.
-10. **Group Tabs**: Improve the tabs such that users will be able to remain on the selected tab even after executing a command. Currently, users will be directed back to the "results" tab everytime they execute a command.
-
 ## **Appendix: Instructions for manual testing**
 
 ### Prefix summary
@@ -1274,4 +1259,55 @@ testers are expected to do more *exploratory* testing.
    ii. Test case: Double-click on the jar file to run the application. <br> 
        Expected: Application runs and has no data on initial load. Running the next command overwrites the current corrupted json file(s).
 
-   
+
+## **Appendix: Planned Enhancements**
+Given below are the planned enhancements for the application.
+
+1. **Help command**: improve `help` command such that it will only proceed with a valid `help` input.
+   E.g. when input `help aaa` is entered, an error message will be thrown.
+2. **Add feature name input**: Improve the `add` command to allow for the use of s/o for student's name entered, as it may be a part of a student's legal name.
+3. **Edit feature error handling**: Improve error message in `edit` command to check whether the index provided is valid or not.
+4. **Filter feature error handling**: improve error messages in `filter` command to check whether the `GROUP_NAME` provided is a existing group.
+5. **Mark attendance inputs**: improve the `mark` attendance feature so that it will throw an error message when the attendance input is set in lower case instead of upper case.
+6. **Unmark attendance**: Implement an addition feature to `unmark` attendance so that users are able to undo their error when they make a mistake in marking a student's attendance.
+7. **Attendance UI**: Improve the attendance table UI to allow for horizontal scrolling.
+8. **Group Telegram**: Improve the UI to include a field that displays the telegram invite link for each group.
+9. **EditGroup feature**: Combine this feature with `addgroup` feature so that users are able to add a group together with it's telegram invite link.
+10. **Group Tabs**: Improve the tabs such that users will be able to remain on the selected tab even after executing a command. Currently, users will be directed back to the "results" tab everytime they execute a command.
+
+
+## **Appendix: Effort**
+
+### **Difficulty Level**
+
+Developing TutorsContactsPro presented several challenges for our team, ranging from moderate to high difficulty. These obstacles arose due to various factors:
+
+- We embarked on the project with an existing codebase, a brownfield project, which we were not initially familiar with. This required us to invest significant time and effort in understanding the intricacies of the codebase.
+- Prior to making any substantial progress, we had to dedicate considerable time to comprehensively grasp the entire model and setup of AB3, upon which our project was built, in order to effectively refactor it.
+- Given that it was our team's first hand experience into working with Java and JavaFX within a software engineering framework, there was a steep learning curve that we had to overcome.
+- In the process of development, we introduced a new model component, namely `Group`, and subsequently implemented additional commands to facilitate the modification of group information and associated fields.
+- Furthermore, adjustments were necessary to tailor the existing `person` model to suit the specific requirements of our application, which entailed modifying and augmenting certain fields.
+- Building upon the foundation of existing AB3 features, we also undertook the creation of supplementary functionalities. These included the development of features such as generating email templates and marking students' attendance.
+
+Despite these challenges, our team remained committed and ultimately succeeded in delivering TutorsContactsPro, a robust and feature-rich application.
+
+### **Challenges Faced**
+We had encountered the following challenges during the process of building TutorsContactsPro:
+
+- Refactoring the AB3 codebase to fit TutorsContactsPro requirements too more time than anticipated due to the size of AB3's codebase. 
+- Feature like marking student's attendance and generating email template were more complex and time-consuming than anticipated.
+- When we worked on closely related features, there were certain time-consuming merge conflicts to be resolved. In addition, this also created greater confusion in our work.
+- We were unable to merge certain pull requests successfully and had to pull back on our original plans due to time limitations.
+
+### **Effort Required**
+Due to the above difficulties and challenges faced, in addition to our implementation of relatively complex features including generating email templates, marking student's attendance and generating group tabs for GUI, 
+a considerable amount of effort was put in to manage the additional dependencies and conduct additional unit/integration testing.
+
+### **Achievements**
+
+- Built a comprehensive but easy-to-understand user interface 
+- Generate a relatively user-friendly interface with inclusion of sufficient and comprehensive CLI command and GUI design
+- TutorsContactsPro is comprehensive, storing essential student information for users
+- TutorsContactsPro also addresses the main pain points for TA users with the introduction of new features such as generating email template and marking attendance for students
+
+
