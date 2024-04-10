@@ -1273,3 +1273,4 @@ testers are expected to do more *exploratory* testing.
 
     2. Test case: Double-click on the jar file to run the application. <br>
        Expected: Application runs and has no data on initial load. Running the next command overwrites the current corrupted json file(s).
+   
