@@ -1262,15 +1262,16 @@ testers are expected to do more *exploratory* testing.
 
 1. Dealing with missing data file(s).
 
-    1. Prerequisites: If there exists any addressbook.json in the data folder at the root of the application directory, delete the file.
+   i. Prerequisites: If there exists any addressbook.json in the data folder at the root of the application directory, delete the file.
 
-    2. Test case: Double-click on the jar file to run the application. <br>
+   ii. Test case: Double-click on the jar file to run the application. <br>
        Expected: Application runs and loads the sample data from `SampleStudentUtil#getSampleStudentBook`, `SampleTaskUtil#getSampleTaskBook` and/or `SampleLessonUtil#getSampleLessonBook`.
 
 2. Dealing with corrupted data file(s).
 
-    1. Prerequisites: Modify the addressbook.json to be an illegal format, such as deleting the “name” field of a student, "name" of a group etc.
+   i. Prerequisites: Modify the addressbook.json to be an illegal format, such as deleting the “name” field of a student, "name" of a group etc.
 
-    2. Test case: Double-click on the jar file to run the application. <br>
+   ii. Test case: Double-click on the jar file to run the application. <br> 
        Expected: Application runs and has no data on initial load. Running the next command overwrites the current corrupted json file(s).
+
    
