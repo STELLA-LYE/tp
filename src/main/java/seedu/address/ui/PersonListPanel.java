@@ -87,7 +87,9 @@ public class PersonListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 int absoluteIndex = personList.indexOf(person) + 1;
-                setGraphic(new PersonAttendanceList(person, absoluteIndex).getRoot());
+                String selectedTabName = (tabPane.getSelectionModel().getSelectedItem() != null)
+                        ? tabPane.getSelectionModel().getSelectedItem().getText() : "Results";
+                setGraphic(new PersonAttendanceList(person, absoluteIndex, selectedTabName).getRoot());
             }
         }
     }
