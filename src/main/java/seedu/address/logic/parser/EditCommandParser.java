@@ -39,7 +39,6 @@ public class EditCommandParser implements Parser<EditCommand> {
                 PREFIX_YEAR, PREFIX_TELEGRAM, PREFIX_MAJOR, PREFIX_REMARK, PREFIX_GROUP);
 
         Index index;
-
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
