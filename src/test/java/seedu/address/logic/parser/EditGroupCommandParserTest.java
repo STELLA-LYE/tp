@@ -22,8 +22,8 @@ public class EditGroupCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, " g/abcd tg/https://t.me/abcdef", Group.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, " g/TUT01 tg/www.google.com", Group.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " g/abcd tg/https://t.me/abcdef", Group.MESSAGE_GROUP_NAME_CONSTRAINTS);
+        assertParseFailure(parser, " g/TUT01 tg/www.google.com", Group.MESSAGE_LINK_CONSTRAINTS);
         assertParseFailure(parser, " a",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditGroupCommand.MESSAGE_USAGE));
     }

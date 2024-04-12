@@ -510,16 +510,17 @@ format: `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`
 
 > ⚠️️ **Constraint:**
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
-> * The telegram invite link must be a valid Telegram group invite link.
+> * The telegram invite link must be a valid Telegram group invite link or an empty string.
 
 > ℹ️ **Information:**
 > * Assigns a Telegram group invite link to a group with given group name.
 
 
 Examples
-* `editgroup g/LAB12 tg/https://t.me/abcdefg` Adds the specified telegram link `https://t.me/abcdefg` to group `LAB12`.
-* `editgroup g/TUT01 tg/https://t.me/aafhkbwiu` Adds the specified telegram link `https://t.me/aafhkbwiu` to group `TUT01` as shown in the image below.
-  ![result for 'editgroup g/TUT01 tg/https://t.me/aafhkbwiu'](images/editgroupFeature.png)
+* `editgroup g/LAB12 tg/https://t.me/abcdefg` Adds the specified Telegram link `https://t.me/abcdefg` to group `LAB12`.
+* `editgroup g/TUT01 tg/` Removes the Telegram link from group `TUT01`.
+* `editgroup g/TUT01 tg/https://t.me/aafhkbwiu` Adds the specified Telegram link `/https://t.me/aafhkbwiu` to group `TUT01` as shown in the image below.
+  ![result for 'editgroup g/TUT01 tg/https://t.me/aafhkbwiu'](images/editgroupFeature.png)  
 
 ### <span id='feature-deletegroup'> Deleting a group: `deletegroup` <span>
 
