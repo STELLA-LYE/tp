@@ -440,20 +440,19 @@ Examples:
 
 ### <span id='feature-mark'> Marking students attendance by group week number: `mark` <span>
 
-Marks the student's attendance according to the group name and week number, allowing you to easily keep track of students' attendance details.
+Marks the student's attendance according to the group name and week number, allowing you to easily keep track of students' attendance details. This function marks if the student is absent or present.
 
 Format: `mark INDEX g/GROUP_NAME w/WEEK a/ATTENDANCE`
 
 > ⚠️️ **Constraint:**
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`, the group should exsist in the student
 > * `WEEK` must be a valid week number, from 1 to 13.
-> * `ATTENDANCE` must be either `A` for absent or `P`for present.
+> * `ATTENDANCE` must be either `A` for absent or `P`for present (should not be 'a' or 'p').
 
 > ℹ️ **Information:**
 > * Marks the student at the specified INDEX. The index refers to the index number shown in the displayed student list. The index must be a positive integer 1, 2, 3, …​
-> * All the fields should be provided, Index, Group, Week, Attendance.
+> * All the fields should be provided, index, group, week, attendance.
 > * Since there are 13 weeks in total in a tutorial or lab, only 13 marks are available.
-> * User can also edit the attendance by using the command word mark.
 
 Examples:
 * `mark 1 g/TUT05 w/1 a/P` Marks the attendance of the 1st student in the list. Marks `TUT05` week 1 attendance as present.
