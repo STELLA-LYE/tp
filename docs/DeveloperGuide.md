@@ -488,8 +488,8 @@ The following activity diagram summarizes what happens when a user executes the 
 
 ### About
 
-The Mail Command feature enables users to generate a mailto link containing the email addresses of students filtered based on specified keywords. 
-This link can be used to compose emails to these students directly from the TA's default email client.
+The Mail Command feature enables users to generate an email template prefilled with the email addresses of students filtered based on specified keywords. 
+This command can be used to compose emails to these students directly from the TA's default email client.
 
 ### How it is Implemented
 
@@ -497,8 +497,7 @@ The Mail Command feature is implemented using the `MailCommand` class and its co
 
 #### Command Structure
 
-The user inputs the `mail` command followed by optional keywords specifying groups of students they want to include in the email. 
-If no keywords are provided, the mailto link will include all students in the current list.
+The user inputs the `mail` command followed by optional keywords specifying groups of students they want to include in the email.
 
 #### Parsing Input
 
@@ -528,6 +527,49 @@ The Mail Command feature provides an efficient way for users to compose emails t
 
 The following activity diagram illustrates how the `mail` mechanism works:
 <puml src="diagrams/MailSequenceDiagram.puml" width="250" />
+
+## Mailtg Command
+
+### About
+
+The Mailtg Command feature enables users to generate an email template containing the telegram link for a specific group and prefilled with the email addresses of students filtered based on specified keywords.
+This command can be used to compose emails to these students directly from the TA's default email client.
+
+## How it is Implemented
+
+The Mailtg Command feature is implemented using the `MailTelegramCommand` class and its corresponding parser, `MailTelegramCommandParser`.
+
+#### Command Structure
+
+The user inputs the `mailtg` command followed by the `/g` prefix and the keywords specifying groups of students they want to include in the email and the specific group's telegram invite link.
+
+#### Parsing Input
+
+1. The `MailTelegramCommandParser` parses the input arguments to extract the specified keywords.
+
+2. If keywords are provided, the parser validates them to ensure they conform to the expected format. If any keyword is invalid, a `ParseException` is thrown.
+
+3. The `MailTelegramCommand` with the appropriate predicate is then created using the `GroupContainsKeywordsPredicate`, which filters the students based on the specified keywords.
+
+#### Command Execution
+
+4. When the `MailTelegramCommand` is executed, it updates the filtered person list in the model based on the provided predicate.
+
+5. It then extracts the email addresses of the filtered students from the model and the telegram invite link assigned to the specific group. 
+
+6. Using these email addresses and telegram invite link, it generates a mailto link using the `createMailtoUrl` function.
+
+#### Displaying Result
+
+8. Finally, the generated mailto link is encapsulated in a `CommandResult` object and returned to the logic manager for further handling.
+
+### Summary
+
+The Mailtg Command feature provides an efficient way for users to compose emails to specific groups of students directly from the application. By leveraging the power of filtering, it allows for targeted communication while maintaining simplicity and ease of use.
+
+The following activity diagram illustrates how the `mail` mechanism works:
+<puml src="diagrams/MailSequenceDiagram.puml" width="250" />
+
 
 ### \[Proposed\] Undo/redo feature
 
@@ -661,21 +703,21 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​     | I want to …​                                | So that I can…​                                               |
-|----------|-------------|---------------------------------------------|---------------------------------------------------------------|
-| `* * *`  | TA          | add new students to the app                 | keep track of their information                               |
-| `* * *`  | TA          | edit student profiles                       | keep their information up to date.                            |
-| `* * *`  | TA          | delete students from my class               | track the existing number of students in my tutorial class    |
-| `* * *`  | TA          | list all students in my class(es)           | view all of my students’ details at one glance                |
-| `* * *`  | TA          | search for specific students using keywords | quickly find relevant information                             |
-| `* * *`  | TA          | filter students according to their group    | quickly find relevant information                             |
-| `* * *`  | TA          | add a new group                             | keep track of the groups that i teach                         |
-| `* * *`  | TA          | edit an existing group                      | keep information of the groups i teach up to date             |
-| `* * *`  | TA          | delete an existing group                    | track the existing number of groups that i currently teach    |
-| `* * *`  | TA          | generate a mail link                        | conveniently sent an email to the student recipients desired  |
-| `* * *`  | TA          | add a telegram link to each group           | keep track of the telegram groups for each group that i teach |
-| `* *`    | new TA user | be able to access a help window             | easily seek help for the errors encountered                   |
-
+| Priority | As a …​     | I want to …​                                            | So that I can…​                                                                                  |
+|----------|-------------|---------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| `* * *`  | TA          | add new students to the app                             | keep track of their information                                                                  |
+| `* * *`  | TA          | edit student profiles                                   | keep their information up to date.                                                               |
+| `* * *`  | TA          | delete students from my class                           | track the existing number of students in my tutorial class                                       |
+| `* * *`  | TA          | list all students in my class(es)                       | view all of my students’ details at one glance                                                   |
+| `* * *`  | TA          | search for specific students using keywords             | quickly find relevant information                                                                |
+| `* * *`  | TA          | filter students according to their group                | quickly find relevant information                                                                |
+| `* * *`  | TA          | mark attendance for a specific student                  | keep track of each student's attendance details                                                  |
+| `* * *`  | TA          | add a new group                                         | keep track of the groups that i teach                                                            |
+| `* * *`  | TA          | add a telegram link to each group                       | keep track of the telegram groups for each group that i teach                                    |
+| `* * *`  | TA          | delete an existing group                                | track the existing number of groups that i currently teach                                       |
+| `* * *`  | TA          | generate an email template                              | conveniently sent an email to the student recipients desired                                     |
+| `* * *`  | TA          | generate an email template containing the telegram link | conveniently sent an email containing the telegram invite link to the student recipients desired |
+| `* *`    | new TA user | be able to access a help window                         | easily seek help for the errors encountered                                                      |
 
 
 ### Use cases
