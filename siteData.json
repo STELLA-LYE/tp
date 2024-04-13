@@ -161,6 +161,7 @@
         "archiving-data-files-coming-in-v2-0": "Archiving data files [coming in v2.0]",
         "faq": " FAQ ",
         "known-issues": " Known issues ",
+        "planned-enhancements": " Planned Enhancements ",
         "command-summary": " Command summary ",
         "appendix-a-installing-java": " Appendix A: Installing Java "
       },
@@ -178,7 +179,7 @@
       "src": "team/doyelee0313.md",
       "title": "Doye's Project Portfolio Page",
       "headings": {
-        "project-addressbook-level-3": "Project: AddressBook Level 3"
+        "project-tutors-contacts-pro": "Project: Tutors Contacts Pro"
       },
       "headingKeywords": {}
     },
@@ -186,7 +187,7 @@
       "src": "team/jocelyn-soh.md",
       "title": "Jocelyn's Project Portfolio Page",
       "headings": {
-        "project-addressbook-level-3": "Project: AddressBook Level 3"
+        "project-tutorscontactspro": "Project: TutorsContactsPro"
       },
       "headingKeywords": {}
     },
@@ -202,7 +203,7 @@
       "src": "team/tohlh.md",
       "title": "Li Heng's Project Portfolio Page",
       "headings": {
-        "project-addressbook-level-3": "Project: AddressBook Level 3"
+        "project-tutorscontactspro": "Project: TutorsContactsPro"
       },
       "headingKeywords": {}
     },
