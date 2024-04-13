@@ -837,7 +837,31 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC07 - Add a group**
+
+**Use case: UC07 - Mark student's attendance**
+
+**MSS**
+
+1.  TA requests to list students
+2.  System shows a list of students
+3.  TA marks the attendance of a specific student from a particular group during a lesson week 
+4.  System updates the attendance the student for that particular group accordingly 
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given keyword is in an incorrect format (e.g., contains special characters not allowed, exceeds maximum length, incorrect group name format).
+
+    * 3a1. TutorsContactsPro shows an error message.
+      Use case resumes at step 2.
+
+
+**Use case: UC08 - Add a group**
 
 **MSS**
 
@@ -863,25 +887,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 
-**Use case: UC08 - Edit a group**
+**Use case: UC09 - Add a telegram link**
 
 **MSS**
 
-1. TA requests to edit the information of the group
-2. System records the changes
+1.  TA requests to add a specific telegram link to a particular group
+2.  System adds the telegram link to the group
 
     Use case ends.
 
 **Extensions**
 
-* 1a. The edit command group name parameter is invalid or incomplete.
+* 1a. The given telegram link is invalid or incomplete.
 
-    * 1a1. TutorsContactsPro shows an error message.
-
-      Use case resumes at step 1.
+  Use case resumes at step 1.
 
 
-**Use case: UC09 - Delete a group**
+**Use case: UC10 - Delete a group**
 
 **MSS**
 
@@ -899,12 +921,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 1.
 
 
-**Use case: UC010 - Generate mail link**
+**Use case: UC011 - Generate email template**
 
 **MSS**
 
-1.  TA requests generation of mail link
-2.  System shows the mailto link containing emails of specific students recipients
+1.  TA requests generation of an email template for specific group(s)
+2.  System shows the email template prefilled with emails of specific students recipients
 
     Use case ends.
 
@@ -914,18 +936,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case resumes at step 1.
 
-**Use case: UC011 - Add a telegram link**
+
+**Use case: UC012 - Generate email template containing telegram invite link**
 
 **MSS**
 
-1.  TA requests to add a specific telegram link to a particular group
-2.  System adds the telegram link to the group
+1.  TA requests generation of an email template to send the telegram invite link for a specific group
+2.  System shows the email template prefilled with emails of specific students recipients and the telegram invite link for that particular group
 
     Use case ends.
 
 **Extensions**
 
-* 1a. The given telegram link is invalid or incomplete.
+* 1a. The given group name parameter is invalid.
 
   Use case resumes at step 1.
 
@@ -1212,16 +1235,16 @@ testers are expected to do more *exploratory* testing.
 
    i. Prerequisite: List all lessons using the `list` command.
 
-   ii. Test case: `mail g/TUT05` where group `TUT05` exists in TutorsContactsPro <br>
+   ii. Test case: `mail TUT05` where group `TUT05` exists in TutorsContactsPro <br>
    Expected: Generates a email template containing email addresses of all students belonging to `LAB05`
 
-   iii. Test case: `mail g/RE1` where an invalid `GROUP_NAME` is provided <br>
+   iii. Test case: `mail RE1` where an invalid `GROUP_NAME` is provided <br>
    Expected: No email template generated. Error details shown in the error message.
 
-   iv. Test case: `mail g/TUT01` where group `TUT01` does not exist in TutorsContactsPro <br>
+   iv. Test case: `mail TUT01` where group `TUT01` does not exist in TutorsContactsPro <br>
    Expected: No email template generated. Error details shown in the error message.
 
-   v. Other incorrect add studio commands to try: `mail`, `mail g/`, `...` <br>
+   v. Other incorrect add studio commands to try: `mail`, `...` <br>
    Expected: Similar to previous.
 
 ### Generating email template with telegram link
@@ -1263,17 +1286,26 @@ testers are expected to do more *exploratory* testing.
 ## **Appendix: Planned Enhancements**
 Given below are the planned enhancements for the application.
 
-1. **Help command**: improve `help` command such that it will only proceed with a valid `help` input.
-   E.g. when input `help aaa` is entered, an error message will be thrown.
-2. **Add feature name input**: Improve the `add` command to allow for the use of s/o for student's name entered, as it may be a part of a student's legal name.
-3. **Edit feature error handling**: Improve error message in `edit` command to check whether the index provided is valid or not.
-4. **Filter feature error handling**: improve error messages in `filter` command to check whether the `GROUP_NAME` provided is a existing group.
-5. **Mark attendance inputs**: improve the `mark` attendance feature so that it will throw an error message when the attendance input is set in lower case instead of upper case.
-6. **Unmark attendance**: Implement an addition feature to `unmark` attendance so that users are able to undo their error when they make a mistake in marking a student's attendance.
-7. **Attendance UI**: Improve the attendance table UI to allow for horizontal scrolling.
-8. **Group Telegram**: Improve the UI to include a field that displays the telegram invite link for each group.
-9. **EditGroup feature**: Combine this feature with `addgroup` feature so that users are able to add a group together with it's telegram invite link.
-10. **Group Tabs**: Improve the tabs such that users will be able to remain on the selected tab even after executing a command. Currently, users will be directed back to the "results" tab everytime they execute a command.
+**Team size: 4**
+
+1. **Improve add feature**: Currently, TutorContactsPro allows the addition of students with the same exact details and names but different case for names which can be misleading. This can result in addition of duplicate students instead. Hence, we plan to improve the `add` feature to detect whether students added has completely similar details regardless of casing and throw a duplicate student added error when appropriate.
+
+2. **Allow the display of telegram invite link**: TutorsContactsPro currently only allows the assignment of the telegram invite link to a specific group via the `editgroup` command which is not too informative. We plan to improve the interface to include a field to display the telegram invite link assigned for each specific group.
+
+3. **Improve the group tabs**: After marking the attendance in a particular group tab, TutorsContactsPro currently will automatically direct users to the results tab which can result in inconvenience for users. We plan to improve the group tabs interface such that users will still be able to remain on their selected group tab aftering executing any commands.
+
+4. **Improve add telegram link feature**: Currently, TutorsContactsPro only allows the assignment of a telegram invite link to a specific group via the `editgroup` command which may not be very intuitive for users. We plan to improve this feature by combining it with the `addgroup` feature to allow addition of a group together with it’s telegram invite link.
+
+5. **Add unmark attendance feature**: TutorsContactsPro currently only allows users to mark the attendance for a particular student which can be inconvenient when users make a mistake marking the attendance and they are unable to undo it. Therefore, in the future, we plan to include an additional unmark attendance for a specified student.
+
+6. **Improve generation of email template command**: The current `mail` command only takes in the `GROUP_NAME` input with no prefixes whereas the `mailtg` command takes in a `g/` prefix with a `GROUP_NAME` input. The difference in the command format for these two closely related commands can make it complex for users. Therefore, we plan to simplify and standardise the command input for `mail` and `mailtg` to be `g/GROUP_NAME`.
+
+7. **Improve generation of email template command**: When executing mail, mailtg command with an invalid group, including an non-existing group, empty group and group without telegram invite link. TutorsContactsPro currently does not throw an error for users. We plan to improve them such that an error message will be thrown when the input provided is invalid.
+
+8. **Make filter feature error message more specific**: When filtered with a non-existing group, the current error message displays`0 students listed!` which is too general. We plan to `filter` command check whether the `GROUP_NAME` provided is an existing group. The error message will then also mention the reason for failing to filter any students: `Group does not exist, 0 students listed!`
+
+
+
 
 
 ## **Appendix: Effort**
