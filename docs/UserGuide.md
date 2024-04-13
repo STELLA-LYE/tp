@@ -93,9 +93,6 @@ From effortless attendance tracking to personalized student profiles, TutorsCont
 Experience the future of teaching management today with TutorsContactsPro!
 
 
-
-
-
 ## <span id='feature-aboutUG'> About the User Guide <span>
 
 This user guide aims to provide you with the information needed to get started with TutorsContactsPro.
