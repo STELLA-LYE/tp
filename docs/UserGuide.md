@@ -360,8 +360,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL y/YEAR m/MAJOR tg/TELEGRAM_HANDLE [r/
 > ℹ️ **Information:**
 > * Allows addition of multiple groups to a student.
 > * Allows addition of multiple remarks to a student.
-
-
+> * Allows adding a student with an email that does not include a domain name as email can be hosted on a local machine. 
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB05 `
@@ -463,6 +462,7 @@ Format: `mark INDEX g/GROUP_NAME w/WEEK a/ATTENDANCE`
 > * Marks the student at the specified INDEX. The index refers to the index number shown in the displayed student list. The index must be a positive integer 1, 2, 3, …​
 > * All the fields should be provided, index, group, week, attendance.
 > * Since there are 13 weeks in total in a tutorial or lab, only 13 marks are available.
+> * Resize the TutorsContactsPro window to view the full 13 weeks attendance table. 
 
 Examples:
 * `mark 1 g/TUT05 w/1 a/P` Marks the attendance of the 1st student in the list. Marks `TUT05` week 1 attendance as present.
@@ -583,6 +583,7 @@ Format: `mailtg g/GROUP_NAME`
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
 > * `GROUP_NAME` must be a valid existing group.
 > * It requires a **full match** for the keyword.
+> * With contrast to the previous `mail` command, `mail` command catered for multiple groups whereas `mailtg` command is catered to generating an email template with respect to a specific group. 
 
 Examples:
 * `mailtg g/TUT04` generates a email template containing the telegram link for group `TUT04` and with pre-filled email addresses of all students belonging to `TUT04`.
