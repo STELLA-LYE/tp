@@ -317,6 +317,10 @@ Allows you to easily access detailed information on how to use the different fea
 
 Format: `help`
 
+> ℹ️ **Information:**
+> * Strictly enter only the `help` command. Any inputs after `help` will be ignored.
+    e.g. `help 44` is entered, `44` input following `help` will be ignored and `help` command will still be executed.
+
 ### <span id='feature-list'> Listing all students : `list` </span>
 
 Shows a list of all your students, so that you can conveniently view all their details.
@@ -332,6 +336,10 @@ Auto-capitalization will be handled. Extra/trailing/leading spaces will be remov
 Clears all student entries from TutorsContactsPro, so that you can always start afresh in the next teaching semester.
 
 Format: `clear`
+
+> ℹ️ **Information:**
+> * Strictly enter only the `clear` command. Any inputs after `clear` will be ignored.
+    e.g. `clear 44` is entered, `44` input following `clear` will be ignored and `clear` command will still be executed.
 
 ### <span id='feature-exit'> Exiting the program : `exit` <span>
 
@@ -430,6 +438,8 @@ Format: `filter KEYWORD [MORE_KEYWORDS]`
 > * The search is case-sensitive. e.g `tut04` will not match `TUT04`.
 > * The order of the keywords does not matter. e.g. `TUT04 LAB05` will match all students in `TUT04` and/or `LAB05`.
 > * Only student's group name is searched.
+> * The group name KEYWORD provided must be an existing group in TutorsContactsPro for students to be filtered accurately. 
+> * When a non-existing group name is provided, TutorsContactsPro will display the status message '0 students listed!'. 
 
 Examples:
 * `filter LAB10` returns only `Kendra Huetta` belonging to group `LAB10`.
@@ -513,8 +523,7 @@ format: `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`
 > * The telegram invite link must be a valid Telegram group invite link or an empty string.
 
 > ℹ️ **Information:**
-> * Assigns a Telegram group invite link to a group with given group name.
-
+> * Assigns the telegram group invite link provided in `TELEGRAM_LINK` to the group with the given `GROUP_NAME`. 
 
 Examples
 * `editgroup g/LAB12 tg/https://t.me/abcdefg` Adds the specified Telegram link `https://t.me/abcdefg` to group `LAB12`.
