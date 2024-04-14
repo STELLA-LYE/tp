@@ -54,9 +54,7 @@ public class PersonListPanel extends UiPart<Region> {
         // Add listener to personList
         personList.addListener((ListChangeListener<Person>) change -> {
             while (change.next()) {
-                if (change.wasRemoved()) {
-                    updateTabs(); // Update tabs whenever a person is removed
-                }
+                updateTabs(); // Update tabs whenever there is a change to person
                 break; // Only update tabs once for each change
             }
         });
