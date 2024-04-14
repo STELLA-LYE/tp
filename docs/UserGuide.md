@@ -180,7 +180,7 @@ You should see `TutorsContactsPro.jar` in the list of files printed. Here's what
 
    After executing this command, a graphical user interface (GUI) similar to the one below should appear shortly:
 
-   <img src="images/UI.png" width="700">
+   <img src="images/Ui.png" width="700">
 
 
 Note: The application comes with some sample data for your reference.
@@ -230,7 +230,7 @@ TutorsContactsPro's UI consists of 4 main parts that you will be using:
 * In the menu bar, you can effortlessly exit TutorsContactsPro or access the help window with just a click of your mouse!
 * Fear not if you are not well-versed in commands, the menu bar offers a beginner-friendly alternative to exit TutorsContactsPro or open the help window.
 
-### Help:
+### Help
 Upon clicking help on the menu bar or by using the shortcut `F1`, you will be assisted with a help window pop-up.
 More is to be explained in [`help`](#feature-help) feature.
 
@@ -244,7 +244,7 @@ More is to be explained in [`help`](#feature-help) feature.
 * You can see student's name, phone number, year of study, major, email address, group, Telegram handle and even whatever remarks that you have for each of them as needed!
 
 The following image displays the layout of a student panel. 
-![Student Panel](images/studentPanel.png)
+![Student Panel](images/StudentPanel.png)
 
 ### Result and Group Tabs
 * There are labelled tabs below the `Student Details` header. 
@@ -275,7 +275,7 @@ Some example commands you can try:
 
 * [`filter TUT10`](#feature-filter) : Lists all the students in group 'TUT10'
 
-* [`mark 1 g/TUT05 w/1 a/P`](#feature-mark) : Marks the first student group 'TUT05' week 1 attendance as Present in TutorsContactsPro.
+* [`mark 1 g/TUT05 w/1 a/P`](#feature-mark) : Marks the first student group 'TUT05' week 1 attendance as Present.
 
 * [`delete 3`](#feature-delete) : Deletes the 3rd student shown in the current list.
 
@@ -363,7 +363,7 @@ This section contains commands for managing students in TutorsContactsPro.
 
 ### <span id='feature-add'> Adding a student: `add` </span>
 
-Adds a student to the list, so that you can keep track of all student details easily.
+Adds a student to the list. This way, you can keep track of all student details easily.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL y/YEAR m/MAJOR tg/TELEGRAM_HANDLE [r/REMARK]…​ [g/GROUP]…​`
 
@@ -397,7 +397,7 @@ Examples:
 
 ### <span id='feature-edit'> Editing a student : `edit` <span>
 
-Edits an existing student you have selected. This way, you can always keep student details recorded up to date!
+Edits an existing student you have selected. This way, you can always keep student details recorded up to date.
 
 Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [y/YEAR] [m/MAJOR] [tg/TELEGRAM_HANDLE] [r/REMARK]…​ [g/Group]…​`
 
@@ -415,7 +415,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [y/YEAR] [m/MAJOR] [tg/T
 
 Examples:
 *  `edit 1 n/John e/john01@example.com` Edits the name of the first student to `John` and email to `john01@example.com` respectively.
-*  `edit 2 n/Betty tg/` Edits the name of the 2nd student to be `Betty` and clears her telegram handle.
+*  `edit 2 n/Betty tg/` Edits the name of the second student to be `Betty` and clears her telegram handle.
 
 ### <span id='feature-find'> Locating students by keyword: `find` <span>
 Finds students whose details include any of the specified keywords.
@@ -459,11 +459,11 @@ Examples:
 
 ### <span id='feature-mark'> Marking students attendance by group week number: `mark` <span>
 
-Marks the student's attendance according to the group name and week number, allowing you to easily keep track of students' attendance details. This function marks if the student is absent or present.
+Marks the student's attendance according to the group name and week number. This way, you can easily keep track of students' attendance details.
 
 Format: `mark INDEX g/GROUP_NAME w/WEEK a/ATTENDANCE`
 
-> ⚠️️ **Constraint:**
+> ⚠️️ **Warning:**
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`, the group should exsist in the student
 > * `WEEK` must be a valid week number, from 1 to 13.
 > * `ATTENDANCE` must be either `A` for absent or `P`for present (should not be 'a' or 'p').
@@ -471,12 +471,14 @@ Format: `mark INDEX g/GROUP_NAME w/WEEK a/ATTENDANCE`
 > ℹ️ **Information:**
 > * Marks the student at the specified INDEX. The index refers to the index number shown in the displayed student list. The index must be a positive integer 1, 2, 3, …​
 > * All the fields should be provided, index, group, week, attendance.
-> * Since there are 13 weeks in total in a tutorial or lab, only 13 marks are available.
 > * Resize the TutorsContactsPro window to view the full 13 weeks attendance table. 
 
+> 💡**Tips:**
+> * You can simply remark by overwritting the attendance <br>
+
 Examples:
-* `mark 1 g/TUT05 w/1 a/P` Marks the attendance of the 1st student in the list. Marks `TUT05` week 1 attendance as present.
-* `mark 2 g/LAB05 w/1 a/A` Marks the attendance of the 2nd student in the list. Marks `LAB05` week 1 attendance as absent as shown in the image below.
+* `mark 1 g/TUT05 w/1 a/P` Marks the attendance of the first student in the list. Marks `TUT05` week 1 attendance as present.
+* `mark 2 g/LAB05 w/1 a/A` Marks the attendance of the second student in the list. Marks `LAB05` week 1 attendance as absent as shown in the image below.
 
   ![result for 'mark 1'](images/markAttendance.png)
 
@@ -509,7 +511,7 @@ TutorsContactsPro will then automatically generate a dedicated tab for each new 
 
 format: `addgroup g/GROUP_NAME`
 
-> ⚠️️ **Constraint:**
+> ⚠️️ **Warning:**
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
 
 > ℹ️ **Information:**
@@ -528,7 +530,7 @@ Edits an existing group in TutorsContactsPro, allowing you to add or edit the Te
 
 format: `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`
 
-> ⚠️️ **Constraint:**
+> ⚠️️ **Warning:**
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
 > * The Telegram invite link must be a valid Telegram group invite link or an empty string.
 
@@ -548,7 +550,7 @@ TutorsContactsPro will then remove the dedicated tab for the group deleted.
 
 format: `deletegroup g/GROUP_NAME`
 
-> ⚠️️ **Constraint:**
+> ⚠️️ **Warning:**
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
 
 Examples:
@@ -631,7 +633,22 @@ _Details coming soon ..._
 ## <span id='feature-faq'> FAQ <span>
 
 **Q**: How do I transfer my data to another computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TutorsContactsPro home folder.
+**A**: Install TutorsContactsPros in the other computer and overwrite the empty data file it creates with the file that contains the data of your .json file.
+
+**Q**: How do I save my data?<br>
+**A**: Our TutorsContactsPros ensures the data is saved automatically without any additional functions. 
+
+**Q**: I cannot see my attendance boxes, how can I fix this?<br>
+**A**: Try maximizing the screen size to see all the components in the app.
+
+**Q**: Is there a mobile version of TutorsContactsPros available?<br>
+**A**: Currently, TutorsContactsPros is only available for desktop use. 
+
+**Q**: How do I update TutorsContactsPros to the latest version?<br>
+**A**: To update TutorsContactsPros, visit our github website and download the latest version. Uninstall the previous version from your computer before installing the new version.
+
+**Q**: What should I do if TutorsContactsPros crashes?<br>
+**A**: If TutorsContactsPros crashes, restart the application. If the problem persists, reinstall the software and ensure your computer meets the system requirements.
 
 [Table Of Contents](#table-of-contents)
 
