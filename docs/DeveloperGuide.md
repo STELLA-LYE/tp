@@ -172,7 +172,7 @@ The `delete` command mechanism is facilitated by the `DeleteCommand` and the `De
 It allows users to delete a student contact from the student contact list.
 It uses the `AddressBook#removePerson(Person key)` which is exposed in the `Model`
 interface as `Model#deletePerson(Person personToDelete)`. Then, the `remove(Person person)` is called on the `UniquePersonList`
-in `AddressBook` to delete the student contact from the list. <br>
+in `TutorsContactsPro` to delete the student contact from the list. <br>
 
 A modification from AB3 delete mechanism is that the `delete` command also involves the facilitation of the `AddressBook#deassignPerson(Person persontToDeassign, Group group)`
 which is exposed in the `Model` interface as `Model#deassignPerson(Person person, Group group)`, which result in the call of `Group#deassign(Person person)` to
@@ -184,8 +184,7 @@ deassign the deleted student contact from all previously assigned groups.
 
 2. The `TutorsContactsPro` then preliminary process the input and creates a new `DeleteCommandParser`.
 
-3. The `DeleteCommandParser` then calls the `ParserUtil#parseIndex()` to check for the validity of the `INDEX`.
-   At this stage, if the `INDEX is invalid or absent`, `ParseException` would be thrown.
+3. The `DeleteCommandParser` then calls the `ParserUtil#parseIndex()` to check for the validity of the `INDEX`. At this stage, if the `INDEX is invalid or absent`, `ParseException` would be thrown.
 
 4. The `DeleteCommandParser` then creates the `DeleteCommand` based on the processed input.
 
@@ -194,11 +193,11 @@ deassign the deleted student contact from all previously assigned groups.
 
 5. The `LogicManager` executes the `DeleteCommand`.
 
-6. The `DeleteCommand` calls the `Model#getFilteredPersonList()` to get the unmodifiable view of the filtered person list to get the target
-   person to delete based on the provided `INDEX`. <br><br> At this stage, `CommandException` would be thrown if the input `INDEX`
+6. The `DeleteCommand` calls the `Model#getFilteredPersonList()` to get the unmodifiable view of the filtered student list to get the target
+   student to delete based on the provided `INDEX`. <br><br> At this stage, `CommandException` would be thrown if the input `INDEX`
    is invalid (i.e. `INDEX` exceeds the size of the student contact list).
 
-7. The `DeleteCommand` the calls the `Model#deletePerson(Person personToDelete)` to delete the target student contact from the
+7. The `DeleteCommand` then calls the `Model#deletePerson(Person personToDelete)` to delete the target student contact from the
    student contact list.
 
 
@@ -209,16 +208,11 @@ deassign the deleted student contact from all previously assigned groups.
 
 The following sequence diagram shows how the `delete` mechanism works:
 
-<puml src="diagrams/DeleteSequenceDiagram.puml" width="250" />
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
+<img src="images/DeleteSequenceDiagram.png" width="900" />
 
 The following activity diagram summarizes what happens when a user executes the `delete` command:
 
-<puml src="diagrams/DeleteActivityDiagram.puml" width="250" />
-
+<img src="images/DeleteActivityDiagram.png" width="900" />
 
 ## Find Students by Name 
 
@@ -260,15 +254,24 @@ Given below is the example usage scenario and how the `find` mechanism behaves a
 
 The following sequence diagram shows how the `find` mechanism works:
 
-<puml src="diagrams/FindSequenceDiagram.puml" width="250" />
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
+<img src="images/FindSequenceDiagram.png" width="900" />
 
 The following activity diagram summarizes what happens when a user executes the `find` command:
 
-<puml src="diagrams/FindActivityDiagram.puml" width="250" />
+<img src="images/FindActivityDiagram.png" width="900" />
+
+### Design considerations
+
+#### Aspect: How the find command finds the student 
+
+* **Alternative 1 (current choice)**: finds student contact without any prefixes.
+    * Pros: Simplifies the process for users to find student contacts without needing to recall any specific prefixes. This makes the command easy to remember. 
+    * Cons: In some cases, the prefix can serve as a reminder on what student attribute is used for `find` command to search for students. User may be left confused and find difficult to remember that find search for students using their name without the `n/` prefix. 
+
+* **Alternative 2 (current choice)**: finds through partial search (eg. `Dav` to find `David`)
+    * Pros: Enables users to save time by not requiring complete details for the search.
+    * Cons: When there are multiple contacts with similar names (e.g., Ben, Benedict, Benny), a partial search may not yield significant benefits, as users would still need to input almost the full name to locate the desired person.
+
 
 ## Filter Students by Group
 
@@ -302,7 +305,67 @@ It enables users to filter students based on the groups they belong to. It utili
 The GUI would also be updated accordingly to display the filtered list of students.
 
 The following sequence diagram illustrates how the `filter` mechanism works:
-<puml src="diagrams/FilterSequenceDiagram.puml" width="250" />
+<img src="images/FilterSequenceDiagram.png" width="900" />
+
+The following activity diagram summarizes what happens when a user executes the `filter` command:
+<img src="images/FilterActivityDiagram.png" width="900" />
+
+
+### Design considerations
+
+#### Aspect: How the filter command filters student 
+
+* **Alternative 1 (current choice)**: filters student contact without any prefixes.
+    * Pros: Simplifies the process for users to find student contacts without needing to recall any specific prefixes. This makes the command easy to remember.
+    * Cons: In some cases, the prefix can serve as a reminder on what student attribute is used for `filter` command to search for students. User may confuse this command with the previous `find` command. 
+
+* **Alternative 2**: filter only allows for a single `GROUP_NAME` input 
+    * Pros: Enables users to filter students via a single group so that it remains more organised. 
+    * Cons: There may be cases where a student belongs to more than one group that is taught by the user. This will result in inconvenience when the user wants to retrieve student data from multiple groups.
+      E.g. `John` belongs to both `TUT04`and `LAB05` that is taught by the user. Filter student contacts separately for the two groups will result in `John` contact to appear twice which can be inconvenient when the user wants to retrieve unique student contacts from the two groups. 
+
+* **Alternative 3 (current choice)**: filter only allows for multiple `GROUP_NAME` input
+    * Pros: Enables users to obtain unique student contact list from multiple groups. 
+    * Cons: It may not be commonly used as users are more likely to filter via a single group since the `Results` tab wil already display all student contacts.
+
+
+## Mark Student's Attendance
+
+#### About
+
+Marks the student's attendance according to the group name and week number. This allows users to easily keep track of students' attendance details.
+
+#### How it is implemented
+The mark attendance mechanism is facilitated by the `MarkAttendanceCommand` and the `MarkAttendanceCommandParser`. 
+It utilizes the `Model` interface to interact with the student contact list.
+
+#### Parsing input
+
+1. The users inputs the `mark` command along with the desired student index, group name, week number and the student's attendance (whether they are present, `P` or absent `A`)
+
+2. The TutorsContactsPro then preliminarily processes the inputs and creates a new `MarkAttendanceCommandParser`.
+
+3. The `MarkAttendanceCommandParser` then parses the user input and checks whether all the input attributes are present by checking the presence of the prefixes for group, week and attendance which are `/g`, `/w` and `/a` respectively. 
+   It also checks whether the command is in the correct format. <br> <br> At this stage, if not all the prefixes are present,
+   `ParseException` would be thrown.
+
+#### Command execution
+
+5. The `LogicManager` executes the `MarkAttendanceCommand`.
+
+6. The `MarkAttendanceCommand` calls the `Model#getFilteredPersonList()` to get the unmodifiable view of the filtered student list to get the target
+   student to mark attendance based on the provided `INDEX`. <br><br> At this stage, `CommandException` would be thrown if the input `INDEX`
+   is invalid (i.e. `INDEX` exceeds the size of the student contact list).
+
+#### Displaying results
+
+7. Finally, the `MarkAttendanceCommand`  it returns a CommandResult object indicating the success or failure of the operation. 
+The result message is then displayed to the user via the GUI. The attendance table of the particular studne will then be updated accordingly. 
+
+
+The following activity diagram summarizes what happens when a user executes the `mark` command:
+
+<img src="images/MarkAttendanceActivityDiagram.png" width="900" />  
 
 
 ## Add group feature
@@ -355,22 +418,18 @@ Given below is the example usage scenario and how the add group mechanism behave
 
 The following sequence diagram shows how the `addgroup` mechanism works:
 
-<puml src="diagrams/AddGroupSequenceDiagram.puml" width="250" />
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddGroupCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
+<img src="images/AddgroupSequenceDiagram.png" width="900" />
 
 The following activity diagram summarizes what happens when a user executes the `addgroup` command:
 
-<puml src="diagrams/AddGroupActivityDiagram.puml" width="250" />
+<img src="images/AddgroupActivityDiagram.png" width="900" />
 
 
 ## Edit group feature
 
 ### About
 
-The edit group feature allows users to add or edit the telegram invite link assigned for each group. 
+The edit group feature allows users to add or edit the Telegram invite link assigned for each group. 
 `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`.
 
 ### How it is implemented
@@ -383,7 +442,7 @@ Given below is the example usage scenario and how the add group mechanism behave
 
 #### Parsing user input
 
-1. The users user inputs the `editgroup` command and provides the `GROUP_NAME` of the group in which the TA user wants to add or edit using the new `TELEGRAM_LINK` provided. 
+1. The users user inputs the `editgroup` command and provides the `GROUP_NAME` of the group in which the user wants to add or edit using the new `TELEGRAM_LINK` provided. 
 
 2. The `TutorsContactsPro` then does preliminary processing to the input and creates a new `EditGroupCommandParser`.
 
@@ -405,7 +464,7 @@ Given below is the example usage scenario and how the add group mechanism behave
 7. The `EditGroupCommand` calls the `Model#hasGroup()` to check if the group with the `GROUP_NAME` already existed in the group list.
    `CommandException` would be thrown if there are no group present with the same group name.
 
-8. The `EditGroupCommand` then calls the `Model#editroup()` to edit the input group's telegram invite link.
+8. The `EditGroupCommand` then calls the `Model#editroup()` to edit the input group's Telegram invite link.
 
 #### Displaying of result
 
@@ -413,15 +472,11 @@ Given below is the example usage scenario and how the add group mechanism behave
 
 The following sequence diagram shows how the `editgroup` mechanism works:
 
-<puml src="diagrams/EditGroupSequenceDiagram.puml" width="250" />
+<img src="images/EditgroupSequenceDiagram.png" width="900" />
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddGroupCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+The following activity diagram summarizes what happens when a user executes the `editgroup` command:
 
-</div>
-
-The following activity diagram summarizes what happens when a user executes the `addgroup` command:
-
-<puml src="diagrams/EditGroupActivityDiagram.puml" width="250" />
+<img src="images/EditgroupActivityDiagram.png" width="900" />
 
 
 ## Delete group feature
@@ -474,22 +529,19 @@ Given below is the example usage scenario and how the delete group mechanism beh
 
 The following sequence diagram shows how the `deletegroup` mechanism works:
 
-<puml src="diagrams/DeleteGroupSequenceDiagram.puml" width="250" />
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteGroupCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
+<img src="images/DeletegroupSequenceDiagram.png" width="900" />
 
 The following activity diagram summarizes what happens when a user executes the `deletegroup` command:
 
-<puml src="diagrams/DeleteGroupActivityDiagram.puml" width="250" />
+<img src="images/DeletegroupActivityDiagram.png" width="900" />
+
 
 ## Mail Command
 
 ### About
 
 The Mail Command feature enables users to generate an email template prefilled with the email addresses of students filtered based on specified keywords. 
-This command can be used to compose emails to these students directly from the TA's default email client.
+This command can be used to compose emails to these students directly from the user's default email client.
 
 ### How it is Implemented
 
@@ -526,14 +578,15 @@ The user inputs the `mail` command followed by optional keywords specifying grou
 The Mail Command feature provides an efficient way for users to compose emails to specific groups of students directly from the application. By leveraging the power of filtering, it allows for targeted communication while maintaining simplicity and ease of use.
 
 The following activity diagram illustrates how the `mail` mechanism works:
-<puml src="diagrams/MailSequenceDiagram.puml" width="250" />
+
+<img src="images/MailActivityDiagram.png" width="900" />
 
 ## Mailtg Command
 
 ### About
 
-The Mailtg Command feature enables users to generate an email template containing the telegram link for a specific group and prefilled with the email addresses of students filtered based on specified keywords.
-This command can be used to compose emails to these students directly from the TA's default email client.
+The Mailtg Command feature enables users to generate an email template containing the Telegram link for a specific group and prefilled with the email addresses of students filtered based on specified keywords.
+This command can be used to compose emails to these students directly from the user's default email client.
 
 ## How it is Implemented
 
@@ -541,7 +594,7 @@ The Mailtg Command feature is implemented using the `MailTelegramCommand` class 
 
 #### Command Structure
 
-The user inputs the `mailtg` command followed by the `/g` prefix and the keywords specifying groups of students they want to include in the email and the specific group's telegram invite link.
+The user inputs the `mailtg` command followed by the `/g` prefix and the keywords specifying groups of students they want to include in the email and the specific group's Telegram invite link.
 
 #### Parsing Input
 
@@ -555,9 +608,9 @@ The user inputs the `mailtg` command followed by the `/g` prefix and the keyword
 
 4. When the `MailTelegramCommand` is executed, it updates the filtered person list in the model based on the provided predicate.
 
-5. It then extracts the email addresses of the filtered students from the model and the telegram invite link assigned to the specific group. 
+5. It then extracts the email addresses of the filtered students from the model and the Telegram invite link assigned to the specific group. 
 
-6. Using these email addresses and telegram invite link, it generates a mailto link using the `createMailtoUrl` function.
+6. Using these email addresses and Telegram invite link, it generates a mailto link using the `createMailtoUrl` function.
 
 #### Displaying Result
 
@@ -567,8 +620,9 @@ The user inputs the `mailtg` command followed by the `/g` prefix and the keyword
 
 The Mailtg Command feature provides an efficient way for users to compose emails to specific groups of students directly from the application. By leveraging the power of filtering, it allows for targeted communication while maintaining simplicity and ease of use.
 
-The following activity diagram illustrates how the `mail` mechanism works:
-<puml src="diagrams/MailSequenceDiagram.puml" width="250" />
+The following activity diagram illustrates how the `mailtg` mechanism works:
+
+<img src="images/MailtgActivityDiagram.png" width="900" />
 
 
 ### \[Proposed\] Undo/redo feature
@@ -662,13 +716,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -713,10 +760,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | TA          | filter students according to their group                | quickly find relevant information                                                                |
 | `* * *`  | TA          | mark attendance for a specific student                  | keep track of each student's attendance details                                                  |
 | `* * *`  | TA          | add a new group                                         | keep track of the groups that i teach                                                            |
-| `* * *`  | TA          | add a telegram link to each group                       | keep track of the telegram groups for each group that i teach                                    |
+| `* * *`  | TA          | add a Telegram link to each group                       | keep track of the Telegram invite links for each group that i teach                              |
 | `* * *`  | TA          | delete an existing group                                | track the existing number of groups that i currently teach                                       |
 | `* * *`  | TA          | generate an email template                              | conveniently sent an email to the student recipients desired                                     |
-| `* * *`  | TA          | generate an email template containing the telegram link | conveniently sent an email containing the telegram invite link to the student recipients desired |
+| `* * *`  | TA          | generate an email template containing the Telegram link | conveniently sent an email containing the Telegram invite link to the student recipients desired |
 | `* *`    | new TA user | be able to access a help window                         | easily seek help for the errors encountered                                                      |
 
 
@@ -929,18 +976,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 
-**Use case: UC09 - Add a telegram link**
+**Use case: UC09 - Add a Telegram link**
 
 **MSS**
 
-1.  TA requests to add a specific telegram link to a particular group
-2.  System adds the telegram link to the group
+1.  TA requests to add a specific Telegram link to a particular group
+2.  System adds the Telegram link to the group
 
     Use case ends.
 
 **Extensions**
 
-* 1a. The given telegram link is invalid or incomplete.
+* 1a. The given Telegram link is invalid or incomplete.
 
   Use case resumes at step 1.
 
@@ -979,12 +1026,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case resumes at step 1.
 
 
-**Use case: UC012 - Generate email template containing telegram invite link**
+**Use case: UC012 - Generate email template containing Telegram invite link**
 
 **MSS**
 
-1.  TA requests generation of an email template to send the telegram invite link for a specific group
-2.  System shows the email template prefilled with emails of specific students recipients and the telegram invite link for that particular group
+1.  TA requests generation of an email template to send the Telegram invite link for a specific group
+2.  System shows the email template prefilled with emails of specific students recipients and the Telegram invite link for that particular group
 
     Use case ends.
 
@@ -1004,7 +1051,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4. Should be able to hold a maximum of 300 students in total without any significant decrease in performance.
 5. Any command should be visible within 3 seconds, ensuring a smooth and efficient user experience.
 6. The system should have an uptime of at least 99%, allowing tutors to access student information reliably at any time.
-7. Student important information (i.e name, email, telegram handle, contact number) should be encrypted both in transit and at rest to prevent unauthorized access.
+7. Student important information (i.e name, email, Telegram handle, contact number) should be encrypted both in transit and at rest to prevent unauthorized access.
 8. The system should implement secure authentication mechanisms, such as multi-factor authentication, to verify the identity of users.
 9. TAs should only have access to student information for classes they are assigned to, ensuring data privacy.
 10. The system should be able to scale horizontally to accommodate an increase in the number of users and classes without compromising performance.
@@ -1139,7 +1186,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Editing a student
 
-1. Edit a student to change their name/phone number/email address/year of study/major/telegram handle/remark/group
+1. Edit a student to change their name/phone number/email address/year of study/major/Telegram handle/remark/group
 
     1. Prerequisites: List all students using the `list` command. There must be at least one student in the list.
 
@@ -1235,7 +1282,7 @@ testers are expected to do more *exploratory* testing.
    i. Prerequisite: List all lessons using the `list` command.
 
    ii. Test case: `editgroup g/TUT05 tg/https://t.me/abcdefg` where group `TUT05` exists in TutorsContactsPro <br>
-   Expected: The group with the name `TUT05` is edited and the telegram invite link `https://t.me/abcdefg` is assigned to group `TUT05`.
+   Expected: The group with the name `TUT05` is edited and the Telegram invite link `https://t.me/abcdefg` is assigned to group `TUT05`.
    The details of the edited group is shown in the success message.
 
    iii. Test case: `editgroup g/RE1 tg/https://t.me/abcdefg` where an invalid `GROUP_NAME` is provided <br>
@@ -1289,14 +1336,14 @@ testers are expected to do more *exploratory* testing.
    v. Other incorrect add studio commands to try: `mail`, `...` <br>
    Expected: Similar to previous.
 
-### Generating email template with telegram link
+### Generating email template with Telegram link
 
-1. Generates a prefilled email template, including the telegram link for that specific group and email addresses of student recipients from the specified group.
+1. Generates a prefilled email template, including the Telegram link for that specific group and email addresses of student recipients from the specified group.
 
    i. Prerequisite: List all lessons using the `list` command.
 
    ii. Test case: `mailtg g/TUT05` where group `TUT05` exists in TutorsContactsPro <br>
-   Expected: Generates a email template containing the telegram invite link for group `TUT05` and email addresses of all students belonging to `LAB05`
+   Expected: Generates a email template containing the Telegram invite link for group `TUT05` and email addresses of all students belonging to `LAB05`
 
    iii. Test case: `mailtg g/RE1` where an invalid `GROUP_NAME` is provided <br>
    Expected: No email template generated. Error details shown in the error message.
@@ -1330,24 +1377,21 @@ Given below are the planned enhancements for the application.
 
 **Team size: 4**
 
-1. **Improve add feature**: Currently, TutorContactsPro allows the addition of students with the same exact details and names but different case for names which can be misleading. This can result in addition of duplicate students instead. Hence, we plan to improve the `add` feature to detect whether students added has completely similar details regardless of casing and throw a duplicate student added error when appropriate.
+1. **Improve add feature**: Currently, TutorContactsPro allows the addition of students with the same exact details and names but different case for names which can be misleading. This can result in addition of duplicate students instead. Hence, we plan to improve the `add` feature to detect whether students added have completely similar details regardless of casing and throw a duplicate student added warning where appropriate.
 
-2. **Allow the display of telegram invite link**: TutorsContactsPro currently only allows the assignment of the telegram invite link to a specific group via the `editgroup` command which is not too informative. We plan to improve the interface to include a field to display the telegram invite link assigned for each specific group.
+2. **Allow the display of Telegram invite link**: TutorsContactsPro currently only allows the assignment of the Telegram invite link to a specific group via the `editgroup` command which is not too informative. We plan to improve the interface to include a field to display the Telegram invite link assigned for each specific group.
 
 3. **Improve the group tabs**: After marking the attendance in a particular group tab, TutorsContactsPro currently will automatically direct users to the results tab which can result in inconvenience for users. We plan to improve the group tabs interface such that users will still be able to remain on their selected group tab aftering executing any commands.
 
-4. **Improve add telegram link feature**: Currently, TutorsContactsPro only allows the assignment of a telegram invite link to a specific group via the `editgroup` command which may not be very intuitive for users. We plan to improve this feature by combining it with the `addgroup` feature to allow addition of a group together with it’s telegram invite link.
+4. **Improve add Telegram link feature**: Currently, TutorsContactsPro only allows the assignment of a Telegram invite link to a specific group via the `editgroup` command which may not be very intuitive for users. We plan to improve this feature by combining it with the `addgroup` feature to allow addition of a group together with the Telegram invite link.
 
-5. **Add unmark attendance feature**: TutorsContactsPro currently only allows users to mark the attendance for a particular student which can be inconvenient when users make a mistake marking the attendance and they are unable to undo it. Therefore, in the future, we plan to include an additional unmark attendance for a specified student.
+5. **Add unmark attendance feature**: TutorsContactsPro currently allows TA users to mark the attendance for a particular student which can be inconvenient when users make a mistake marking the attendance and they are unable to undo it. Therefore, in the future, we plan to include an additional unmark attendance feature for a specified student.
 
 6. **Improve generation of email template command**: The current `mail` command only takes in the `GROUP_NAME` input with no prefixes whereas the `mailtg` command takes in a `g/` prefix with a `GROUP_NAME` input. The difference in the command format for these two closely related commands can make it complex for users. Therefore, we plan to simplify and standardise the command input for `mail` and `mailtg` to be `g/GROUP_NAME`.
 
-7. **Improve generation of email template command**: When executing mail, mailtg command with an invalid group, including an non-existing group, empty group and group without telegram invite link. TutorsContactsPro currently does not throw an error for users. We plan to improve them such that an error message will be thrown when the input provided is invalid.
+7. **Improve generation of email template command**: When executing mail, mailtg command with an invalid group, including an non-existing group, empty group and group without Telegram invite link. TutorsContactsPro currently does not display a warning for users. We plan to improve them such that a warning message will be displayed when the input provided is invalid.
 
 8. **Make filter feature error message more specific**: When filtered with a non-existing group, the current error message displays`0 students listed!` which is too general. We plan to `filter` command check whether the `GROUP_NAME` provided is an existing group. The error message will then also mention the reason for failing to filter any students: `Group does not exist, 0 students listed!`
-
-
-
 
 
 ## **Appendix: Effort**
