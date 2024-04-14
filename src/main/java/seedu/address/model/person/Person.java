@@ -139,8 +139,7 @@ public class Person {
                 && year.equals(otherPerson.year)
                 && telegram.equals(otherPerson.telegram)
                 && major.equals(otherPerson.major)
-                && remark.equals(otherPerson.remark)
-                && groups.equals(otherPerson.groups);
+                && remark.equals(otherPerson.remark);
     }
 
     @Override

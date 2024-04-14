@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
@@ -45,7 +48,7 @@ public class PersonAttendanceList extends UiPart<Region> {
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
-    public PersonAttendanceList(Person person, int displayedIndex, String groupName) {
+    public PersonAttendanceList(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
@@ -53,7 +56,7 @@ public class PersonAttendanceList extends UiPart<Region> {
 
         populateGroupNameCol();
         createAttendanceCols();
-        populateAttendanceCols(groupName);
+        populateAttendanceCols();
         groups.getChildren().add(attendanceTable);
         setTableHt();
     }
@@ -85,28 +88,13 @@ public class PersonAttendanceList extends UiPart<Region> {
     /**
      * Populates columns with weekly attendance data.
      */
-    public void populateAttendanceCols(String groupName) {
-//        for (Group group : person.getGroups()) {
-//            if (group.groupName.equals(groupName)) {
-//                String[] attendanceArray = group.attendance.toArray(new String[0]);
-//                AttendanceRow row = new AttendanceRow(group.groupName, attendanceArray);
-//                attendanceTable.getItems().add(row);
-//                break;
-//            }
-//        }
-        person.getGroups().stream()
-                .filter(group -> group.groupName.equals(groupName))
-                .findFirst()
-                .ifPresent(group -> {
-                    String[] attendanceArray = group.attendance.toArray(new String[0]);
-                    attendanceTable.getItems().add(new AttendanceRow(group.groupName, attendanceArray));
-                });
-//        List<AttendanceRow> attendanceRows = new ArrayList<>();
-//        person.getGroups().forEach(group -> {
-//            String[] attendanceArray = group.attendance.toArray(new String[0]);
-//            attendanceRows.add(new AttendanceRow(group.groupName, attendanceArray));
-//        });
-//        attendanceTable.getItems().addAll(attendanceRows);
+    public void populateAttendanceCols() {
+        List<AttendanceRow> attendanceRows = new ArrayList<>();
+        person.getGroups().forEach(group -> {
+            String[] attendanceArray = group.attendance.toArray(new String[0]);
+            attendanceRows.add(new AttendanceRow(group.groupName, attendanceArray));
+        });
+        attendanceTable.getItems().addAll(attendanceRows);
     }
 
     /**
