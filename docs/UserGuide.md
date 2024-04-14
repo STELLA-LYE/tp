@@ -316,7 +316,7 @@ Format: `help`
 
 > ℹ️ **Information:**
 > * Strictly enter only the `help` command. Any inputs after `help` will be ignored.
-    e.g. `help 44` is entered, `44` input following `help` will be ignored and `help` command will still be executed.
+    e.g. When `help 44` is entered, the `44` input following `help` will be ignored and the `help` command will still be executed.
 
 ### <span id='feature-list'> Listing all students : `list` </span>
 
@@ -336,7 +336,7 @@ Format: `clear`
 
 > ℹ️ **Information:**
 > * Strictly enter only the `clear` command. Any inputs after `clear` will be ignored.
-    e.g. `clear 44` is entered, `44` input following `clear` will be ignored and `clear` command will still be executed.
+    e.g. When `clear 44` is entered, the `44` input following `clear` will be ignored and the `clear` command will still be executed.
 
 ### <span id='feature-exit'> Exiting the program : `exit` <span>
 
