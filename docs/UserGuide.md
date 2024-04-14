@@ -181,10 +181,12 @@ You should see `TutorsContactsPro.jar` in the list of files printed. Here's what
 
    After executing this command, a graphical user interface (GUI) similar to the one below should appear shortly:
 
-   <img src="images/UpdatedUI.png" width="700">
+   <img src="images/UI.png" width="700">
 
 
 Note: The application comes with some sample data for your reference.
+
+5. Open the application in full screen mode. You are now ready to explore TutorsContactsPro!
 
 ---
 
@@ -294,11 +296,11 @@ Some example commands you can try:
 
 | Command format        | Representation                                                                                                                  | Examples                                                                                      |
 |-----------------------|---------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| `UPPER_CASE`          | Words in `UPPER_CASE` are the parameters to be supplied by the user                                                             | in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`                  |
-| square brackets `[]`  | Items in square brackets are optional                                                                                           | `n/NAME [g/Group]` can be used as `n/John Doe g/TUT` or as `n/John Doe`                       |
+| `UPPER_CASE`          | Words in `UPPER_CASE` are the parameters to be supplied by the user                                                             | In `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`                  |
+| square brackets `[]`  | Items in square brackets are optional                                                                                           | `n/NAME [g/Group]` can be used as `n/John Doe g/TUT07` or as `n/John Doe`                     |
 | `…`                   | Items with `…`​ after them can be used multiple times including zero times                                                      | `[g/GROUP]…​` can be used as `g/TUT03`, `g/LAB01`, `g/REC08` etc                              |
-| Order                 | Parameters can be in any order                                                                                                  | if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable. |
-| Extraneous parameters |  Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored | if the command specifies `help 123`, it will be interpreted as `help`                         |                                                                                                 | Singapore phone number, 8 digits, without country code                                        |
+| Order                 | Parameters can be in any order                                                                                                  | If the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable. |
+| Extraneous parameters |  Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored | If the command specifies `help 123`, it will be interpreted as `help`                         |                                                                                                 | Singapore phone number, 8 digits, without country code                                        |
 
 
 > **⚠️Warning:**
