@@ -11,17 +11,17 @@ pageNav: 3
 
 ## Quick Overview
 
-* [Introduction ](#feature-introduction)
+* [Introduction](#feature-introduction)
 
-  * [About TutorsContactsPro ](#feature-about)
+  * [About TutorsContactsPro](#feature-about)
 
   * [About the User Guide](#feature-aboutUG)
 
-  * [Navigating the User Guide ](#navigating-the-user-guide)
+  * [Navigating the User Guide](#navigating-the-user-guide)
 
 * [Getting Started](#feature-gettingStarted)
 
-  * [Installing and Launching TutorsContactsPro ](#feature-install)
+  * [Installing and Launching TutorsContactsPro](#feature-install)
 
   * [Learning about TutorsContactsPro components](#feature-learn)
 
@@ -33,13 +33,13 @@ pageNav: 3
 
 * [Basic Commands](#feature-basicCommand)
 
-  * [Viewing help: `help` ](#feature-help)
+  * [Viewing help: `help`](#feature-help)
 
-  * [Listing all students: `list` ](#feature-list)
+  * [Listing all students: `list`](#feature-list)
 
   * [Clearing all entries: `clear`](#feature-clear)
 
-  * [Exiting the program: `exit` ](#feature-exit)
+  * [Exiting the program: `exit`](#feature-exit)
 
 * [Student Commands](#feature-studentCommand)
 
@@ -185,7 +185,6 @@ You should see `TutorsContactsPro.jar` in the list of files printed. Here's what
 
 Note: The application comes with some sample data for your reference.
 
-5. Open the application in full screen mode. You are now ready to explore TutorsContactsPro!
 
 ---
 
@@ -246,7 +245,7 @@ More is to be explained in [`help`](#feature-help) feature.
 * You can see student's name, phone number, year of study, major, email address, group, Telegram handle and even whatever remarks that you have for each of them as needed!
 
 The following image displays the layout of a student panel. 
-![Student Panel](images/studentPanel.png)
+![Student Panel](images/StudentPanel.png)
 
 ### Result and Group Tabs
 * There are labelled tabs below the `Student Details` header. 
@@ -277,9 +276,9 @@ Some example commands you can try:
 
 * [`filter TUT10`](#feature-filter) : Lists all the students in group 'TUT10'
 
-* [`mark 1 g/TUT05 w/1 a/P`](#feature-mark) : Marks the first student group 'TUT05' week 1 attendance as Present in TutorsContactsPro.
+* [`mark 1 g/TUT05 w/1 a/P`](#feature-mark) : Marks the attendance of the first student in group 'TUT05' as present in TutorsContactsPro.
 
-* [`delete 3`](#feature-delete) : Deletes the 3rd student shown in the current list.
+* [`delete 3`](#feature-delete) : Deletes the third student shown in the current list.
 
 * [`addgroup g/TUT01`](#feature-addgroup) : Adds the group 'TUT01' to TutorsContactsPro.
 
@@ -304,13 +303,13 @@ Some example commands you can try:
 
 **Notes about the command format:**<br>
 
-| Command format        | Representation                                                                                                                  | Examples                                                                                      |
-|-----------------------|---------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| `UPPER_CASE`          | Words in `UPPER_CASE` are the parameters to be supplied by the user                                                             | In `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`                  |
-| square brackets `[]`  | Items in square brackets are optional                                                                                           | `n/NAME [g/Group]` can be used as `n/John Doe g/TUT07` or as `n/John Doe`                     |
-| `…`                   | Items with `…`​ after them can be used multiple times including zero times                                                      | `[g/GROUP]…​` can be used as `g/TUT03`, `g/LAB01`, `g/REC08` etc                              |
-| Order                 | Parameters can be in any order                                                                                                  | If the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable. |
-| Extraneous parameters |  Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored | If the command specifies `help 123`, it will be interpreted as `help`                         |                                                                                                 | Singapore phone number, 8 digits, without country code                                        |
+| Command format        | Representation                                                                                                                  | Examples                                                                                     |
+|-----------------------|---------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| `UPPER_CASE`          | Words in `UPPER_CASE` are the parameters to be supplied by the user                                                             | In `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`                 |
+| square brackets `[]`  | Items in square brackets are optional                                                                                           | `n/NAME [g/Group]` can be used as `n/John Doe g/TUT07` or as `n/John Doe`                    |
+| `…`                   | Items with `…`​ after them can be used multiple times including zero times                                                      | `[g/GROUP]…​` can be used as `g/TUT03`, `g/LAB01`, `g/REC08`, etc.                           |
+| Order                 | Parameters can be in any order                                                                                                  | If the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable |
+| Extraneous parameters |  Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored | If the command specifies `help 123`, it will be interpreted as `help`                        |                                                                                                 | Singapore phone number, 8 digits, without country code                                        |
 
 
 > **⚠️Warning:**
@@ -341,6 +340,9 @@ Format: `list`
 
 > 💡**Tips:**
 Auto-capitalization will be handled. Extra/trailing/leading spaces will be removed.
+> ℹ️ **Information:**
+> * Strictly enter only the `list` command. Any inputs after `list` will be ignored.
+    E.g. When `list 44` is entered, the `44` input following `list` will be ignored and the `list` command will still be executed.
 
 
 ### <span id='feature-clear'> Clearing all entries : `clear` <span>
@@ -367,33 +369,33 @@ This section contains commands for managing students in TutorsContactsPro.
 
 Adds a student to the list, so that you can keep track of all student details easily.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL y/YEAR m/MAJOR tg/TELEGRAM_HANDLE [r/REMARK]…​ [g/GROUP]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL y/YEAR m/MAJOR tg/TELEGRAM_HANDLE [r/REMARK] [g/GROUP]…​`
 
 > ℹ️ **Information:**
 > * Allows addition of multiple groups to a student.
-> * Allows addition of multiple remarks to a student.
-> * Allows adding a student with an email that does not include a domain name as email can be hosted on a local machine. 
+> * Allows optional addition of a single remark or group(s) to a student.
+> * Allows addition of a student with an email that does not include a domain name as email can be hosted on a local machine. 
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB05 `
-  will add a student named John Doe to your student list.
-  * Phone number: 98765432,
+* `add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB05` 
+   will add a student named John Doe to your student list.
+  * Phone number: 98765432
   * Email address: johnd@example.com
   * Telegram handle: johndoe
   * Year of study: 2
   * Major: Computer Science
-  * Remarks: Very quiet student
-  * Groups: TUT04 and LAB05
+  * Remark: Very quiet student
+  * Group(s): TUT04 and LAB05
 
-* `add n/Kendra Huetta p/98765367 e/Kendra@example.com y/1 m/Computer Science tg/KendraHuetta r/quiet student g/LAB05 `
-  will add a student named Kendra Huetta, to your student list, as shown in the image below.
+* `add n/Kendra Huetta p/98765367 e/Kendra@example.com y/1 m/Computer Science tg/KendraHuetta r/quiet student g/LAB05`
+   will add a student named Kendra Huetta, to your student list, as shown in the image below.
   * Phone number: 98765367
   * Email address: Kendra@example.com
   * Telegram handle: KendraHuetta
   * Year of study: 1
   * Major: Computer Science
-  * Remarks: Quiet student
-  * Group LAB05
+  * Remark: quiet student
+  * Group(s): LAB05
 
 ![result for 'add Kendra Huetta'](images/addFeature.png)
 
@@ -401,7 +403,7 @@ Examples:
 
 Edits an existing student you have selected. This way, you can always keep student details recorded up to date!
 
-Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [y/YEAR] [m/MAJOR] [tg/TELEGRAM_HANDLE] [r/REMARK]…​ [g/Group]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [y/YEAR] [m/MAJOR] [tg/TELEGRAM_HANDLE] [r/REMARK] [g/Group]…​`
 
 > ℹ️ **Information:**
 > * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
@@ -412,7 +414,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [y/YEAR] [m/MAJOR] [tg/T
 > * Existing values will be updated to the input values. <br>
 > * When editing groups, the existing groups of the student will be removed i.e adding of groups is not cumulative. <br>
 > * You can remove all the student’s groups by typing `g/` without specifying any groups after it. <br>
-> * You can remove the remark of a student by typing `r/` without specifying any groups after it. <br>
+> * You can remove the remark of a student by typing `r/` without specifying any remark after it. <br>
 
 
 Examples:
@@ -440,7 +442,7 @@ Examples:
 
 ### <span id='feature-filter'> Filtering students using group: `filter` <span>
 
-Filters and list students belonging to any of the given group name keyword.
+Filters and lists students belonging to any of the given group name keyword.
 You can filter students only when the keywords **match fully**.
 
 Format: `filter KEYWORD [MORE_KEYWORDS]`
@@ -454,7 +456,7 @@ Format: `filter KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 * `filter LAB10` returns only `Kendra Huetta` belonging to group `LAB10`.
-* `filter TUT04 ` returns `John Doe` and `Johan Louis` belonging to group `TUT04` as shown in the image below.
+* `filter TUT04` returns `John Doe` and `Johan Louis` belonging to group `TUT04` as shown in the image below.
 
   ![result for 'filter TU'](images/filterFeature.png)
 
@@ -495,7 +497,7 @@ Format: `delete INDEX`
 
 Examples:
 * `find Betsy` followed by `delete 1` deletes the 1st student in the results of the `find` command.
-* `list` followed by `delete 6` deletes the 6th student in TutorsContactsPro. In the example below, John, the 6th student is deleted.
+* `list` followed by `delete 6` deletes the 6th student in TutorsContactsPro. In the example below, John Doe, the 6th student is deleted.
   ![result for 'delete 7'](images/deleteFeature.png)
 
 
@@ -520,15 +522,15 @@ format: `addgroup g/GROUP_NAME`
 
 
 Examples:
-* `addgroup g/LAB12` Adds the group `LAB12` to TutorsContactsPro.
-* `addgroup g/TUT01` Adds the group `TUT01` to TutorsContactsPro as shown in the image below.
+* `addgroup g/LAB12` adds the group `LAB12` to TutorsContactsPro.
+* `addgroup g/TUT01` adds the group `TUT01` to TutorsContactsPro as shown in the image below.
   ![result for 'addgroup g/TUT01'](images/addgroupFeature.png)
 
 ### <span id='feature-editgroup'> Editing a group: `editgroup` <span>
 
 Edits an existing group in TutorsContactsPro, allowing you to add or edit the Telegram invite link assigned for each group so that you can remain up to date with each group's information.
 
-format: `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`
+Format: `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`
 
 > ⚠️️ **Constraint:**
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
@@ -538,9 +540,9 @@ format: `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`
 > * Assigns the Telegram group invite link provided in `TELEGRAM_LINK` to the group with the given `GROUP_NAME`. 
 
 Examples
-* `editgroup g/LAB12 tg/https://t.me/abcdefg` Adds the specified Telegram link `https://t.me/abcdefg` to group `LAB12`.
-* `editgroup g/TUT01 tg/` Removes the Telegram link from group `TUT01`.
-* `editgroup g/TUT01 tg/https://t.me/aafhkbwiu` Adds the specified Telegram link `/https://t.me/aafhkbwiu` to group `TUT01` as shown in the image below.
+* `editgroup g/LAB12 tg/https://t.me/abcdefg` adds the specified Telegram link `https://t.me/abcdefg` to group `LAB12`.
+* `editgroup g/TUT01 tg/` removes the Telegram link from group `TUT01`.
+* `editgroup g/TUT01 tg/https://t.me/aafhkbwiu` adds the specified Telegram link `/https://t.me/aafhkbwiu` to group `TUT01` as shown in the image below.
   ![result for 'editgroup g/TUT01 tg/https://t.me/aafhkbwiu'](images/editgroupFeature.png)  
 
 ### <span id='feature-deletegroup'> Deleting a group: `deletegroup` <span>
@@ -548,14 +550,14 @@ Examples
 Deletes an existing group in TutorsContactsPro, so that you can start a fresh for the next teaching semester.
 TutorsContactsPro will then remove the dedicated tab for the group deleted.
 
-format: `deletegroup g/GROUP_NAME`
+Format: `deletegroup g/GROUP_NAME`
 
 > ⚠️️ **Constraint:**
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
 
 Examples:
-* `deletegroup g/LAB12` Deletes the group `LAB12` from TutorsContactsPro.
-* `deletegroup g/TUT01` Deletes the group `TUT01` from TutorsContactsPro as shown in the image below.
+* `deletegroup g/LAB12` deletes the group `LAB12` from TutorsContactsPro.
+* `deletegroup g/TUT01` deletes the group `TUT01` from TutorsContactsPro as shown in the image below.
   ![result for 'deletegroup g/TUT01'](images/deletegroupFeature.png)
 
 ### <span id='feature-mail'> Generating email template : `mail` <span>
@@ -571,7 +573,7 @@ Format: `mail [GROUP_NAME]`
 > * `GROUP_NAME` must be a valid existing group.
 > * It requires a **full match** for the keyword.
 > * `GROUP_NAME` is optional and when no `GROUP_NAME` is entered, email addresses of all students on the current list will be included.
-> * If `GROUP_NAME` is entered, only email addresses of students belonging to the `[GROUP_NAME]` specified will be included.
+> * If `GROUP_NAME` is entered, only email addresses of students belonging to the `GROUP_NAME` specified will be included.
 
 Examples:
 * `mail` generates a email template containing email addresses of all students on the current list.
@@ -664,7 +666,7 @@ Given below are the planned future enhancements for the application.
 
 7. **Improve generation of email template command**: When executing mail, mailtg command with an invalid group, including an non-existing group, empty group and group without Telegram invite link. TutorsContactsPro currently does not display a warning for users. We plan to improve them such that a warning message will be displayed when the input provided is invalid.
 
-8. **Make filter feature error message more specific**: When filtered with a non-existing group, the current error message displays`0 students listed!` which is too general. We plan to `filter` command check whether the `GROUP_NAME` provided is an existing group. The error message will then also mention the reason for failing to filter any students: `Group does not exist, 0 students listed!`
+8. **Make filter feature error message more specific**: When filtered with a non-existing group, the current error message displays `0 students listed!` which is too general. We plan to use `filter` command to check whether the `GROUP_NAME` provided is an existing group. The error message will then also mention the reason for failing to filter any students: `Group does not exist, 0 students listed!`
 
 _coming soon ..._
 
