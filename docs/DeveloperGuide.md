@@ -577,7 +577,11 @@ The user inputs the `mail` command followed by optional keywords specifying grou
 
 The Mail Command feature provides an efficient way for users to compose emails to specific groups of students directly from the application. By leveraging the power of filtering, it allows for targeted communication while maintaining simplicity and ease of use.
 
-The following activity diagram illustrates how the `mail` mechanism works:
+The following sequence diagram illustrates how the `mail` mechanism works:
+
+<img src="images/MailSequenceDiagram.png" width="900" />
+
+The following activity diagram summarizes what happens when a user executes the `mail` command:
 
 <img src="images/MailActivityDiagram.png" width="900" />
 
@@ -620,7 +624,11 @@ The user inputs the `mailtg` command followed by the `/g` prefix and the keyword
 
 The Mailtg Command feature provides an efficient way for users to compose emails to specific groups of students directly from the application. By leveraging the power of filtering, it allows for targeted communication while maintaining simplicity and ease of use.
 
-The following activity diagram illustrates how the `mailtg` mechanism works:
+The following sequence diagram illustrates how the `mailtg` mechanism works:
+
+<img src="images/MailtgSequenceDiagram.png" width="900" />
+
+The following activity diagram summarizes what happens when a user executes the `mailtg` command:
 
 <img src="images/MailtgActivityDiagram.png" width="900" />
 
