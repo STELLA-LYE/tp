@@ -146,31 +146,31 @@ Ensure you have Java `11` or above installed on your computer. If you don't have
 
 ### Step 2: Download
 
-Download the latest `TutorsContactsPro.jar` from [here](https://github.com/AY2324S2-CS2103T-W10-4/tp/releases).
+Download the latest `[CS2103T-W10-4][TutorsContactsPro].jar` from [here](https://github.com/AY2324S2-CS2103T-W10-4/tp/releases).
 
 ### Step 3: Set up TutorsContactsPro Home Folder
 
-Copy or move the downloaded `TutorsContactsPro.jar` file to the folder you want to use as the _home folder_ for your TutorsContactsPro.
+Copy or move the downloaded `[CS2103T-W10-4][TutorsContactsPro].jar` file to the folder you want to use as the _home folder_ for your TutorsContactsPro.
 
 ### Step 4: Launch TutorsContactsPro
 
 1. Open a terminal (MacOS) or command prompt (Windows).
 
-2. Navigate to the folder where you placed the `TutorsContactsPro.jar` file using the `cd` command. For example, John Doe has his `TutorsContactsPro.jar` file in `/Users/JohnDoe/Desktop/TutorsContactsPro`, so he'll run:
+2. Navigate to the folder where you placed the `[CS2103T-W10-4][TutorsContactsPro].jar` file using the `cd` command. For example, John Doe has his `[CS2103T-W10-4][TutorsContactsPro].jar` file in `/Users/JohnDoe/Desktop/TutorsContactsPro`, so he'll run:
 
     ```bash
     cd /Users/JohnDoe/Desktop/TutorsContactsPro
     ```
 
-3. If you are using terminal, verify that your working directory contains `TutorsContactsPro.jar` by using the `ls` command. 
-Else if you are using command prompt, verify that your working directory contains `TutorsContactsPro.jar` by using the `dir` command.
+3. If you are using terminal, verify that your working directory contains `[CS2103T-W10-4][TutorsContactsPro].jar` by using the `ls` command. 
+Else if you are using command prompt, verify that your working directory contains `[CS2103T-W10-4][TutorsContactsPro].jar` by using the `dir` command.
 You should see `TutorsContactsPro.jar` in the list of files printed. Here's what our John Doe got when running this command.
 
     ```bash
     JohnDoe@johndoe TutorsContactsPro % ls
     TutorsContactsPro.jar
     ```
-4. Once your terminal's working directory is the folder that contains `TutorsContactsPro.jar`, run the following command to launch TutorsContactsPro:
+4. Once your terminal's working directory is the folder that contains `[CS2103T-W10-4][TutorsContactsPro].jar`, run the following command to launch TutorsContactsPro:
 
     ```bash 
     java -jar TutorsContactsPro.jar
@@ -200,7 +200,7 @@ TutorsContactsPro allows you to store essential information or attributes about 
 |-------------------|------------------------------------------|--------|-----------------------------------------------------------------------------------------|
 | `NAME`            | Name of the student                      | `n/`   | Auto-capitalization will be handled. Extra/trailing/leading spaces will be removed      |
 | `PHONE_NUMBER`    | Phone number of the student              | `p/`   | Singapore phone number, 8 digits, without country code                                  |
-| `EMAIL`           | Email of the student                     | `e/`   | Must be in email format `username`@`email`.com                                          |
+| `EMAIL`           | Email of the student                     | `e/`   | Must be in email format `email username`@`domain`                                       |
 | `YEAR`            | Academic Year of the student             | `y/`   | A number ranging from 1 - 6, inclusive                                                  |
 | `MAJOR`           | Academic Major of the student contact    | `m/`   | String to represent the major                                                           |
 | `TELEGRAM_HANDLE` | Telegram handle of the student           | `tg/`  | Telegram handle format (a-z, 0-9 and underscores, case-insensitive), without prefix “@” |
@@ -217,7 +217,7 @@ It can only strictly be a Tutorial/Recitation/Lab.
 | Parameter       | Representation             | Prefix | Constraints                                                                     |
 |-----------------|----------------------------|--------|---------------------------------------------------------------------------------|
 | `GROUP_NAME`    | Name of the group          | `g/`   | Group name must begin with `TUT/REC/LAB` + `2-digit number`                     |
-| `TELEGRAM_LINK` | Telegram link of the group | `tg/`  | Must be a valid telegram group link                                             |
+| `TELEGRAM_LINK` | Telegram link of the group | `tg/`  | Must be a valid Telegram group link                                             |
 | `ATTENDANCE   ` | Attendance of the student  |   NA   | A string array representing the attendance, initially automatically constructed |
 
 
@@ -239,7 +239,7 @@ More is to be explained in [`help`](#feature-help) feature.
 
 ### Student Panel
 * The Student panel is a panel that you can use to see the list of students stored in TutorsContactsPro.
-* You can see student's name, phone number, year of study, major, email address, group, telegram handle and even whatever remarks that you have for each of them as needed!
+* You can see student's name, phone number, year of study, major, email address, group, Telegram handle and even whatever remarks that you have for each of them as needed!
 
 ![Student Panel](images/studentPanelUpdated.png)
 
@@ -511,7 +511,7 @@ Examples:
 
 ### <span id='feature-editgroup'> Editing a group: `editgroup` <span>
 
-Edits an existing group in TutorsContactsPro, allowing you to add or edit the telegram invite link assigned for each group so that you can remain up to date with each group's information.
+Edits an existing group in TutorsContactsPro, allowing you to add or edit the Telegram invite link assigned for each group so that you can remain up to date with each group's information.
 
 format: `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`
 
@@ -568,9 +568,9 @@ The image below shows the email template generated.
 ![result for 'mail LAB05'](images/mail_template.png)
 
 
-### <span id='feature-mailtg'>  Generating email template for telegram link: `mailtg` <span>
+### <span id='feature-mailtg'>  Generating email template for Telegram link: `mailtg` <span>
 
-Generates a prefilled email template, including the telegram link for that specific group and email addresses of student recipients from the specified group.
+Generates a prefilled email template, including the Telegram link for that specific group and email addresses of student recipients from the specified group.
 
 A pop-up window will be generated, allowing you to open the email template with a simple 'click' for greater convenience.
 
@@ -583,12 +583,12 @@ Format: `mailtg g/GROUP_NAME`
 > * With contrast to the previous `mail` command, `mail` command catered for multiple groups whereas `mailtg` command is catered to generating an email template with respect to a specific group. 
 
 Examples:
-* `mailtg g/TUT04` generates a email template containing the telegram link for group `TUT04` and with pre-filled email addresses of all students belonging to `TUT04`.
-* `mailtg g/LAB05` generates a email template containing the telegram link for group `LAB05` and with pre-filled email addresses of all students belonging to `LAB05` as shown in the images below.
+* `mailtg g/TUT04` generates a email template containing the Telegram link for group `TUT04` and with pre-filled email addresses of all students belonging to `TUT04`.
+* `mailtg g/LAB05` generates a email template containing the Telegram link for group `LAB05` and with pre-filled email addresses of all students belonging to `LAB05` as shown in the images below.
 
 ![result for 'mailtg LAB05'](images/MailtgFeature.png)
 
-The image below shows the email template containing the group telegram link generated.
+The image below shows the email template containing the group Telegram link generated.
 ![result for 'mailtg LAB05'](images/mailtgteleFeature.png)
 
 
@@ -633,7 +633,25 @@ _Details coming soon ..._
 --------------------------------------------------------------------------------------------------------------------
 
 ## <span id='feature-enhancements'> Planned Enhancements <span>
+Given below are the planned enhancements for the application.
 
+**Team size: 4**
+
+1. **Improve add feature**: Currently, TutorContactsPro allows the addition of students with the same exact details and names but different case for names which can be misleading. This can result in addition of duplicate students instead. Hence, we plan to improve the `add` feature to detect whether students added have completely similar details regardless of casing and throw a duplicate student added warning where appropriate.
+
+2. **Allow the display of Telegram invite link**: TutorsContactsPro currently only allows the assignment of the Telegram invite link to a specific group via the `editgroup` command which is not too informative. We plan to improve the interface to include a field to display the Telegram invite link assigned for each specific group.
+
+3. **Improve the group tabs**: After marking the attendance in a particular group tab, TutorsContactsPro currently will automatically direct users to the results tab which can result in inconvenience for users. We plan to improve the group tabs interface such that users will still be able to remain on their selected group tab aftering executing any commands.
+
+4. **Improve add Telegram link feature**: Currently, TutorsContactsPro only allows the assignment of a Telegram invite link to a specific group via the `editgroup` command which may not be very intuitive for users. We plan to improve this feature by combining it with the `addgroup` feature to allow addition of a group together with the Telegram invite link.
+
+5. **Add unmark attendance feature**: TutorsContactsPro currently allows TA users to mark the attendance for a particular student which can be inconvenient when users make a mistake marking the attendance and they are unable to undo it. Therefore, in the future, we plan to include an additional unmark attendance feature for a specified student.
+
+6. **Improve generation of email template command**: The current `mail` command only takes in the `GROUP_NAME` input with no prefixes whereas the `mailtg` command takes in a `g/` prefix with a `GROUP_NAME` input. The difference in the command format for these two closely related commands can make it complex for users. Therefore, we plan to simplify and standardise the command input for `mail` and `mailtg` to be `g/GROUP_NAME`.
+
+7. **Improve generation of email template command**: When executing mail, mailtg command with an invalid group, including an non-existing group, empty group and group without Telegram invite link. TutorsContactsPro currently does not display a warning for users. We plan to improve them such that a warning message will be displayed when the input provided is invalid.
+
+8. **Make filter feature error message more specific**: When filtered with a non-existing group, the current error message displays`0 students listed!` which is too general. We plan to `filter` command check whether the `GROUP_NAME` provided is an existing group. The error message will then also mention the reason for failing to filter any students: `Group does not exist, 0 students listed!`
 
 [Table Of Contents](#table-of-contents)
 
