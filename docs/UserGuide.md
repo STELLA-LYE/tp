@@ -101,7 +101,7 @@ Feel free to turn back to this user guide if you encounter any problems or doubt
 
 * If you are **new** to TutorsContactsPro, you may refer to the **[Navigating the User Guide](#navigating-the-user-guide)** section first, then to the **[Getting Started](#getting-started)** section to start installing and using TutorsContactsPro.
 
-* If you would like to find out more about its **individual features**, you may refer to the **[Features](#feature-features)** section.
+* If you would like to find out more about its **individual features**, you may refer to the **[Command Notes and Features](#feature-features)** section.
 
 * If you are an **experienced user** and want to quickly refer to the various commands, you may refer to the **[Command Summary](#feature-summary)** section.
 
@@ -124,12 +124,14 @@ Throughout this user guide, the following symbols and keywords will be utilized 
 
 Below is the glossary for important technical terms that you may find useful.
 
-| Technical terms | Meaning                                                                                                                                                                      | 
-|-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CLI             | CLI stands for Command Line Interface. It is a text-based interface used for interacting with computer systems and executing commands by typing them into a terminal window. | 
-| GUI             | GUI stands for Graphical User Interface, a visual way of interacting with computers using icons and menus instead of text commands.                                          | 
-| Command         | Command refers to a directive or instruction given to a computer system to perform a specific task or function.                                                              |             
-| GUI component   | GUI component refers to an element or part of a graphical user interface (GUI) that allows users to interact with the software application.                                  |
+| Technical terms | Meaning                                                                                                                                                                                                                                            | 
+|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CLI             | CLI stands for Command Line Interface. It is a text-based interface used for interacting with computer systems and executing commands by typing them into a terminal window.                                                                       | 
+| GUI             | GUI stands for Graphical User Interface, a visual way of interacting with computers using icons and menus instead of text commands.                                                                                                                | 
+| Command         | Command refers to a directive or instruction given to a computer system to perform a specific task or function.                                                                                                                                    |             
+| GUI component   | GUI component refers to an element or part of a graphical user interface (GUI) that allows users to interact with the software application.                                                                                                        |
+| UI              | A User Interface (UI) refers to the platform or system through which users interact with software applications or electronic devices, encompassing elements like graphical interfaces, command-line interfaces, and voice-controlled interfaces.   |
+| Interface       | An interface is a platform or system that allows users to interact with software applications or electronic devices, aiming to create intuitive and user-friendly experiences.                                                                     |
 
 [Table Of Contents](#table-of-contents)
 
@@ -178,7 +180,7 @@ You should see `TutorsContactsPro.jar` in the list of files printed. Here's what
 
    After executing this command, a graphical user interface (GUI) similar to the one below should appear shortly:
 
-   <img src="images/UpdatedUI.png" width="700">
+   <img src="images/UI.png" width="700">
 
 
 Note: The application comes with some sample data for your reference.
@@ -214,11 +216,11 @@ It can only strictly be a Tutorial/Recitation/Lab.
 
 #### Attributes:
 
-| Parameter       | Representation             | Prefix | Constraints                                                                     |
-|-----------------|----------------------------|--------|---------------------------------------------------------------------------------|
-| `GROUP_NAME`    | Name of the group          | `g/`   | Group name must begin with `TUT/REC/LAB` + `2-digit number`                     |
-| `TELEGRAM_LINK` | Telegram link of the group | `tg/`  | Must be a valid Telegram group link                                             |
-| `ATTENDANCE   ` | Attendance of the student  |   NA   | A string array representing the attendance, initially automatically constructed |
+| Parameter       | Representation             | Prefix  | Constraints                                                                     |
+|-----------------|----------------------------|---------|---------------------------------------------------------------------------------|
+| `GROUP_NAME`    | Name of the group          | `g/`    | Group name must begin with `TUT/REC/LAB` + `2-digit number`                     |
+| `TELEGRAM_LINK` | Telegram link of the group | `tg/`   | Must be a valid Telegram group link                                             |
+| `ATTENDANCE   ` | Attendance of the student  | `a/`    | A string array representing the attendance, initially automatically constructed |
 
 
 ## <span id='feature-ui'> Understanding the User Interface (UI) <span>
@@ -241,8 +243,19 @@ More is to be explained in [`help`](#feature-help) feature.
 * The Student panel is a panel that you can use to see the list of students stored in TutorsContactsPro.
 * You can see student's name, phone number, year of study, major, email address, group, Telegram handle and even whatever remarks that you have for each of them as needed!
 
-![Student Panel](images/studentPanelUpdated.png)
+The following image displays the layout of a student panel. 
+![Student Panel](images/studentPanel.png)
 
+### Result and Group Tabs
+* There are labelled tabs below the `Student Details` header. 
+* The leftmost `Results` tab will display the list of all student contacts that are taught by you. 
+* The subsequent tabs are labelled with their respective group names. These tabs display the attendance table details of students that belong to the specific group labelled by that tab.
+
+The following image displays the layout of the group tabs.
+![GroupTabs](images/GroupTabs.png)
+
+The following image summarises the overall layout of TutorsContactsPro's User Interface(UI).
+![UI layout](images/UILayout.png)
 
 ## <span id='feature-start'> Quick start <span>
 Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
@@ -254,7 +267,7 @@ Some example commands you can try:
 
 * [`exit`](#feature-exit) : Exits the app.
 
-* [`add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB10 `](#feature-add) : Adds a student named `John Doe` to the list.
+* [`add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 `](#feature-add) : Adds a student named `John Doe` to the list.
 
 * [`edit 1 p/93840823 y/3 tg/jiejfh203`](#feature-edit) : Edits the first student on the current list.
 
@@ -283,7 +296,7 @@ Some example commands you can try:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## <span id='feature-features'> Command Notes <span>
+## <span id='feature-features'> Command Notes and Features <span>
 
 [//]: # (<box type="info" seamless>)
 
@@ -316,7 +329,7 @@ Format: `help`
 
 > ℹ️ **Information:**
 > * Strictly enter only the `help` command. Any inputs after `help` will be ignored.
-    e.g. When `help 44` is entered, the `44` input following `help` will be ignored and the `help` command will still be executed.
+    E.g. When `help 44` is entered, the `44` input following `help` will be ignored and the `help` command will still be executed.
 
 ### <span id='feature-list'> Listing all students : `list` </span>
 
@@ -336,7 +349,7 @@ Format: `clear`
 
 > ℹ️ **Information:**
 > * Strictly enter only the `clear` command. Any inputs after `clear` will be ignored.
-    e.g. When `clear 44` is entered, the `44` input following `clear` will be ignored and the `clear` command will still be executed.
+    E.g. When `clear 44` is entered, the `44` input following `clear` will be ignored and the `clear` command will still be executed.
 
 ### <span id='feature-exit'> Exiting the program : `exit` <span>
 
@@ -517,10 +530,10 @@ format: `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`
 
 > ⚠️️ **Constraint:**
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
-> * The telegram invite link must be a valid Telegram group invite link or an empty string.
+> * The Telegram invite link must be a valid Telegram group invite link or an empty string.
 
 > ℹ️ **Information:**
-> * Assigns the telegram group invite link provided in `TELEGRAM_LINK` to the group with the given `GROUP_NAME`. 
+> * Assigns the Telegram group invite link provided in `TELEGRAM_LINK` to the group with the given `GROUP_NAME`. 
 
 Examples
 * `editgroup g/LAB12 tg/https://t.me/abcdefg` Adds the specified Telegram link `https://t.me/abcdefg` to group `LAB12`.
@@ -598,7 +611,7 @@ TutorsContactsPro data are saved in the hard disk automatically after any comman
 
 ### Editing the data file
 
-TutorsContactsPro data are saved automatically as a JSON file `[JAR file location]/data/TutorsContactsPro.json`. Advanced users are welcome to update data directly by editing that data file.
+TutorsContactsPro data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 [//]: # (<box type="warning" seamless>)
 
@@ -632,10 +645,8 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## <span id='feature-enhancements'> Planned Enhancements <span>
-Given below are the planned enhancements for the application.
-
-**Team size: 4**
+## <span id='feature-enhancements'> Planned Enhancements <span> 
+Given below are the planned future enhancements for the application.
 
 1. **Improve add feature**: Currently, TutorContactsPro allows the addition of students with the same exact details and names but different case for names which can be misleading. This can result in addition of duplicate students instead. Hence, we plan to improve the `add` feature to detect whether students added have completely similar details regardless of casing and throw a duplicate student added warning where appropriate.
 
@@ -652,6 +663,8 @@ Given below are the planned enhancements for the application.
 7. **Improve generation of email template command**: When executing mail, mailtg command with an invalid group, including an non-existing group, empty group and group without Telegram invite link. TutorsContactsPro currently does not display a warning for users. We plan to improve them such that a warning message will be displayed when the input provided is invalid.
 
 8. **Make filter feature error message more specific**: When filtered with a non-existing group, the current error message displays`0 students listed!` which is too general. We plan to `filter` command check whether the `GROUP_NAME` provided is an existing group. The error message will then also mention the reason for failing to filter any students: `Group does not exist, 0 students listed!`
+
+_coming soon ..._
 
 [Table Of Contents](#table-of-contents)
 
