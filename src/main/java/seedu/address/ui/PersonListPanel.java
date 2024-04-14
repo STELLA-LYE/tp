@@ -3,7 +3,9 @@ package seedu.address.ui;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -89,7 +91,7 @@ public class PersonListPanel extends UiPart<Region> {
                 int absoluteIndex = personList.indexOf(person) + 1;
                 String selectedTabName = (tabPane.getSelectionModel().getSelectedItem() != null)
                         ? tabPane.getSelectionModel().getSelectedItem().getText() : "Results";
-                setGraphic(new PersonAttendanceList(person, absoluteIndex, selectedTabName).getRoot());
+                setGraphic(new PersonAttendanceList(person, absoluteIndex).getRoot());
             }
         }
     }
@@ -117,7 +119,18 @@ public class PersonListPanel extends UiPart<Region> {
             tab.setContent(groupListView);
 
             // Filter persons based on the group and set them in the ListView
-            groupListView.setItems(personList.filtered(person -> person.getGroups().contains(group)));
+            ObservableList<Person> filteredPersons = personList.filtered(person -> person.getGroups().contains(group));
+            ObservableList<Person> personsWithFilteredGroups = FXCollections.observableArrayList();
+
+            for (Person person : filteredPersons) {
+                Set<Group> filteredGroups = person.getGroups().stream()
+                        .filter(g -> g.equals(group)).collect(Collectors.toSet());
+                Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getYear(),
+                        person.getTelegram(), person.getMajor(), person.getRemark(), filteredGroups);
+                personsWithFilteredGroups.add(newPerson);
+            }
+
+            groupListView.setItems(personsWithFilteredGroups);
             groupListView.setCellFactory(listView -> new PersonAttendanceViewCell());
             tabPane.getTabs().add(tab);
         }
