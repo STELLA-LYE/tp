@@ -32,7 +32,7 @@ public class MarkAttendanceCommand extends Command {
             + PREFIX_ATTENDANCE + "A ";
 
     public static final String MESSAGE_SUCCESS = "Attendance marked";
-    public static final String MESSAGE_WEEK_NUMBER_INVALID = "Week number is wrong (between 1 and 13)";
+    public static final String MESSAGE_WEEK_NUMBER_INVALID = "Week number should be between 1 and 13 inclusively.";
     public static final String MESSAGE_ATTENDANCE_INVALID = "Attendance format is wrong (A for absent P for present)";
     public static final String MESSAGE_GROUP_NOT_FOUND = "Group is not found in the person";
 

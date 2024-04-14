@@ -93,9 +93,6 @@ From effortless attendance tracking to personalized student profiles, TutorsCont
 Experience the future of teaching management today with TutorsContactsPro!
 
 
-
-
-
 ## <span id='feature-aboutUG'> About the User Guide <span>
 
 This user guide aims to provide you with the information needed to get started with TutorsContactsPro.
@@ -104,7 +101,7 @@ Feel free to turn back to this user guide if you encounter any problems or doubt
 
 * If you are **new** to TutorsContactsPro, you may refer to the **[Navigating the User Guide](#navigating-the-user-guide)** section first, then to the **[Getting Started](#getting-started)** section to start installing and using TutorsContactsPro.
 
-* If you would like to find out more about its **individual features**, you may refer to the **[Features](#feature-features)** section.
+* If you would like to find out more about its **individual features**, you may refer to the **[Command Notes and Features](#feature-features)** section.
 
 * If you are an **experienced user** and want to quickly refer to the various commands, you may refer to the **[Command Summary](#feature-summary)** section.
 
@@ -127,12 +124,14 @@ Throughout this user guide, the following symbols and keywords will be utilized 
 
 Below is the glossary for important technical terms that you may find useful.
 
-| Technical terms | Meaning                                                                                                                                                                      | 
-|-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CLI             | CLI stands for Command Line Interface. It is a text-based interface used for interacting with computer systems and executing commands by typing them into a terminal window. | 
-| GUI             | GUI stands for Graphical User Interface, a visual way of interacting with computers using icons and menus instead of text commands.                                          | 
-| Command         | Command refers to a directive or instruction given to a computer system to perform a specific task or function.                                                              |             
-| GUI component   | GUI component refers to an element or part of a graphical user interface (GUI) that allows users to interact with the software application.                                  |
+| Technical terms | Meaning                                                                                                                                                                                                                                            | 
+|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CLI             | CLI stands for Command Line Interface. It is a text-based interface used for interacting with computer systems and executing commands by typing them into a terminal window.                                                                       | 
+| GUI             | GUI stands for Graphical User Interface, a visual way of interacting with computers using icons and menus instead of text commands.                                                                                                                | 
+| Command         | Command refers to a directive or instruction given to a computer system to perform a specific task or function.                                                                                                                                    |             
+| GUI component   | GUI component refers to an element or part of a graphical user interface (GUI) that allows users to interact with the software application.                                                                                                        |
+| UI              | A User Interface (UI) refers to the platform or system through which users interact with software applications or electronic devices, encompassing elements like graphical interfaces, command-line interfaces, and voice-controlled interfaces.   |
+| Interface       | An interface is a platform or system that allows users to interact with software applications or electronic devices, aiming to create intuitive and user-friendly experiences.                                                                     |
 
 [Table Of Contents](#table-of-contents)
 
@@ -149,31 +148,31 @@ Ensure you have Java `11` or above installed on your computer. If you don't have
 
 ### Step 2: Download
 
-Download the latest `TutorsContactsPro.jar` from [here](https://github.com/AY2324S2-CS2103T-W10-4/tp/releases).
+Download the latest `[CS2103T-W10-4][TutorsContactsPro].jar` from [here](https://github.com/AY2324S2-CS2103T-W10-4/tp/releases).
 
 ### Step 3: Set up TutorsContactsPro Home Folder
 
-Copy or move the downloaded `TutorsContactsPro.jar` file to the folder you want to use as the _home folder_ for your TutorsContactsPro.
+Copy or move the downloaded `[CS2103T-W10-4][TutorsContactsPro].jar` file to the folder you want to use as the _home folder_ for your TutorsContactsPro.
 
 ### Step 4: Launch TutorsContactsPro
 
 1. Open a terminal (MacOS) or command prompt (Windows).
 
-2. Navigate to the folder where you placed the `TutorsContactsPro.jar` file using the `cd` command. For example, John Doe has his `TutorsContactsPro.jar` file in `/Users/JohnDoe/Desktop/TutorsContactsPro`, so he'll run:
+2. Navigate to the folder where you placed the `[CS2103T-W10-4][TutorsContactsPro].jar` file using the `cd` command. For example, John Doe has his `[CS2103T-W10-4][TutorsContactsPro].jar` file in `/Users/JohnDoe/Desktop/TutorsContactsPro`, so he'll run:
 
     ```bash
     cd /Users/JohnDoe/Desktop/TutorsContactsPro
     ```
 
-3. If you are using terminal, verify that your working directory contains `TutorsContactsPro.jar` by using the `ls` command. 
-Else if you are using command prompt, verify that your working directory contains `TutorsContactsPro.jar` by using the `dir` command.
+3. If you are using terminal, verify that your working directory contains `[CS2103T-W10-4][TutorsContactsPro].jar` by using the `ls` command. 
+Else if you are using command prompt, verify that your working directory contains `[CS2103T-W10-4][TutorsContactsPro].jar` by using the `dir` command.
 You should see `TutorsContactsPro.jar` in the list of files printed. Here's what our John Doe got when running this command.
 
     ```bash
     JohnDoe@johndoe TutorsContactsPro % ls
     TutorsContactsPro.jar
     ```
-4. Once your terminal's working directory is the folder that contains `TutorsContactsPro.jar`, run the following command to launch TutorsContactsPro:
+4. Once your terminal's working directory is the folder that contains `[CS2103T-W10-4][TutorsContactsPro].jar`, run the following command to launch TutorsContactsPro:
 
     ```bash 
     java -jar TutorsContactsPro.jar
@@ -205,7 +204,7 @@ TutorsContactsPro allows you to store essential information or attributes about 
 |-------------------|------------------------------------------|--------|-----------------------------------------------------------------------------------------|
 | `NAME`            | Name of the student                      | `n/`   | Auto-capitalization will be handled. Extra/trailing/leading spaces will be removed      |
 | `PHONE_NUMBER`    | Phone number of the student              | `p/`   | Singapore phone number, 8 digits, without country code                                  |
-| `EMAIL`           | Email of the student                     | `e/`   | Must be in email format `username`@`email`.com                                          |
+| `EMAIL`           | Email of the student                     | `e/`   | Must be in email format `email username`@`domain`                                       |
 | `YEAR`            | Academic Year of the student             | `y/`   | A number ranging from 1 - 6, inclusive                                                  |
 | `MAJOR`           | Academic Major of the student contact    | `m/`   | String to represent the major                                                           |
 | `TELEGRAM_HANDLE` | Telegram handle of the student           | `tg/`  | Telegram handle format (a-z, 0-9 and underscores, case-insensitive), without prefix “@” |
@@ -219,11 +218,11 @@ It can only strictly be a Tutorial/Recitation/Lab.
 
 #### Attributes:
 
-| Parameter       | Representation             | Prefix | Constraints                                                                     |
-|-----------------|----------------------------|--------|---------------------------------------------------------------------------------|
-| `GROUP_NAME`    | Name of the group          | `g/`   | Group name must begin with `TUT/REC/LAB` + `2-digit number`                     |
-| `TELEGRAM_LINK` | Telegram link of the group | `tg/`  | Must be a valid telegram group link                                             |
-| `ATTENDANCE   ` | Attendance of the student  |   NA   | A string array representing the attendance, initially automatically constructed |
+| Parameter       | Representation             | Prefix  | Constraints                                                                     |
+|-----------------|----------------------------|---------|---------------------------------------------------------------------------------|
+| `GROUP_NAME`    | Name of the group          | `g/`    | Group name must begin with `TUT/REC/LAB` + `2-digit number`                     |
+| `TELEGRAM_LINK` | Telegram link of the group | `tg/`   | Must be a valid Telegram group link                                             |
+| `ATTENDANCE   ` | Attendance of the student  | `a/`    | A string array representing the attendance, initially automatically constructed |
 
 
 ## <span id='feature-ui'> Understanding the User Interface (UI) <span>
@@ -244,10 +243,21 @@ More is to be explained in [`help`](#feature-help) feature.
 
 ### Student Panel
 * The Student panel is a panel that you can use to see the list of students stored in TutorsContactsPro.
-* You can see student's name, phone number, year of study, major, email address, group, telegram handle and even whatever remarks that you have for each of them as needed!
+* You can see student's name, phone number, year of study, major, email address, group, Telegram handle and even whatever remarks that you have for each of them as needed!
 
-![Student Panel](images/studentPanelUpdated.png)
+The following image displays the layout of a student panel. 
+![Student Panel](images/studentPanel.png)
 
+### Result and Group Tabs
+* There are labelled tabs below the `Student Details` header. 
+* The leftmost `Results` tab will display the list of all student contacts that are taught by you. 
+* The subsequent tabs are labelled with their respective group names. These tabs display the attendance table details of students that belong to the specific group labelled by that tab.
+
+The following image displays the layout of the group tabs.
+![GroupTabs](images/GroupTabs.png)
+
+The following image summarises the overall layout of TutorsContactsPro's User Interface(UI).
+![UI layout](images/UILayout.png)
 
 ## <span id='feature-start'> Quick start <span>
 Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
@@ -259,7 +269,7 @@ Some example commands you can try:
 
 * [`exit`](#feature-exit) : Exits the app.
 
-* [`add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB10 `](#feature-add) : Adds a student named `John Doe` to the list.
+* [`add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 `](#feature-add) : Adds a student named `John Doe` to the list.
 
 * [`edit 1 p/93840823 y/3 tg/jiejfh203`](#feature-edit) : Edits the first student on the current list.
 
@@ -288,7 +298,7 @@ Some example commands you can try:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## <span id='feature-features'> Command Notes <span>
+## <span id='feature-features'> Command Notes and Features <span>
 
 [//]: # (<box type="info" seamless>)
 
@@ -319,6 +329,10 @@ Allows you to easily access detailed information on how to use the different fea
 
 Format: `help`
 
+> ℹ️ **Information:**
+> * Strictly enter only the `help` command. Any inputs after `help` will be ignored.
+    E.g. When `help 44` is entered, the `44` input following `help` will be ignored and the `help` command will still be executed.
+
 ### <span id='feature-list'> Listing all students : `list` </span>
 
 Shows a list of all your students, so that you can conveniently view all their details.
@@ -334,6 +348,10 @@ Auto-capitalization will be handled. Extra/trailing/leading spaces will be remov
 Clears all student entries from TutorsContactsPro, so that you can always start afresh in the next teaching semester.
 
 Format: `clear`
+
+> ℹ️ **Information:**
+> * Strictly enter only the `clear` command. Any inputs after `clear` will be ignored.
+    E.g. When `clear 44` is entered, the `44` input following `clear` will be ignored and the `clear` command will still be executed.
 
 ### <span id='feature-exit'> Exiting the program : `exit` <span>
 
@@ -354,8 +372,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL y/YEAR m/MAJOR tg/TELEGRAM_HANDLE [r/
 > ℹ️ **Information:**
 > * Allows addition of multiple groups to a student.
 > * Allows addition of multiple remarks to a student.
-
-
+> * Allows adding a student with an email that does not include a domain name as email can be hosted on a local machine. 
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB05 `
@@ -432,6 +449,8 @@ Format: `filter KEYWORD [MORE_KEYWORDS]`
 > * The search is case-sensitive. e.g `tut04` will not match `TUT04`.
 > * The order of the keywords does not matter. e.g. `TUT04 LAB05` will match all students in `TUT04` and/or `LAB05`.
 > * Only student's group name is searched.
+> * The group name KEYWORD provided must be an existing group in TutorsContactsPro for students to be filtered accurately. 
+> * When a non-existing group name is provided, TutorsContactsPro will display the status message '0 students listed!'. 
 
 Examples:
 * `filter LAB10` returns only `Kendra Huetta` belonging to group `LAB10`.
@@ -455,6 +474,7 @@ Format: `mark INDEX g/GROUP_NAME w/WEEK a/ATTENDANCE`
 > * Marks the student at the specified INDEX. The index refers to the index number shown in the displayed student list. The index must be a positive integer 1, 2, 3, …​
 > * All the fields should be provided, index, group, week, attendance.
 > * Since there are 13 weeks in total in a tutorial or lab, only 13 marks are available.
+> * Resize the TutorsContactsPro window to view the full 13 weeks attendance table. 
 
 Examples:
 * `mark 1 g/TUT05 w/1 a/P` Marks the attendance of the 1st student in the list. Marks `TUT05` week 1 attendance as present.
@@ -506,17 +526,16 @@ Examples:
 
 ### <span id='feature-editgroup'> Editing a group: `editgroup` <span>
 
-Edits an existing group in TutorsContactsPro, allowing you to add or edit the telegram invite link assigned for each group so that you can remain up to date with each group's information.
+Edits an existing group in TutorsContactsPro, allowing you to add or edit the Telegram invite link assigned for each group so that you can remain up to date with each group's information.
 
 format: `editgroup g/GROUP_NAME tg/TELEGRAM_LINK`
 
 > ⚠️️ **Constraint:**
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
-> * The telegram invite link must be a valid Telegram group invite link or an empty string.
+> * The Telegram invite link must be a valid Telegram group invite link or an empty string.
 
 > ℹ️ **Information:**
-> * Assigns a Telegram group invite link to a group with given group name.
-
+> * Assigns the Telegram group invite link provided in `TELEGRAM_LINK` to the group with the given `GROUP_NAME`. 
 
 Examples
 * `editgroup g/LAB12 tg/https://t.me/abcdefg` Adds the specified Telegram link `https://t.me/abcdefg` to group `LAB12`.
@@ -564,9 +583,9 @@ The image below shows the email template generated.
 ![result for 'mail LAB05'](images/mail_template.png)
 
 
-### <span id='feature-mailtg'>  Generating email template for telegram link: `mailtg` <span>
+### <span id='feature-mailtg'>  Generating email template for Telegram link: `mailtg` <span>
 
-Generates a prefilled email template, including the telegram link for that specific group and email addresses of student recipients from the specified group.
+Generates a prefilled email template, including the Telegram link for that specific group and email addresses of student recipients from the specified group.
 
 A pop-up window will be generated, allowing you to open the email template with a simple 'click' for greater convenience.
 
@@ -576,14 +595,15 @@ Format: `mailtg g/GROUP_NAME`
 > * `GROUP_NAME` must be in the correct format of `TUT/REC/LAB` + `2-digit number`.
 > * `GROUP_NAME` must be a valid existing group.
 > * It requires a **full match** for the keyword.
+> * With contrast to the previous `mail` command, `mail` command catered for multiple groups whereas `mailtg` command is catered to generating an email template with respect to a specific group. 
 
 Examples:
-* `mailtg g/TUT04` generates a email template containing the telegram link for group `TUT04` and with pre-filled email addresses of all students belonging to `TUT04`.
-* `mailtg g/LAB05` generates a email template containing the telegram link for group `LAB05` and with pre-filled email addresses of all students belonging to `LAB05` as shown in the images below.
+* `mailtg g/TUT04` generates a email template containing the Telegram link for group `TUT04` and with pre-filled email addresses of all students belonging to `TUT04`.
+* `mailtg g/LAB05` generates a email template containing the Telegram link for group `LAB05` and with pre-filled email addresses of all students belonging to `LAB05` as shown in the images below.
 
 ![result for 'mailtg LAB05'](images/MailtgFeature.png)
 
-The image below shows the email template containing the group telegram link generated.
+The image below shows the email template containing the group Telegram link generated.
 ![result for 'mailtg LAB05'](images/mailtgteleFeature.png)
 
 
@@ -593,7 +613,7 @@ TutorsContactsPro data are saved in the hard disk automatically after any comman
 
 ### Editing the data file
 
-TutorsContactsPro data are saved automatically as a JSON file `[JAR file location]/data/TutorsContactsPro.json`. Advanced users are welcome to update data directly by editing that data file.
+TutorsContactsPro data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 [//]: # (<box type="warning" seamless>)
 
@@ -627,19 +647,26 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## <span id='feature-enhancements'> Planned Enhancements <span>
+## <span id='feature-enhancements'> Planned Enhancements <span> 
+Given below are the planned future enhancements for the application.
 
-1. **Help command**: improve `help` command such that it will only proceed with a valid `help` input. 
-E.g. when input `help aaa` is entered, an error message will be thrown. 
-2. **Add feature name input**: Improve the `add` command to allow for the use of s/o for student's name entered, as it may be a part of a student's legal name.  
-3. **Edit feature error handling**: Improve error message in `edit` command to check whether the index provided is valid or not. 
-4. **Filter feature error handling**: improve error messages in `filter` command to check whether the `GROUP_NAME` provided is a existing group. 
-5. **Mark attendance inputs**: improve the `mark` attendance feature so that it will throw an error message when the attendance input is set in lower case instead of upper case.
-6. **Unmark attendance**: Implement an addition feature to `unmark` attendance so that users are able to undo their error when they make a mistake in marking a student's attendance. 
-7. **Attendance UI**: Improve the attendance table UI to allow for horizontal scrolling. 
-8. **Group Telegram**: Improve the UI to include a field that displays the telegram invite link for each group. 
-9. **EditGroup feature**: Combine this feature with `addgroup` feature so that users are able to add a group together with it's telegram invite link. 
-10. **Group Tabs**: Improve the tabs such that users will be able to remain on the selected tab even after executing a command. Currently, users will be directed back to the "results" tab everytime they execute a command.
+1. **Improve add feature**: Currently, TutorContactsPro allows the addition of students with the same exact details and names but different case for names which can be misleading. This can result in addition of duplicate students instead. Hence, we plan to improve the `add` feature to detect whether students added have completely similar details regardless of casing and throw a duplicate student added warning where appropriate.
+
+2. **Allow the display of Telegram invite link**: TutorsContactsPro currently only allows the assignment of the Telegram invite link to a specific group via the `editgroup` command which is not too informative. We plan to improve the interface to include a field to display the Telegram invite link assigned for each specific group.
+
+3. **Improve the group tabs**: After marking the attendance in a particular group tab, TutorsContactsPro currently will automatically direct users to the results tab which can result in inconvenience for users. We plan to improve the group tabs interface such that users will still be able to remain on their selected group tab aftering executing any commands.
+
+4. **Improve add Telegram link feature**: Currently, TutorsContactsPro only allows the assignment of a Telegram invite link to a specific group via the `editgroup` command which may not be very intuitive for users. We plan to improve this feature by combining it with the `addgroup` feature to allow addition of a group together with the Telegram invite link.
+
+5. **Add unmark attendance feature**: TutorsContactsPro currently allows TA users to mark the attendance for a particular student which can be inconvenient when users make a mistake marking the attendance and they are unable to undo it. Therefore, in the future, we plan to include an additional unmark attendance feature for a specified student.
+
+6. **Improve generation of email template command**: The current `mail` command only takes in the `GROUP_NAME` input with no prefixes whereas the `mailtg` command takes in a `g/` prefix with a `GROUP_NAME` input. The difference in the command format for these two closely related commands can make it complex for users. Therefore, we plan to simplify and standardise the command input for `mail` and `mailtg` to be `g/GROUP_NAME`.
+
+7. **Improve generation of email template command**: When executing mail, mailtg command with an invalid group, including an non-existing group, empty group and group without Telegram invite link. TutorsContactsPro currently does not display a warning for users. We plan to improve them such that a warning message will be displayed when the input provided is invalid.
+
+8. **Make filter feature error message more specific**: When filtered with a non-existing group, the current error message displays`0 students listed!` which is too general. We plan to `filter` command check whether the `GROUP_NAME` provided is an existing group. The error message will then also mention the reason for failing to filter any students: `Group does not exist, 0 students listed!`
+
+_coming soon ..._
 
 [Table Of Contents](#table-of-contents)
 
