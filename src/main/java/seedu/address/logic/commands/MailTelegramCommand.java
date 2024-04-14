@@ -71,8 +71,6 @@ public class MailTelegramCommand extends Command {
                     + String.format("Please join this Telegram group: %s.\n\n", telegramLink)
                     + String.format("Sent from TutorsContactPro."));
 
-        System.out.println(mailtoLink);
-
         return new CommandResult(SHOW_MAILTO_LINK, mailtoLink);
     }
 
