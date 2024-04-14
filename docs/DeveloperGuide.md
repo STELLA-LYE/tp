@@ -362,6 +362,8 @@ It utilizes the `Model` interface to interact with the student contact list.
 7. Finally, the `MarkAttendanceCommand`  it returns a CommandResult object indicating the success or failure of the operation. 
 The result message is then displayed to the user via the GUI. The attendance table of the particular studne will then be updated accordingly. 
 
+The following sequence diagram illustrates how the `mark` mechanism works:
+<img src="images/MarkAttendanceSequenceDiagram.png" width="900" />
 
 The following activity diagram summarizes what happens when a user executes the `mark` command:
 
@@ -1094,7 +1096,8 @@ These are the list of prefixes used in the commands for manual testing.
 | `tg/`  | `TELEGRAM_HANDLE` | 
 | `r/`   | `REMARKS`         | 
 | `g/`   | `GROUP_NAME`      | 
-
+| `w/`   | `WEEK`            | 
+| `a/`   | `ATTENDANCE`      | 
 
 
 Given below are instructions to test the app manually.
