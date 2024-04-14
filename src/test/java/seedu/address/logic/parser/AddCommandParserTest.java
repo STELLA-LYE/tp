@@ -57,6 +57,8 @@ import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Telegram;
+import seedu.address.model.person.Year;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandParserTest {
@@ -237,18 +239,18 @@ public class AddCommandParserTest {
                 + YEAR_DESC_BOB + TELEGRAM_DESC_BOB + GROUP_DESC_LAB + GROUP_DESC_TUTORIAL, Email.MESSAGE_CONSTRAINTS);
 
         // invalid year
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + MAJOR_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + MAJOR_DESC_BOB
                 + INVALID_YEAR_DESC + TELEGRAM_DESC_BOB + GROUP_DESC_LAB + GROUP_DESC_TUTORIAL,
-                Email.MESSAGE_CONSTRAINTS);
+                Year.MESSAGE_CONSTRAINTS);
 
         // invalid telegram
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + MAJOR_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + MAJOR_DESC_BOB
                 + YEAR_DESC_BOB + INVALID_TELEGRAM_DESC + GROUP_DESC_LAB + GROUP_DESC_TUTORIAL,
-                Email.MESSAGE_CONSTRAINTS);
+                Telegram.MESSAGE_CONSTRAINTS);
 
         // invalid major
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_MAJOR_DESC
-                + YEAR_DESC_BOB + GROUP_DESC_LAB + GROUP_DESC_TUTORIAL, Major.MESSAGE_CONSTRAINTS);
+                + YEAR_DESC_BOB + TELEGRAM_DESC_BOB + GROUP_DESC_LAB + GROUP_DESC_TUTORIAL, Major.MESSAGE_CONSTRAINTS);
 
         // invalid group
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + MAJOR_DESC_BOB
@@ -257,7 +259,7 @@ public class AddCommandParserTest {
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_MAJOR_DESC
-                + YEAR_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
+                + YEAR_DESC_BOB + TELEGRAM_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
