@@ -150,31 +150,31 @@ Ensure you have Java `11` or above installed on your computer. If you don't have
 
 ### Step 2: Download
 
-Download the latest `[CS2103T-W10-4][TutorsContactsPro].jar` from [here](https://github.com/AY2324S2-CS2103T-W10-4/tp/releases).
+Download the latest `TutorsContactsPro.jar` from [here](https://github.com/AY2324S2-CS2103T-W10-4/tp/releases).
 
 ### Step 3: Set up TutorsContactsPro Home Folder
 
-Copy or move the downloaded `[CS2103T-W10-4][TutorsContactsPro].jar` file to the folder you want to use as the _home folder_ for your TutorsContactsPro.
+Copy or move the downloaded `TutorsContactsPro.jar` file to the folder you want to use as the _home folder_ for your TutorsContactsPro.
 
 ### Step 4: Launch TutorsContactsPro
 
 1. Open a terminal (MacOS) or command prompt (Windows).
 
-2. Navigate to the folder where you placed the `[CS2103T-W10-4][TutorsContactsPro].jar` file using the `cd` command. For example, John Doe has his `[CS2103T-W10-4][TutorsContactsPro].jar` file in `/Users/JohnDoe/Desktop/TutorsContactsPro`, so he'll run:
+2. Navigate to the folder where you placed the `TutorsContactsPro.jar` file using the `cd` command. For example, John Doe has his `TutorsContactsPro.jar` file in `/Users/JohnDoe/Desktop/TutorsContactsPro`, so he'll run:
 
     ```bash
     cd /Users/JohnDoe/Desktop/TutorsContactsPro
     ```
 
-3. If you are using terminal, verify that your working directory contains `[CS2103T-W10-4][TutorsContactsPro].jar` by using the `ls` command. 
-Else if you are using command prompt, verify that your working directory contains `[CS2103T-W10-4][TutorsContactsPro].jar` by using the `dir` command.
+3. If you are using terminal, verify that your working directory contains `TutorsContactsPro.jar` by using the `ls` command. 
+Else if you are using command prompt, verify that your working directory contains `TutorsContactsPro.jar` by using the `dir` command.
 You should see `TutorsContactsPro.jar` in the list of files printed. Here's what our John Doe got when running this command.
 
     ```bash
     JohnDoe@johndoe TutorsContactsPro % ls
     TutorsContactsPro.jar
     ```
-4. Once your terminal's working directory is the folder that contains `[CS2103T-W10-4][TutorsContactsPro].jar`, run the following command to launch TutorsContactsPro:
+4. Once your terminal's working directory is the folder that contains `TutorsContactsPro.jar`, run the following command to launch TutorsContactsPro:
 
     ```bash 
     java -jar TutorsContactsPro.jar
