@@ -5,11 +5,8 @@ pageNav: 3
 ---
 ![Logo](images/TutorsContactsProLogo.png)
 
-# Table of Contents
-<!-- TOC -->
-<page-nav-print />
 
-## Quick Overview
+## Table of Contents
 
 * [Introduction](#feature-introduction)
 
