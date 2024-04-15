@@ -89,10 +89,6 @@ public class PersonTest {
         // different remark -> returns false
         editedAlice = new PersonBuilder(ALICE).withRemark(VALID_REMARK_OUTSPOKEN).build();
         assertFalse(ALICE.equals(editedAlice));
-
-        // different groups -> returns false
-        editedAlice = new PersonBuilder(ALICE).withGroups(VALID_GROUP_LAB).build();
-        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test

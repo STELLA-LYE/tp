@@ -13,7 +13,7 @@ import java.util.List;
 public class Group {
 
     public static final String MESSAGE_GROUP_NAME_CONSTRAINTS = "Groups names should be in correct format with"
-        + "2 digit number. E.g. g/TUT04, g/LAB10, g/REC09. ";
+        + " 2 digit number. E.g. g/TUT04, g/LAB10, g/REC09. ";
     public static final String MESSAGE_LINK_CONSTRAINTS = "Link should be a valid Telegram invite link.";
     public static final String WEEK_MESSAGE_CONSTRAINTS = "Week number should be between 1 and 13 inclusively. ";
     public static final String ATTENDANCE_MESSAGE_CONSTRAINTS = "Attendance should be A or P. ";

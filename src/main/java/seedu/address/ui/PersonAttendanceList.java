@@ -89,7 +89,6 @@ public class PersonAttendanceList extends UiPart<Region> {
      * Populates columns with weekly attendance data.
      */
     public void populateAttendanceCols() {
-        // Add attendance data to the table
         List<AttendanceRow> attendanceRows = new ArrayList<>();
         person.getGroups().forEach(group -> {
             String[] attendanceArray = group.attendance.toArray(new String[0]);
