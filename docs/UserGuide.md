@@ -124,14 +124,16 @@ Throughout this user guide, the following symbols and keywords will be utilized 
 
 Below is the glossary for important technical terms that you may find useful.
 
-| Technical terms | Meaning                                                                                                                                                                                                                                            | 
-|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CLI             | CLI stands for Command Line Interface. It is a text-based interface used for interacting with computer systems and executing commands by typing them into a terminal window.                                                                       | 
-| GUI             | GUI stands for Graphical User Interface, a visual way of interacting with computers using icons and menus instead of text commands.                                                                                                                | 
-| Command         | Command refers to a directive or instruction given to a computer system to perform a specific task or function.                                                                                                                                    |             
-| GUI component   | GUI component refers to an element or part of a graphical user interface (GUI) that allows users to interact with the software application.                                                                                                        |
-| UI              | A User Interface (UI) refers to the platform or system through which users interact with software applications or electronic devices, encompassing elements like graphical interfaces, command-line interfaces, and voice-controlled interfaces.   |
-| Interface       | An interface is a platform or system that allows users to interact with software applications or electronic devices, aiming to create intuitive and user-friendly experiences.                                                                     |
+| Technical terms        | Meaning                                                                                                                                                                                                                                          | 
+|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CLI                    | CLI stands for Command Line Interface. It is a text-based interface used for interacting with computer systems and executing commands by typing them into a terminal window.                                                                     | 
+| GUI                    | GUI stands for Graphical User Interface, a visual way of interacting with computers using icons and menus instead of text commands.                                                                                                              | 
+| Command                | Command refers to a directive or instruction given to a computer system to perform a specific task or function.                                                                                                                                  |             
+| GUI component          | GUI component refers to an element or part of a graphical user interface (GUI) that allows users to interact with the software application.                                                                                                      |
+| UI                     | A User Interface (UI) refers to the platform or system through which users interact with software applications or electronic devices, encompassing elements like graphical interfaces, command-line interfaces, and voice-controlled interfaces. |
+| Interface              | An interface is a platform or system that allows users to interact with software applications or electronic devices, aiming to create intuitive and user-friendly experiences.                                                                   |
+| Domain                 | A domain, in the context of the internet, refers to a unique address used to identify a particular website or network. E.g. for the email address `username@example.com`, the domain is `example.com`.                                           |
+| Top-Level Domain (TLD) | The top-level domain (TLD) is the part of a website's address that comes after the last dot. It shows what kind of website it is. E.g. for the email address `username@example.com`, the TLD is `.com`.                                          |
 
 [Table Of Contents](#table-of-contents)
 
@@ -202,8 +204,8 @@ TutorsContactsPro allows you to store essential information or attributes about 
 | Parameter         | Representation                           | Prefix | Constraints                                                                             |
 |-------------------|------------------------------------------|--------|-----------------------------------------------------------------------------------------|
 | `NAME`            | Name of the student                      | `n/`   | Auto-capitalization will be handled. Extra/trailing/leading spaces will be removed      |
-| `PHONE_NUMBER`    | Phone number of the student              | `p/`   | Singapore phone number, 8 digits, without country code                                  |
-| `EMAIL`           | Email of the student                     | `e/`   | Must be in email format `email username`@`domain`                                       |
+| `PHONE_NUMBER`    | Phone number of the student              | `p/`   | Must be in numerical format with no limitations on the number of digits                 |
+| `EMAIL`           | Email of the student                     | `e/`   | Must be in email format `email username`@`domain` but can exclude top-level domain(TLD) |
 | `YEAR`            | Academic Year of the student             | `y/`   | A number ranging from 1 - 6, inclusive                                                  |
 | `MAJOR`           | Academic Major of the student contact    | `m/`   | String to represent the major                                                           |
 | `TELEGRAM_HANDLE` | Telegram handle of the student           | `tg/`  | Telegram handle format (a-z, 0-9 and underscores, case-insensitive), without prefix “@” |
@@ -220,8 +222,8 @@ It can only strictly be a Tutorial/Recitation/Lab.
 | Parameter       | Representation             | Prefix  | Constraints                                                                     |
 |-----------------|----------------------------|---------|---------------------------------------------------------------------------------|
 | `GROUP_NAME`    | Name of the group          | `g/`    | Group name must begin with `TUT/REC/LAB` + `2-digit number`                     |
-| `TELEGRAM_LINK` | Telegram link of the group | `tg/`   | Must be a valid Telegram group link                                             |
-| `ATTENDANCE   ` | Attendance of the student  | `a/`    | A string array representing the attendance, initially automatically constructed |
+| `TELEGRAM_LINK` | Telegram link of the group | `tg/`   | Must be a valid Telegram group link beginning with `https://t.me`               |
+| `ATTENDANCE`    | Attendance of the student  | `a/`    | A string array representing the attendance, initially automatically constructed |
 
 
 ## <span id='feature-ui'> Understanding the User Interface (UI) <span>
@@ -374,7 +376,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL y/YEAR m/MAJOR tg/TELEGRAM_HANDLE [r/
 > ℹ️ **Information:**
 > * Allows addition of multiple groups to a student.
 > * Allows optional addition of a single remark or group(s) to a student.
-> * Allows addition of a student with an email that does not include a domain name as email can be hosted on a local machine. 
+> * Allows addition of student emails with domain names, excluding the need for top-level domains(TLD) such as .com or .sg as email can be hosted on a local machine. 
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com y/2 m/Computer Science tg/johndoe r/Very quiet student g/TUT04 g/LAB05` 
